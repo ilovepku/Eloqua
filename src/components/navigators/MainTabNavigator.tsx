@@ -1,10 +1,11 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import ListenNowScreen from '../listenNow/ListenNowScreen';
 import SearchScreen from '../search/SearchScreen';
 import LibraryScreen from '../library/LibraryScreen';
+import PodcastDetails from "../podcastDetails/PodcastDetailsScreen"
 
 const ListenNowStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
@@ -16,7 +17,7 @@ const ListenNowStackNavigator = () => {
     <ListenNowStack.Navigator>
       <ListenNowStack.Screen
         name="ListenNow"
-        options={{title: 'Listen Now'}}
+        options={{ title: 'Listen Now' }}
         component={ListenNowScreen}
       />
     </ListenNowStack.Navigator>
@@ -28,7 +29,7 @@ const LibraryStackNavigator = () => {
     <LibraryStack.Navigator>
       <LibraryStack.Screen
         name="Library"
-        options={{title: 'Library'}}
+        options={{ title: 'Library' }}
         component={LibraryScreen}
       />
     </LibraryStack.Navigator>
@@ -40,8 +41,13 @@ const SearchStackNavigator = () => {
     <SearchStack.Navigator>
       <SearchStack.Screen
         name="Search"
-        options={{title: 'Search'}}
+        options={{ title: 'Search' }}
         component={SearchScreen}
+      />
+      <SearchStack.Screen
+        name="PodcastDetails"
+        options={{ title: '' }}
+        component={PodcastDetails}
       />
     </SearchStack.Navigator>
   );
@@ -52,7 +58,7 @@ const MainTabNavigator = () => {
     <MainTab.Navigator>
       <MainTab.Screen
         name="ListenNow"
-        options={{title: 'Listen Now'}}
+        options={{ title: 'Listen Now' }}
         component={ListenNowStackNavigator}
       />
       <MainTab.Screen name="Library" component={LibraryStackNavigator} />
