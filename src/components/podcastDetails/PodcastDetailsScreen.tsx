@@ -1,25 +1,35 @@
 import React from 'react'
-import { View, FlatList, Image, Text, StyleSheet } from 'react-native'
+import { View, FlatList, Image, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { RouteProp, useRoute } from "@react-navigation/native"
+import { useQuery } from "@apollo/client"
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import tailwind from 'tailwind-rn';
 
 import { SearchStackRouteParamsList } from '../navigators/types';
+import feedQuery from '../../graphql/query/feedQuery'
+import { getWeekDay, getReadableDuration } from "../../lib/dataTimeHelper"
 
 type NavigationParams = RouteProp<SearchStackRouteParamsList, 'PodcastDetails'>
 
 const PodcastDetialsScreen = () => {
-    const { data } = useRoute<NavigationParams>().params ?? {}
+    const { data: podcastData } = useRoute<NavigationParams>().params ?? {}
+
+    const { data, loading, error } = useQuery(feedQuery, {
+        variables: {
+            feedUrl: podcastData.feedUrl
+        }
+    })
+
     return (
         <View style={tailwind('flex-1 bg-white')}>
             <FlatList
                 ListHeaderComponent={
                     <>
                         <View style={tailwind('flex-row my-4 px-4')}>
-                            {data.thumbnail && <Image source={{ uri: data.thumbnail }} style={tailwind('h-20 w-20 mr-4 rounded-lg')} />}
+                            {podcastData.thumbnail && <Image source={{ uri: podcastData.thumbnail }} style={tailwind('h-20 w-20 mr-4 rounded-lg')} />}
                             <View style={tailwind('flex-1')}>
-                                <Text style={tailwind('text-lg font-bold')}>{data.podcastName}</Text>
-                                <Text style={tailwind('text-sm text-gray-600')}>{data.artist}</Text>
+                                <Text style={tailwind('text-lg font-bold')}>{podcastData.podcastName}</Text>
+                                <Text style={tailwind('text-sm text-gray-600')}>{podcastData.artist}</Text>
                                 <Text style={tailwind('text-sm text-blue-600')}>Subscribed</Text>
                             </View>
                         </View>
@@ -27,29 +37,41 @@ const PodcastDetialsScreen = () => {
                             <FeatherIcon size={30} color="#42a5f5" name="play" style={tailwind('mr-2')} />
                             <View>
                                 <Text style={tailwind('font-bold')}>Play</Text>
-                                <Text style={tailwind('text-sm')}>#400 - The Last Episode</Text>
+                                <Text style={tailwind('text-sm')}>{data?.feed[0].title}</Text>
                             </View>
                         </View>
                         <View style={tailwind('mb-4 px-4')}>
                             <Text style={tailwind('text-lg font-bold')}>Episodes</Text>
                         </View>
+
+                        {loading &&
+                            <View style={tailwind('h-64 items-center justify-center')}>
+                                <ActivityIndicator size="large" color="#42a5f5" />
+                            </View>
+                        }{/* TODO: theme color */}
                     </>
                 }
-                data={[{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }]}
+                data={data?.feed}
                 ItemSeparatorComponent={() =>
                     <View style={tailwind('my-4 px-4')}>
                         <View style={[{ height: StyleSheet.hairlineWidth }, tailwind('bg-gray-600')]} />
                     </View>
                 }
-                renderItem={() =>
+                renderItem={({ item }) =>
                     <View style={tailwind('px-4')}>
-                        <Text style={tailwind('text-sm text-gray-600')}>FRIDAY</Text>
-                        <Text style={tailwind('font-bold')}>#400 - The Title</Text>
-                        <Text style={tailwind('text-sm text-gray-600')} numberOfLines={2}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
-                        <Text style={tailwind('text-sm text-gray-600')}>3hrs. 13min</Text>
+                        <Text style={tailwind('text-sm text-gray-600')}>
+                            {getWeekDay(new Date(item.pubDate)).toUpperCase()}
+                        </Text>
+                        <Text style={tailwind('font-bold')}>{item.title}</Text>
+                        <Text style={tailwind('text-sm text-gray-600')} numberOfLines={2}>
+                            {item.description}
+                        </Text>
+                        <Text style={tailwind('text-sm text-gray-600')}>
+                            {getReadableDuration(item.duration)}
+                        </Text>
                     </View>
                 }
-                keyExtractor={(item) => item.id} />
+                keyExtractor={(item) => item.linkUrl} />
         </View>
     )
 }
