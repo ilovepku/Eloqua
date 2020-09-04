@@ -40,7 +40,6 @@ const SearchScreen = () => {
         </View> :
         <FlatList
           keyboardShouldPersistTaps="never"
-          contentContainerStyle={tailwind('flex-1')}
           data={data?.search ?? []}
           ListEmptyComponent={
             <View style={tailwind('flex-1 items-center justify-center')}>
