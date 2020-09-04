@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, FlatList, Image, Text, StyleSheet } from 'react-native'
 import { RouteProp, useRoute } from "@react-navigation/native"
+import FeatherIcon from 'react-native-vector-icons/Feather'
 import tailwind from 'tailwind-rn';
+
 import { SearchStackRouteParamsList } from '../navigators/types';
 
 type NavigationParams = RouteProp<SearchStackRouteParamsList, 'PodcastDetails'>
@@ -21,8 +23,12 @@ const PodcastDetialsScreen = () => {
                                 <Text style={tailwind('text-sm text-blue-600')}>Subscribed</Text>
                             </View>
                         </View>
-                        <View style={tailwind('mb-4 px-4')}>
-                            <Text>Play last episode</Text>
+                        <View style={tailwind('flex-row mb-4 px-4 items-center')}>
+                            <FeatherIcon size={30} color="#42a5f5" name="play" style={tailwind('mr-2')} />
+                            <View>
+                                <Text style={tailwind('font-bold')}>Play</Text>
+                                <Text style={tailwind('text-sm')}>#400 - The Last Episode</Text>
+                            </View>
                         </View>
                         <View style={tailwind('mb-4 px-4')}>
                             <Text style={tailwind('text-lg font-bold')}>Episodes</Text>
