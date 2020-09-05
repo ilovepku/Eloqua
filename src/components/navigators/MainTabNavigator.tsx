@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
@@ -7,6 +7,7 @@ import ListenNowScreen from '../listenNow/ListenNowScreen';
 import SearchScreen from '../search/SearchScreen';
 import LibraryScreen from '../library/LibraryScreen';
 import PodcastDetails from "../podcastDetails/PodcastDetailsScreen"
+import MiniPlayer from '../miniPlayer/MiniPlayer';
 
 const ICON_SIZE = 24
 
@@ -68,6 +69,12 @@ const SearchStackNavigator = () => {
 const MainTabNavigator = () => {
   return (
     <MainTab.Navigator
+      tabBar={(tabsProps) => (
+        <>
+          <MiniPlayer />
+          <BottomTabBar {...tabsProps} />
+        </>
+      )}
       tabBarOptions={{
         activeTintColor: "#42a5f5"
       }}>{/* TODO: theme color */}

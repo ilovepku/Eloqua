@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, Image, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, FlatList, Image, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { RouteProp, useRoute } from "@react-navigation/native"
 import { useQuery } from "@apollo/client"
 import FeatherIcon from 'react-native-vector-icons/Feather'
@@ -8,15 +8,18 @@ import tailwind from 'tailwind-rn';
 import { SearchStackRouteParamsList } from '../navigators/types';
 import feedQuery from '../../graphql/query/feedQuery'
 import { getWeekDay, getReadableDuration } from "../../lib/dataTimeHelper"
+import { usePlayerContext } from '../../contexts/PlayerContext'
 
 type NavigationParams = RouteProp<SearchStackRouteParamsList, 'PodcastDetails'>
 
 const PodcastDetialsScreen = () => {
-    const { data: podcastData } = useRoute<NavigationParams>().params ?? {}
+    const playerContext = usePlayerContext()
+
+    const { data: { thumbnail, podcastName, artist, feedUrl } } = useRoute<NavigationParams>().params ?? {}
 
     const { data, loading, error } = useQuery(feedQuery, {
         variables: {
-            feedUrl: podcastData.feedUrl
+            feedUrl
         }
     })
 
@@ -26,15 +29,32 @@ const PodcastDetialsScreen = () => {
                 ListHeaderComponent={
                     <>
                         <View style={tailwind('flex-row my-4 px-4')}>
-                            {podcastData.thumbnail && <Image source={{ uri: podcastData.thumbnail }} style={tailwind('h-20 w-20 mr-4 rounded-lg')} />}
+                            {thumbnail && <Image source={{ uri: thumbnail }} style={tailwind('h-20 w-20 mr-4 rounded-lg')} />}
                             <View style={tailwind('flex-1')}>
-                                <Text style={tailwind('text-lg font-bold')}>{podcastData.podcastName}</Text>
-                                <Text style={tailwind('text-sm text-gray-600')}>{podcastData.artist}</Text>
+                                <Text style={tailwind('text-lg font-bold')}>{podcastName}</Text>
+                                <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
                                 <Text style={tailwind('text-sm text-blue-600')}>Subscribed</Text>
                             </View>
                         </View>
                         <View style={tailwind('flex-row mb-4 px-4 items-center')}>
-                            <FeatherIcon size={30} color="#42a5f5" name="play" style={tailwind('mr-2')} />
+                            <TouchableOpacity onPress={() => {
+                                const el = data?.feed[0]
+
+                                if (!el) {
+                                    return
+                                }
+
+                                playerContext.play({
+                                    title: el.title,
+                                    artwork: el.image ?? thumbnail,
+                                    id: el.linkUrl,
+                                    url: el.linkUrl,
+                                    artist: artist
+                                })
+                            }
+                            }>
+                                <FeatherIcon size={30} color="#42a5f5" name="play" style={tailwind('mr-2')} />
+                            </TouchableOpacity>
                             <View>
                                 <Text style={tailwind('font-bold')}>Play</Text>
                                 <Text style={tailwind('text-sm')}>{data?.feed[0].title}</Text>
@@ -57,17 +77,17 @@ const PodcastDetialsScreen = () => {
                         <View style={[{ height: StyleSheet.hairlineWidth }, tailwind('bg-gray-600')]} />
                     </View>
                 }
-                renderItem={({ item }) =>
+                renderItem={({ item: { pubDate, title, description, duration } }) =>
                     <View style={tailwind('px-4')}>
                         <Text style={tailwind('text-sm text-gray-600')}>
-                            {getWeekDay(new Date(item.pubDate)).toUpperCase()}
+                            {getWeekDay(new Date(pubDate)).toUpperCase()}
                         </Text>
-                        <Text style={tailwind('font-bold')}>{item.title}</Text>
+                        <Text style={tailwind('font-bold')}>{title}</Text>
                         <Text style={tailwind('text-sm text-gray-600')} numberOfLines={2}>
-                            {item.description}
+                            {description}
                         </Text>
                         <Text style={tailwind('text-sm text-gray-600')}>
-                            {getReadableDuration(item.duration)}
+                            {getReadableDuration(duration)}
                         </Text>
                     </View>
                 }

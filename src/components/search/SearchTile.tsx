@@ -1,6 +1,5 @@
 import React, { FC } from "react"
-import { View, Image, Text } from "react-native"
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Image, Text, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import tailwind from 'tailwind-rn';
 
