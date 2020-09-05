@@ -6,7 +6,7 @@ import tailwind from 'tailwind-rn';
 import { usePlayerContext } from '../../contexts/PlayerContext';
 
 const MiniPlayer = () => {
-    const { isEmpty, currentTrack, isPaused, isPlaying, isStopped, play, pause } = usePlayerContext()
+    const { isEmpty, currentTrack, isPaused, isPlaying, isStopped, play, pause, seekTo } = usePlayerContext()
 
     // ternary operator?
     if (isEmpty || !currentTrack) {
@@ -23,7 +23,7 @@ const MiniPlayer = () => {
             <View style={tailwind('flex-1 mr-4')}>
                 <Text numberOfLines={1} style={tailwind('text-lg font-bold')}>{title}</Text>
             </View>
-            <View>
+            <View style={tailwind('mr-4')}>
                 {isPaused && (
                     <TouchableOpacity onPress={() => play()}>
                         <FeatherIcon size={30} name="play" />
@@ -41,6 +41,11 @@ const MiniPlayer = () => {
                         <FeatherIcon size={30} name="square" />
                     </TouchableOpacity>
                 )}
+            </View>
+            <View>
+                <TouchableOpacity onPress={() => seekTo()}>
+                    <FeatherIcon size={30} name="rotate-cw" />
+                </TouchableOpacity>
             </View>
         </View>
     )

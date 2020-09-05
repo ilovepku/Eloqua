@@ -30,6 +30,7 @@ const SearchScreen = () => {
           autoCorrect={false}
           onSubmitEditing={onSearch}
           value={term}
+          style={tailwind('flex-1')}
         />
       </View>
 

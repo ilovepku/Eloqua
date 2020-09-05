@@ -8,7 +8,6 @@ import tailwind from 'tailwind-rn';
 
 import MainStackNavigator from './src/components/navigators/MainStackNavigator';
 import client from './src/graphql/client';
-import trackPlayerServices from './src/services/trackPlayerServices';
 import { PlayerContextProvider } from './src/contexts/PlayerContext';
 
 const track = {
@@ -25,7 +24,18 @@ const App = () => {
   useEffect(() => {
     TrackPlayer.setupPlayer().then(() => {
       console.log("player set up")
-      TrackPlayer.registerPlaybackService(() => trackPlayerServices);
+
+      TrackPlayer.updateOptions({
+        capabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_STOP,
+          TrackPlayer.CAPABILITY_JUMP_FORWARD,
+          TrackPlayer.CAPABILITY_JUMP_BACKWARD,
+        ],
+        jumpInterval: 30,
+      });
+
       setIsReady(true)
     })
   }, [])

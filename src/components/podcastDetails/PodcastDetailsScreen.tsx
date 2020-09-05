@@ -44,18 +44,20 @@ const PodcastDetialsScreen = () => {
                                     return
                                 }
 
+                                const { title, image, linkUrl } = el
+
                                 playerContext.play({
-                                    title: el.title,
-                                    artwork: el.image ?? thumbnail,
-                                    id: el.linkUrl,
-                                    url: el.linkUrl,
+                                    title: title,
+                                    artwork: image ?? thumbnail,
+                                    id: linkUrl,
+                                    url: linkUrl,
                                     artist: artist
                                 })
                             }
                             }>
                                 <FeatherIcon size={30} color="#42a5f5" name="play" style={tailwind('mr-2')} />
                             </TouchableOpacity>
-                            <View>
+                            <View style={tailwind('flex-1')}>
                                 <Text style={tailwind('font-bold')}>Play</Text>
                                 <Text style={tailwind('text-sm')}>{data?.feed[0].title}</Text>
                             </View>
