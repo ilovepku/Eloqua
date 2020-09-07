@@ -37,13 +37,16 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     }, [])
 
     const play = async (track?: Track) => {
-        if (track) {
+        if (!track) {
+            if (!currentTrack) return
+        } else {
+            if (currentTrack && currentTrack.id !== track.id)
+                await TrackPlayer.reset()
+
+            // TODO: need better logic, can skip the following two lines when currentTrack.id === track.id
             await TrackPlayer.add([track])
             setCurrentTrack(track)
-        } else {
-            if (!currentTrack) return
         }
-
         await TrackPlayer.play()
     }
 
