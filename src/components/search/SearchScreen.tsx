@@ -35,7 +35,7 @@ const SearchScreen = () => {
       </View>
 
       {error ?
-        <View style={tailwind('flex-1 items-center justify-center')}>
+        <View style={tailwind('h-64 items-center justify-center')}>
           <Text style={tailwind('text-lg text-red-600')}>
             {error.message}
           </Text>

@@ -16,37 +16,23 @@ const MiniPlayer = () => {
     const { artwork, title } = currentTrack
 
     return (
-        <View style={tailwind('h-16 px-4 border-t border-gray-300 flex-row items-center')}>
-            <View style={tailwind('h-12 w-12 mr-4')}>
-                <Image source={{ uri: artwork }} style={tailwind('flex-1 rounded-lg')} />
-            </View>
-            <View style={tailwind('flex-1 mr-4')}>
-                <Text numberOfLines={1} style={tailwind('text-lg font-bold')}>{title}</Text>
-            </View>
-            <View style={tailwind('mr-4')}>
-                {isPaused && (
+        <View style={tailwind('h-16 px-2 border-t border-gray-300 flex-row items-center')}>
+            <Image source={{ uri: artwork }} style={tailwind('h-12 w-12 mr-2 rounded-lg')} />
+            <Text numberOfLines={1} style={tailwind('flex-1 mr-2 text-lg font-bold')}>{title}</Text>
+            <View style={tailwind('mr-2')}>
+                {isPaused ?
                     <TouchableOpacity onPress={() => play()}>
                         <FeatherIcon size={30} name="play" />
                     </TouchableOpacity>
-                )}
-
-                {isPlaying && (
+                    :
                     <TouchableOpacity onPress={pause}>
                         <FeatherIcon size={30} name="pause" />
                     </TouchableOpacity>
-                )}
-
-                {isStopped && (
-                    <TouchableOpacity onPress={() => null}>
-                        <FeatherIcon size={30} name="square" />
-                    </TouchableOpacity>
-                )}
+                }
             </View>
-            <View>
-                <TouchableOpacity onPress={() => seekTo()}>
-                    <FeatherIcon size={30} name="rotate-cw" />
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={() => seekTo()}>
+                <FeatherIcon size={30} name="rotate-cw" />
+            </TouchableOpacity>
         </View>
     )
 }
