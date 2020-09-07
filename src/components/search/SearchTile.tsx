@@ -14,12 +14,7 @@ const SearchTile: FC<Props> = ({ item }) => {
     const { podcastName, artist, episodesCount, thumbnail } = item
     return (
         <View style={tailwind('h-20 px-4 flex-row items-center')}>
-            <View
-                style={tailwind(
-                    'h-12 w-12 mr-4',
-                )}>
-                {thumbnail && <Image source={{ uri: thumbnail }} style={tailwind('flex-1 rounded-lg')} />}
-            </View>
+            {thumbnail && <Image source={{ uri: thumbnail }} style={tailwind('h-12 w-12 rounded-lg mr-4')} />}
             <View style={tailwind('flex-1')}>
                 <Text style={tailwind('font-bold')} numberOfLines={1}>
                     {podcastName}
@@ -27,7 +22,7 @@ const SearchTile: FC<Props> = ({ item }) => {
                 <Text style={tailwind('text-sm text-gray-600')}>
                     {artist}
                 </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('PodcastDetails', { data: item })}>
+                <TouchableOpacity onPress={() => navigation.navigate('PodcastStack', { screen: "PodcastDetails", params: { data: item } })}>
                     <Text style={tailwind('text-sm text-blue-600')}>
                         {episodesCount} episodes
                     </Text>

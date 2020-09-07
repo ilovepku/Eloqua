@@ -1,6 +1,6 @@
-import {WeekDayEnum, getWeekDay, getReadableDuration} from './dataTimeHelper';
+import {WeekDayEnum, getWeekDay, getReadableDuration} from './dateTimeHelper';
 
-describe('dataTimeHelpers', () => {
+describe('dateTimeHelpers', () => {
   describe('#getWeekDay()', () => {
     test.each`
       date                                    | expected
@@ -23,7 +23,7 @@ describe('dataTimeHelpers', () => {
     it('should return readable duration', () => {
       expect(getReadableDuration('01:23:45')).toBe('1h 23m 45s');
       expect(getReadableDuration('10:09:08')).toBe('10h 9m 8s');
-      expect(getReadableDuration('00:59:59')).toBe('0h 59m 59s');
+      expect(getReadableDuration('00:59:59')).toBe('59m 59s');
     });
   });
 });

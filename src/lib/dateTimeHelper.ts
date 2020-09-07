@@ -15,6 +15,15 @@ export const getWeekDay = (date: Date) => {
 };
 
 export const getReadableDuration = (duration: string) => {
-  const [h, m, s] = duration.split(':');
-  return `${Number(h)}h ${Number(m)}m ${Number(s)}s`;
+  const durationSplit = duration.split(':');
+
+  if (durationSplit.length === 2) {
+    const [m, s] = durationSplit;
+    return `${Number(m)}m ${Number(s)}s`;
+  } else {
+    const [h, m, s] = durationSplit;
+    return h === '00'
+      ? `${Number(m)}m ${Number(s)}s`
+      : `${Number(h)}h ${Number(m)}m ${Number(s)}s`;
+  }
 };
