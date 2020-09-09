@@ -107,7 +107,7 @@ const PodcastDetialsScreen = () => {
           </View>
         )}
         renderItem={({item}) => {
-          const {pubDate, title, description, duration} = item;
+          const {pubDate, title, summary, duration} = item;
           return (
             <View style={tailwind('px-4')}>
               <Text style={tailwind('text-sm text-gray-600')}>
@@ -123,7 +123,7 @@ const PodcastDetialsScreen = () => {
                 <Text style={tailwind('font-bold')}>{title}</Text>
               </TouchableOpacity>
               <Text style={tailwind('text-sm text-gray-600')} numberOfLines={2}>
-                {description}
+                {summary}
               </Text>
               <Text style={tailwind('text-sm text-gray-600')}>
                 {getReadableDuration(duration)}
