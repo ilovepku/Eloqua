@@ -11,7 +11,7 @@
     "postinstall": "npx typesync"
   },
   "dependencies": {
-    "@apollo/client": "^3.1.5",
+    "@apollo/client": "^3.2.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
@@ -24,7 +24,7 @@
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
     "react-native-track-player": "^1.2.3",
-    "react-native-vector-icons": "^7.0.0",
+    "react-native-vector-icons": "^7.1.0",
     "tailwind-rn": "^1.1.1"
   },
   "devDependencies": {
@@ -34,9 +34,9 @@
     "@types/babel__core": "^7.1.9",
     "@types/eslint": "^6.8.1",
     "@types/jest": "^25.2.3",
-    "@types/prettier": "^2.1.0",
+    "@types/prettier": "^2.1.1",
     "@types/react": "16.9.49",
-    "@types/react-native": "^0.63.17",
+    "@types/react-native": "^0.63.18",
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
