@@ -13,9 +13,9 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 
 interface PlayerContextType {
-  isPlaying: boolean;
+  // isPlaying: boolean;
   isPaused: boolean;
-  isStopped: boolean;
+  // isStopped: boolean;
   isEmpty: boolean;
   currentTrack: Track | null;
   play: (track?: Track) => void;
@@ -24,9 +24,9 @@ interface PlayerContextType {
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
-  isPlaying: false,
+  // isPlaying: false,
   isPaused: false,
-  isStopped: false,
+  // isStopped: false,
   isEmpty: false,
   currentTrack: null,
   play: () => null,
@@ -74,9 +74,9 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   };
 
   const value = {
-    isPlaying: playerState === STATE_PLAYING,
+    // isPlaying: playerState === STATE_PLAYING,
     isPaused: playerState === STATE_PAUSED,
-    isStopped: playerState === STATE_STOPPED,
+    // isStopped: playerState === STATE_STOPPED,
     isEmpty: playerState === null,
     currentTrack,
     pause,
