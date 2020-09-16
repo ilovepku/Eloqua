@@ -1,17 +1,21 @@
-import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import React, {useContext} from 'react';
+import {View, Text} from 'react-native';
 import tailwind from 'tailwind-rn';
 
-const LibraryScreen = () => (
-  <SafeAreaView style={tailwind('h-full')}>
-    <View style={tailwind('pt-12 items-center')}>
-      <View style={tailwind('bg-blue-200 px-3 py-1 rounded-full')}>
-        <Text style={tailwind('text-blue-800 font-semibold')}>
-          Library Screen
-        </Text>
-      </View>
+import {DBContext} from '../../contexts/DBContext';
+
+const LibraryScreen = () => {
+  const dbContext = useContext(DBContext);
+
+  return (
+    <View style={tailwind('flex-1')}>
+      {dbContext.podcasts.map((podcast) => (
+        <View key={podcast.feedUrl} style={tailwind('mb-4 p-4 bg-white')}>
+          <Text>{podcast.name}</Text>
+        </View>
+      ))}
     </View>
-  </SafeAreaView>
-);
+  );
+};
 
 export default LibraryScreen;

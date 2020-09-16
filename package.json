@@ -23,6 +23,7 @@
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
+    "react-native-sqlite-storage": "^5.0.0",
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
     "tailwind-rn": "^1.1.1"
@@ -37,6 +38,7 @@
     "@types/prettier": "^2.1.1",
     "@types/react": "16.9.49",
     "@types/react-native": "^0.63.18",
+    "@types/react-native-sqlite-storage": "^5.0.0",
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",

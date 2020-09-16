@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   FlatList,
@@ -16,10 +16,13 @@ import tailwind from 'tailwind-rn';
 import feedQuery from '../../graphql/query/feedQuery';
 import {getWeekDay, getReadableDuration} from '../../lib/dateTimeHelper';
 import {usePlayerContext} from '../../contexts/PlayerContext';
+import {DBContext} from '../../contexts/DBContext';
 import {SearchQuery_search} from '../../types/graphql';
+import {PodcastModel} from '../../models/PodcastModel';
 
 const PodcastDetialsScreen = () => {
   const playerContext = usePlayerContext();
+  const dbContext = useContext(DBContext);
 
   const navigation = useNavigation();
 
@@ -27,7 +30,7 @@ const PodcastDetialsScreen = () => {
     data: SearchQuery_search;
   };
 
-  const {thumbnail, podcastName, artist, feedUrl} = podcastData;
+  const {thumbnail, podcastName, artist, feedUrl, episodesCount} = podcastData;
 
   const {data, loading, error} = useQuery(feedQuery, {
     variables: {
@@ -50,9 +53,22 @@ const PodcastDetialsScreen = () => {
               <View style={tailwind('flex-1')}>
                 <Text style={tailwind('text-lg font-bold')}>{podcastName}</Text>
                 <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
-                <Text style={tailwind('text-sm text-blue-600')}>
-                  Subscribed
-                </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    dbContext.subToPodcast(
+                      new PodcastModel({
+                        episodesCount,
+                        thumbnail,
+                        name: podcastName,
+                        artist,
+                        feedUrl,
+                      }),
+                    )
+                  }>
+                  <Text style={tailwind('text-sm text-blue-600')}>
+                    Subscribed
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={tailwind('flex-row mb-4 items-center')}>
