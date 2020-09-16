@@ -47,19 +47,6 @@ const LibraryStackNavigator = () => (
   </LibraryStack.Navigator>
 );
 
-const PodcastStackNavigator = () => (
-  <PodcastStack.Navigator>
-    <PodcastStack.Screen
-      name="PodcastDetails"
-      component={PodcastDetailsScreen}
-    />
-    <PodcastStack.Screen
-      name="EpisodeDetails"
-      component={EpisodeDetailsScreen}
-    />
-  </PodcastStack.Navigator>
-);
-
 const SearchStackNavigator = () => (
   <SearchStack.Navigator>
     <SearchStack.Screen
@@ -71,9 +58,14 @@ const SearchStackNavigator = () => (
       component={SearchScreen}
     />
     <SearchStack.Screen
-      name="PodcastStack"
+      name="PodcastDetails"
       options={{title: '', headerBackTitleVisible: true}}
-      component={PodcastStackNavigator}
+      component={PodcastDetailsScreen}
+    />
+    <SearchStack.Screen
+      name="EpisodeDetails"
+      options={{title: '', headerBackTitleVisible: true}}
+      component={EpisodeDetailsScreen}
     />
   </SearchStack.Navigator>
 );

@@ -26,12 +26,7 @@ const SearchTile: FC<Props> = ({item}) => {
         </Text>
         <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('PodcastStack', {
-              screen: 'PodcastDetails',
-              params: {data: item},
-            })
-          }>
+          onPress={() => navigation.navigate('PodcastDetails', {data: item})}>
           <Text style={tailwind('text-sm text-blue-600')}>
             {episodesCount} episodes
           </Text>
