@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.2.0",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/slider": "^3.0.3",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
@@ -22,7 +23,7 @@
     "react-native-gesture-handler": "^1.8.0",
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
-    "react-native-screens": "^2.10.1",
+    "react-native-screens": "^2.11.0",
     "react-native-sqlite-storage": "^5.0.0",
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
@@ -47,7 +48,7 @@
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "react-test-renderer": "16.13.1",
     "typescript": "^3.8.3"
   },

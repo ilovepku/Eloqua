@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import MainTabNavigator from './MainTabNavigator';
-import PlayerScreen from '../player/playerScreen';
+import PlayerScreen from '../player/PlayerScreen';
 
 const MainStack = createStackNavigator();
 

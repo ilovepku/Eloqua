@@ -13,6 +13,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
+import ProgressSlider from './ProgressSlider';
 
 const {width} = Dimensions.get('window');
 
@@ -37,10 +38,16 @@ const PlayerScreen = () => {
         source={{uri: artwork}}
         style={[s.img, tailwind('self-center rounded-lg mb-4')]}
       />
+
       <View style={tailwind('items-center')}>
         <Text style={tailwind('text-center font-bold mb-4 px-4')}>{title}</Text>
         <Text style={tailwind('text-gray-600 mb-4')}>{artist}</Text>
       </View>
+
+      <View style={tailwind('px-4 mb-4')}>
+        <ProgressSlider />
+      </View>
+
       <View style={tailwind('flex-row items-center justify-center')}>
         <TouchableOpacity onPress={() => seekTo(-10)}>
           <FeatherIcon size={40} name="rotate-ccw" />
