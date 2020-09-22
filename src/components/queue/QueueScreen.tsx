@@ -45,7 +45,7 @@ const QueueScreen = () => {
             <TouchableOpacity
               key={id}
               onPress={async () => {
-                await playerContext.togglePlayback(track);
+                await playerContext.playTrack(track);
                 navigation.goBack();
               }}>
               <View style={tailwind('h-20 px-4 flex-row')}>

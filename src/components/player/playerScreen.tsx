@@ -12,6 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import {
   // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
   usePlaybackState,
+  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
+  useTrackPlayerProgress,
   STATE_PLAYING,
   STATE_BUFFERING,
 } from 'react-native-track-player';
@@ -33,6 +35,7 @@ const PlayerScreen = () => {
   } = usePlayerContext();
   const navigation = useNavigation();
   const playbackState = usePlaybackState();
+  const {position} = useTrackPlayerProgress();
 
   if (!currentTrack) return null;
 
@@ -66,22 +69,21 @@ const PlayerScreen = () => {
         <TouchableOpacity onPress={skipToPrevious}>
           <FeatherIcon size={40} name="skip-back" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => seekTo(-30)}>
+        <TouchableOpacity onPress={() => seekTo(position - 30)}>
           <FeatherIcon size={40} name="rotate-ccw" />
         </TouchableOpacity>
-        <View>
-          {playbackState === STATE_PLAYING ||
-          playbackState === STATE_BUFFERING ? (
-            <TouchableOpacity onPress={() => togglePlayback()}>
-              <FeatherIcon size={60} name="pause" />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => togglePlayback()}>
-              <FeatherIcon size={60} name="play" />
-            </TouchableOpacity>
-          )}
-        </View>
-        <TouchableOpacity onPress={() => seekTo()}>
+        <TouchableOpacity onPress={() => togglePlayback()}>
+          <FeatherIcon
+            size={60}
+            name={
+              playbackState === STATE_PLAYING ||
+              playbackState === STATE_BUFFERING
+                ? 'pause'
+                : 'play'
+            }
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => seekTo(position + 30)}>
           <FeatherIcon size={40} name="rotate-cw" />
         </TouchableOpacity>
         <TouchableOpacity onPress={skipToNext}>

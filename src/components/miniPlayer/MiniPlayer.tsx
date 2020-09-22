@@ -13,12 +13,12 @@ import tailwind from 'tailwind-rn';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 
 const MiniPlayer = () => {
-  const {isEmpty, currentTrack, togglePlayback, seekTo} = usePlayerContext();
+  const {currentTrack, togglePlayback, skipToNext} = usePlayerContext();
   const navigation = useNavigation();
   const playbackState = usePlaybackState();
 
   // ternary operator?
-  if (isEmpty || !currentTrack) {
+  if (!currentTrack) {
     return null;
   }
 
@@ -39,22 +39,23 @@ const MiniPlayer = () => {
           style={tailwind('flex-1 mr-2 text-lg font-bold')}>
           {title}
         </Text>
-        <View style={tailwind('mr-2')}>
-          <View>
-            {playbackState === STATE_PLAYING ||
-            playbackState === STATE_BUFFERING ? (
-              <TouchableOpacity onPress={() => togglePlayback()}>
-                <FeatherIcon size={30} name="pause" />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => togglePlayback()}>
-                <FeatherIcon size={30} name="play" />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        <TouchableOpacity onPress={() => seekTo()} style={tailwind('mr-2')}>
-          <FeatherIcon size={30} name="rotate-cw" />
+
+        <TouchableOpacity
+          onPress={() => togglePlayback()}
+          style={tailwind('mr-2')}>
+          <FeatherIcon
+            size={30}
+            name={
+              playbackState === STATE_PLAYING ||
+              playbackState === STATE_BUFFERING
+                ? 'pause'
+                : 'play'
+            }
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={skipToNext} style={tailwind('mr-2')}>
+          <FeatherIcon size={30} name="skip-forward" />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

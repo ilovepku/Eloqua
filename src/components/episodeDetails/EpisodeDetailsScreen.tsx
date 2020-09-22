@@ -41,7 +41,7 @@ const EpisodeDetailsScreen = () => {
           <View style={tailwind('flex-row mb-4 items-center')}>
             <TouchableOpacity
               onPress={() => {
-                playerContext.togglePlayback({
+                playerContext.playTrack({
                   title: title,
                   artwork: image ?? thumbnail,
                   id: linkUrl,

@@ -14,28 +14,19 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 
 interface PlayerContextType {
-  isEmpty: boolean;
   currentTrack: Track | null;
-  getCurrentTrackObj: () => Promise<Track>;
-  togglePlayback: (track?: Track) => void;
-  seekTo: (interval?: number) => void;
-  goTo: (amount: number) => void;
+  playTrack: (track: Track) => void;
+  togglePlayback: () => void;
+  seekTo: (amount: number) => void;
   skipToPrevious: () => void;
   skipToNext: () => void;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
-  isEmpty: false,
   currentTrack: null,
-  getCurrentTrackObj: async () => ({
-    id: 'id',
-    url: 'url',
-    title: 'title',
-    artist: 'artist',
-  }),
+  playTrack: () => null,
   togglePlayback: () => null,
   seekTo: () => null,
-  goTo: () => null,
   skipToPrevious: () => null,
   skipToNext: () => null,
 });
@@ -70,18 +61,14 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     };
   }, []);
 
-  const getCurrentTrackObj = async () => {
-    const id = await TrackPlayer.getCurrentTrack();
-    return TrackPlayer.getTrack(id);
+  const playTrack = async (track: Track) => {
+    await TrackPlayer.reset();
+    await TrackPlayer.add(track);
+    await TrackPlayer.play();
   };
 
-  const togglePlayback = async (track?: Track) => {
-    // TODO
-    if (track && (currentTrack == null || currentTrack.id !== track.id)) {
-      await TrackPlayer.reset();
-      await TrackPlayer.add(track);
-      await TrackPlayer.play();
-    } else if (currentTrack) {
+  const togglePlayback = async () => {
+    if (currentTrack) {
       if (playbackState === TrackPlayer.STATE_PAUSED) {
         await TrackPlayer.play();
       } else {
@@ -90,34 +77,23 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     }
   };
 
-  const seekTo = async (interval = 30) => {
-    const position = await TrackPlayer.getPosition();
-    await TrackPlayer.seekTo(position + interval);
-  };
-
-  const goTo = async (amount: number) => {
+  const seekTo = async (amount: number) => {
     await TrackPlayer.seekTo(amount);
   };
 
   const skipToPrevious = async () => {
-    try {
-      await TrackPlayer.skipToPrevious();
-    } catch (_) {}
+    await TrackPlayer.skipToPrevious();
   };
 
   const skipToNext = async () => {
-    try {
-      await TrackPlayer.skipToNext();
-    } catch (_) {}
+    await TrackPlayer.skipToNext();
   };
 
   const value = {
-    isEmpty: playerState === null,
     currentTrack,
-    getCurrentTrackObj,
+    playTrack,
     togglePlayback,
     seekTo,
-    goTo,
     skipToPrevious,
     skipToNext,
   };
