@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
-import {ProgressComponent} from 'react-native-track-player';
+// @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
+import {useTrackPlayerProgress} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
-import {PlayerContext} from '../../contexts/PlayerContext';
+import {usePlayerContext} from '../../contexts/PlayerContext';
 
-function buildTime(totalSeconds: number) {
+const buildTime = (totalSeconds: number) => {
   const hours = Math.floor(totalSeconds / 3600);
   totalSeconds %= 3600;
   const minutes = Math.floor(totalSeconds / 60);
@@ -18,41 +19,40 @@ function buildTime(totalSeconds: number) {
   return hours > 0
     ? `${hours}:${minutesStr}:${secondsStr}`
     : `${minutesStr}:${secondsStr}`;
-}
+};
 
-class ProgressSlider extends ProgressComponent {
-  static contextType = PlayerContext;
+const ProgressSlider = () => {
+  const {position, duration} = useTrackPlayerProgress();
+  const playerContext = usePlayerContext();
 
-  get totalTime() {
-    return buildTime(this.state.duration - this.state.position);
-  }
+  const totalTime = () => {
+    return buildTime(duration - position);
+  };
 
-  get currentTime() {
-    return buildTime(this.state.position);
-  }
+  const currentTime = () => {
+    return buildTime(position);
+  };
 
-  render() {
-    return (
-      <>
-        <Slider
-          style={tailwind('w-full h-12')}
-          minimumValue={0}
-          maximumValue={this.state.duration}
-          value={this.state.position}
-          onSlidingComplete={(value) => {
-            this.context.goTo(value);
-          }}
-          // minimumTrackTintColor="#42a5f5" // TODO: theme color
-          // maximumTrackTintColor="#42a5f5" // TODO: theme color
-          // TODO: handle color
-        />
-        <View style={tailwind('flex-row justify-between')}>
-          <Text>{this.currentTime}</Text>
-          <Text>-{this.totalTime}</Text>
-        </View>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Slider
+        style={tailwind('w-full h-12')}
+        minimumValue={0}
+        maximumValue={duration}
+        value={position}
+        onSlidingComplete={(value) => {
+          playerContext.goTo(value);
+        }}
+        // minimumTrackTintColor="#42a5f5" // TODO: theme color
+        // maximumTrackTintColor="#42a5f5" // TODO: theme color
+        // TODO: handle color
+      />
+      <View style={tailwind('flex-row justify-between')}>
+        <Text>{currentTime()}</Text>
+        <Text>-{totalTime()}</Text>
+      </View>
+    </>
+  );
+};
 
 export default ProgressSlider;
