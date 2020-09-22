@@ -28,7 +28,7 @@ const MiniPlayer = () => {
     <TouchableOpacity onPress={() => navigation.navigate('Player')}>
       <View
         style={tailwind(
-          'h-16 px-2 border-t border-gray-300 flex-row items-center',
+          'h-16 mx-2 border-t border-gray-300 flex-row items-center',
         )}>
         <Image
           source={{uri: artwork}}
@@ -50,7 +50,7 @@ const MiniPlayer = () => {
             </TouchableOpacity>
           )}
         </View>
-        <TouchableOpacity onPress={() => seekTo()}>
+        <TouchableOpacity onPress={() => seekTo()} style={tailwind('mr-2')}>
           <FeatherIcon size={30} name="rotate-cw" />
         </TouchableOpacity>
       </View>

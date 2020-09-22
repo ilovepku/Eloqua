@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import TrackPlayer, {
   Track,
-  STATE_PLAYING,
+  // STATE_PLAYING,
   STATE_PAUSED,
-  STATE_STOPPED,
+  // STATE_STOPPED,
 } from 'react-native-track-player';
 
 interface PlayerContextType {

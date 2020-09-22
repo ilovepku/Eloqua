@@ -27,13 +27,14 @@ const PlayerScreen = () => {
 
   return (
     <SafeAreaView style={tailwind('flex-1 bg-white')}>
-      <TouchableOpacity onPress={navigation.goBack}>
-        <FeatherIcon
-          name="chevron-down"
-          size={30}
-          style={tailwind('my-4 px-4')}
-        />
-      </TouchableOpacity>
+      <View style={tailwind('flex-row justify-between my-4 px-4')}>
+        <TouchableOpacity onPress={navigation.goBack}>
+          <FeatherIcon name="chevron-down" size={30} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Queue')}>
+          <FeatherIcon name="list" size={30} />
+        </TouchableOpacity>
+      </View>
       <Image
         source={{uri: artwork}}
         style={[s.img, tailwind('self-center rounded-lg mb-4')]}
