@@ -16,4 +16,6 @@ module.exports = async function () {
     const position = await TrackPlayer.getPosition();
     await TrackPlayer.seekTo(position - interval);
   });
+
+  TrackPlayer.addEventListener('remote-next', () => TrackPlayer.skipToNext());
 };

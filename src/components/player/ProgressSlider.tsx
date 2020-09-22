@@ -43,8 +43,8 @@ const ProgressSlider = () => {
         onSlidingComplete={(value) => {
           playerContext.goTo(value);
         }}
-        // minimumTrackTintColor="#42a5f5" // TODO: theme color
-        // maximumTrackTintColor="#42a5f5" // TODO: theme color
+        // minimumTrackTintColor="#42a5f5"
+        // maximumTrackTintColor="#42a5f5"
         // TODO: handle color
       />
       <View style={tailwind('flex-row justify-between')}>

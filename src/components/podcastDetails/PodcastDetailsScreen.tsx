@@ -80,7 +80,7 @@ const PodcastDetialsScreen = () => {
                   }
                   const {title, image, linkUrl} = el;
 
-                  playerContext.play({
+                  playerContext.togglePlayback({
                     title: title,
                     artwork: image ?? thumbnail,
                     id: linkUrl,

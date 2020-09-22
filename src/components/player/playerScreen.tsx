@@ -9,6 +9,12 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import {
+  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
+  usePlaybackState,
+  STATE_PLAYING,
+  STATE_BUFFERING,
+} from 'react-native-track-player';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
 
@@ -18,8 +24,15 @@ import ProgressSlider from './ProgressSlider';
 const {width} = Dimensions.get('window');
 
 const PlayerScreen = () => {
-  const {currentTrack, isPaused, play, pause, seekTo} = usePlayerContext();
+  const {
+    currentTrack,
+    togglePlayback,
+    seekTo,
+    skipToPrevious,
+    skipToNext,
+  } = usePlayerContext();
   const navigation = useNavigation();
+  const playbackState = usePlaybackState();
 
   if (!currentTrack) return null;
 
@@ -49,23 +62,30 @@ const PlayerScreen = () => {
         <ProgressSlider />
       </View>
 
-      <View style={tailwind('flex-row items-center justify-center')}>
-        <TouchableOpacity onPress={() => seekTo(-10)}>
+      <View style={tailwind('flex-row justify-between items-center mx-12')}>
+        <TouchableOpacity onPress={skipToPrevious}>
+          <FeatherIcon size={40} name="skip-back" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => seekTo(-30)}>
           <FeatherIcon size={40} name="rotate-ccw" />
         </TouchableOpacity>
-        <View style={tailwind('mx-12')}>
-          {isPaused ? (
-            <TouchableOpacity onPress={() => play()}>
-              <FeatherIcon size={60} name="play" />
+        <View>
+          {playbackState === STATE_PLAYING ||
+          playbackState === STATE_BUFFERING ? (
+            <TouchableOpacity onPress={() => togglePlayback()}>
+              <FeatherIcon size={60} name="pause" />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={pause}>
-              <FeatherIcon size={60} name="pause" />
+            <TouchableOpacity onPress={() => togglePlayback()}>
+              <FeatherIcon size={60} name="play" />
             </TouchableOpacity>
           )}
         </View>
         <TouchableOpacity onPress={() => seekTo()}>
           <FeatherIcon size={40} name="rotate-cw" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={skipToNext}>
+          <FeatherIcon size={40} name="skip-forward" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

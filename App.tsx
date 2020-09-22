@@ -15,22 +15,27 @@ const App = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    TrackPlayer.setupPlayer().then(() => {
-      console.log('player set up');
-
-      TrackPlayer.updateOptions({
+    // player lib setup IIFE
+    (async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({
+        stopWithApp: true,
         capabilities: [
           TrackPlayer.CAPABILITY_PLAY,
           TrackPlayer.CAPABILITY_PAUSE,
           TrackPlayer.CAPABILITY_STOP,
           TrackPlayer.CAPABILITY_JUMP_FORWARD,
           TrackPlayer.CAPABILITY_JUMP_BACKWARD,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        ],
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
         ],
         jumpInterval: 30,
       });
-
       setIsReady(true);
-    });
+    })();
   }, []);
 
   return (

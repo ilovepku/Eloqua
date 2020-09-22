@@ -7,38 +7,56 @@ import React, {
 } from 'react';
 import TrackPlayer, {
   Track,
-  // STATE_PLAYING,
-  STATE_PAUSED,
-  // STATE_STOPPED,
+  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
+  usePlaybackState,
+  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerEvents'
+  useTrackPlayerEvents,
 } from 'react-native-track-player';
 
 interface PlayerContextType {
-  // isPlaying: boolean;
-  isPaused: boolean;
-  // isStopped: boolean;
   isEmpty: boolean;
   currentTrack: Track | null;
-  play: (track?: Track) => void;
-  pause: () => void;
+  getCurrentTrackObj: () => Promise<Track>;
+  togglePlayback: (track?: Track) => void;
   seekTo: (interval?: number) => void;
   goTo: (amount: number) => void;
+  skipToPrevious: () => void;
+  skipToNext: () => void;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
-  // isPlaying: false,
-  isPaused: false,
-  // isStopped: false,
   isEmpty: false,
   currentTrack: null,
-  play: () => null,
-  pause: () => null,
+  getCurrentTrackObj: async () => ({
+    id: 'id',
+    url: 'url',
+    title: 'title',
+    artist: 'artist',
+  }),
+  togglePlayback: () => null,
   seekTo: () => null,
   goTo: () => null,
+  skipToPrevious: () => null,
+  skipToNext: () => null,
 });
 
 export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   const [playerState, setPlayerState] = useState(null);
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+
+  const playbackState = usePlaybackState();
+
+  useTrackPlayerEvents(
+    ['playback-track-changed'],
+    // temp type for playback-track-changed event
+    async ({nextTrack, type}: {nextTrack: string; type: string}) => {
+      // @ts-ignore: temp fix for error - Property 'TrackPlayerEvents' does not exist on type 'typeof RNTrackPlayer'.
+      if (type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
+        const track = await TrackPlayer.getTrack(nextTrack);
+        setCurrentTrack(track);
+      }
+    },
+  );
 
   useEffect(() => {
     const listener = TrackPlayer.addEventListener(
@@ -52,22 +70,24 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     };
   }, []);
 
-  const play = async (track?: Track) => {
-    if (!track) {
-      if (!currentTrack) return;
-    } else {
-      if (currentTrack && currentTrack.id !== track.id)
-        await TrackPlayer.reset();
-
-      // TODO: need better logic, can skip the following two lines when currentTrack.id === track.id
-      await TrackPlayer.add([track]);
-      setCurrentTrack(track);
-    }
-    await TrackPlayer.play();
+  const getCurrentTrackObj = async () => {
+    const id = await TrackPlayer.getCurrentTrack();
+    return TrackPlayer.getTrack(id);
   };
 
-  const pause = async () => {
-    await TrackPlayer.pause();
+  const togglePlayback = async (track?: Track) => {
+    // TODO
+    if (track && (currentTrack == null || currentTrack.id !== track.id)) {
+      await TrackPlayer.reset();
+      await TrackPlayer.add(track);
+      await TrackPlayer.play();
+    } else if (currentTrack) {
+      if (playbackState === TrackPlayer.STATE_PAUSED) {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
   };
 
   const seekTo = async (interval = 30) => {
@@ -79,16 +99,27 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     await TrackPlayer.seekTo(amount);
   };
 
+  const skipToPrevious = async () => {
+    try {
+      await TrackPlayer.skipToPrevious();
+    } catch (_) {}
+  };
+
+  const skipToNext = async () => {
+    try {
+      await TrackPlayer.skipToNext();
+    } catch (_) {}
+  };
+
   const value = {
-    // isPlaying: playerState === STATE_PLAYING,
-    isPaused: playerState === STATE_PAUSED,
-    // isStopped: playerState === STATE_STOPPED,
     isEmpty: playerState === null,
     currentTrack,
-    pause,
-    play,
+    getCurrentTrackObj,
+    togglePlayback,
     seekTo,
     goTo,
+    skipToPrevious,
+    skipToNext,
   };
 
   return (

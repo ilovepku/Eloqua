@@ -1,21 +1,21 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {
+  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
+  usePlaybackState,
+  STATE_PLAYING,
+  STATE_BUFFERING,
+} from 'react-native-track-player';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 
 const MiniPlayer = () => {
-  const {
-    isEmpty,
-    currentTrack,
-    isPaused,
-    play,
-    pause,
-    seekTo,
-  } = usePlayerContext();
+  const {isEmpty, currentTrack, togglePlayback, seekTo} = usePlayerContext();
   const navigation = useNavigation();
+  const playbackState = usePlaybackState();
 
   // ternary operator?
   if (isEmpty || !currentTrack) {
@@ -40,15 +40,18 @@ const MiniPlayer = () => {
           {title}
         </Text>
         <View style={tailwind('mr-2')}>
-          {isPaused ? (
-            <TouchableOpacity onPress={() => play()}>
-              <FeatherIcon size={30} name="play" />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={pause}>
-              <FeatherIcon size={30} name="pause" />
-            </TouchableOpacity>
-          )}
+          <View>
+            {playbackState === STATE_PLAYING ||
+            playbackState === STATE_BUFFERING ? (
+              <TouchableOpacity onPress={() => togglePlayback()}>
+                <FeatherIcon size={30} name="pause" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => togglePlayback()}>
+                <FeatherIcon size={30} name="play" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
         <TouchableOpacity onPress={() => seekTo()} style={tailwind('mr-2')}>
           <FeatherIcon size={30} name="rotate-cw" />
