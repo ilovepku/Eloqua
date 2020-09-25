@@ -34,8 +34,9 @@ const PieceTile: FC<Props> = ({piece}) => {
           <Text style={tailwind('font-bold')} numberOfLines={1}>
             {name}
           </Text>
-          <Text style={tailwind('text-sm text-gray-600')}>{person.name}</Text>
-          <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
+          <Text style={tailwind('text-sm text-gray-600')}>
+            {person.name}, {date}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
