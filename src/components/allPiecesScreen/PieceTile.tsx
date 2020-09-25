@@ -1,36 +1,40 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
+import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 interface Props {
   piece: AllPiecesQuery_piece;
 }
 
-const PieceTile: FC<Props> = ({piece}) => {
+const PieceTile = ({piece}: Props) => {
   const playerContext = usePlayerContext();
   const {id, name, person, date, audio_filename} = piece;
+  const track = {
+    id: `piece-${id}`,
+    title: name,
+    artist: person.name,
+    artwork: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/avatars%2F${person.img_filename}?alt=media`,
+    url: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/${audio_filename}?alt=media`,
+  };
   return (
-    <TouchableOpacity
-      onPress={() => {
-        playerContext.playTrack({
-          id: `piece-${id}`,
-          title: name,
-          artist: person.name,
-          artwork: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/avatars%2F${person.img_filename}?alt=media`,
-          url: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/${audio_filename}?alt=media`,
-        });
-      }}>
-      <View style={tailwind('h-20 px-4 flex-row items-center')}>
+    <View style={tailwind('flex-row justify-between items-center px-4')}>
+      <TouchableOpacity
+        style={tailwind('flex-1 h-20 flex-row items-center')}
+        onPress={() => {
+          playerContext.playTrack(track);
+        }}>
         <Image
           source={{
             uri: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/avatars%2F${person.img_filename}?alt=media`,
           }}
           style={tailwind('h-12 w-12 rounded-lg mr-4')}
         />
-        <View style={tailwind('flex-1')}>
+        <View style={tailwind('flex-1 mr-4')}>
           <Text style={tailwind('font-bold')} numberOfLines={1}>
             {name}
           </Text>
@@ -38,8 +42,15 @@ const PieceTile: FC<Props> = ({piece}) => {
             {person.name}, {date}
           </Text>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={async () => {
+          const IsTrackInQueue = await TrackPlayer.getTrack(track.id);
+          if (!IsTrackInQueue) TrackPlayer.add(track);
+        }}>
+        <FeatherIcon size={30} color="#42a5f5" name="list" />
+      </TouchableOpacity>
+    </View>
   );
 };
 
