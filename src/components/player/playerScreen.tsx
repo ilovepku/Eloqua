@@ -2,9 +2,10 @@ import React from 'react';
 import {
   Dimensions,
   TouchableOpacity,
-  Image,
   View,
   Text,
+  ScrollView,
+  ActivityIndicator,
   StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -17,10 +18,12 @@ import {
   STATE_PLAYING,
   STATE_BUFFERING,
 } from 'react-native-track-player';
+import {useQuery} from '@apollo/client';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
+import pieceQuery from '../../graphql/query/pieceQuery';
 import ProgressSlider from './ProgressSlider';
 
 const {width} = Dimensions.get('window');
@@ -39,11 +42,17 @@ const PlayerScreen = () => {
 
   if (!currentTrack) return null;
 
-  const {artwork, title, artist} = currentTrack;
+  const {id, title, artist} = currentTrack;
+
+  const {data, loading, error} = useQuery(pieceQuery, {
+    variables: {
+      id: Number(id.split('-')[1]), // piece-1 : string => 1 : number
+    },
+  });
 
   return (
-    <SafeAreaView style={tailwind('flex-1 bg-white')}>
-      <View style={tailwind('flex-row justify-between my-4 px-4')}>
+    <SafeAreaView style={tailwind('flex-1 bg-white px-4')}>
+      <View style={tailwind('flex-row justify-between my-4')}>
         <TouchableOpacity onPress={navigation.goBack}>
           <FeatherIcon name="chevron-down" size={30} />
         </TouchableOpacity>
@@ -51,21 +60,33 @@ const PlayerScreen = () => {
           <FeatherIcon name="list" size={30} />
         </TouchableOpacity>
       </View>
-      <Image
-        source={{uri: artwork}}
-        style={[s.img, tailwind('self-center rounded-lg mb-4')]}
-      />
 
       <View style={tailwind('items-center')}>
         <Text style={tailwind('text-center font-bold mb-4 px-4')}>{title}</Text>
-        <Text style={tailwind('text-gray-600 mb-4')}>{artist}</Text>
+        <Text style={tailwind('text-gray-600 mb-4')}>
+          {artist}
+          {data && `, ${data.pieces_by_pk.date}`}
+        </Text>
       </View>
 
-      <View style={tailwind('px-4 mb-4')}>
+      <ScrollView
+        contentContainerStyle={tailwind(
+          'flex-grow items-center justify-center',
+        )}>
+        {error ? (
+          <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
+        ) : loading ? (
+          <ActivityIndicator size="large" color="#42a5f5" />
+        ) : (
+          <Text>{data && data.pieces_by_pk.text}</Text>
+        )}
+      </ScrollView>
+
+      <View style={tailwind('mb-4')}>
         <ProgressSlider />
       </View>
 
-      <View style={tailwind('flex-row justify-between items-center mx-12')}>
+      <View style={tailwind('flex-row justify-between items-center')}>
         <TouchableOpacity onPress={skipToPrevious}>
           <FeatherIcon size={40} name="skip-back" />
         </TouchableOpacity>
