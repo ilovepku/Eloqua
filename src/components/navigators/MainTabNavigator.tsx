@@ -6,10 +6,10 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import ListenNowScreen from '../listenNow/ListenNowScreen';
+import AllPiecesScreen from '../allPiecesScreen/AllPiecesScreen';
 import LibraryScreen from '../library/LibraryScreen';
-import PodcastDetailsScreen from '../podcastDetails/PodcastDetailsScreen';
 import SearchScreen from '../search/SearchScreen';
+import PodcastDetailsScreen from '../podcastDetails/PodcastDetailsScreen';
 import EpisodeDetailsScreen from '../episodeDetails/EpisodeDetailsScreen';
 import MiniPlayer from '../miniPlayer/MiniPlayer';
 
@@ -18,18 +18,17 @@ const ICON_SIZE = 24;
 const ListenNowStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
 const SearchStack = createStackNavigator();
-const PodcastStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 const ListenNowStackNavigator = () => (
   <ListenNowStack.Navigator>
     <ListenNowStack.Screen
-      name="ListenNow"
+      name="AllPieces"
       options={{
-        title: 'Listen Now',
+        title: 'Explore',
         headerTitleAlign: 'center',
       }}
-      component={ListenNowScreen}
+      component={AllPiecesScreen}
     />
   </ListenNowStack.Navigator>
 );
@@ -83,7 +82,7 @@ const MainTabNavigator = () => (
     }}>
     {/* TODO: theme color */}
     <MainTab.Screen
-      name="ListenNow"
+      name="AllPieces"
       options={{
         title: 'Listen Now',
         tabBarIcon: ({color}) => (

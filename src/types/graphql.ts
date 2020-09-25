@@ -1,8 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 // ====================================================
 // GraphQL query operation: FeedQuery
 // ====================================================
@@ -26,11 +21,6 @@ export interface FeedQueryVariables {
   feedUrl: string;
 }
 
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 // ====================================================
 // GraphQL query operation: SearchQuery
 // ====================================================
@@ -53,15 +43,24 @@ export interface SearchQueryVariables {
   term: string;
 }
 
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
+// ====================================================
+// GraphQL query operation: AllPiecesQuery
+// ====================================================
 
-//==============================================================
-// START Enums and Input Objects
-//==============================================================
+export interface AllPiecesQuery_piece {
+  __typename: 'pieces';
+  id: number;
+  name: string;
+  person: {
+    __typename: 'persons';
+    name: string;
+    img_filename: string;
+  };
+  date: string;
+  audio_filename: string;
+  text: string;
+}
 
-//==============================================================
-// END Enums and Input Objects
-//==============================================================
+export interface AllPiecesQuery {
+  search: AllPiecesQuery_piece[];
+}
