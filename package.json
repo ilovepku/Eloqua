@@ -11,12 +11,13 @@
     "postinstall": "npx typesync"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.1",
+    "@apollo/client": "^3.2.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/slider": "^3.0.3",
-    "@react-navigation/bottom-tabs": "^5.9.0",
-    "@react-navigation/native": "^5.7.4",
-    "@react-navigation/stack": "^5.9.1",
+    "@react-navigation/bottom-tabs": "^5.9.1",
+    "@react-navigation/material-top-tabs": "^5.2.18",
+    "@react-navigation/native": "^5.7.5",
+    "@react-navigation/stack": "^5.9.2",
     "graphql": "^15.3.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
@@ -25,9 +26,10 @@
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-sqlite-storage": "^5.0.0",
+    "react-native-tab-view": "^2.15.1",
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
-    "tailwind-rn": "^1.1.1"
+    "tailwind-rn": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -38,7 +40,7 @@
     "@types/jest": "^25.2.3",
     "@types/prettier": "^2.1.1",
     "@types/react": "16.9.49",
-    "@types/react-native": "^0.63.22",
+    "@types/react-native": "^0.63.25",
     "@types/react-native-sqlite-storage": "^5.0.0",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-test-renderer": "^16.9.2",
