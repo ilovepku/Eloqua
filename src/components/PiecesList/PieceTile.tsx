@@ -6,6 +6,7 @@ import tailwind from 'tailwind-rn';
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {ASSETS_URL} from '../../settings/settings';
 
 interface Props {
   piece: AllPiecesQuery_piece;
@@ -18,8 +19,8 @@ const PieceTile = ({piece}: Props) => {
     id: `piece-${id}`,
     title: name,
     artist: person.name,
-    artwork: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/avatars%2F${person.img_filename}?alt=media`,
-    url: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/${audio_filename}?alt=media`,
+    artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
+    url: `${ASSETS_URL}/${audio_filename}?alt=media`,
   };
   return (
     <View style={tailwind('flex-row justify-between items-center px-4')}>
@@ -30,7 +31,7 @@ const PieceTile = ({piece}: Props) => {
         }}>
         <Image
           source={{
-            uri: `https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/avatars%2F${person.img_filename}?alt=media`,
+            uri: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
           }}
           style={tailwind('h-12 w-12 rounded-lg mr-4')}
         />

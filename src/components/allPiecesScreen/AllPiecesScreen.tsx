@@ -1,24 +1,11 @@
 import React, {useState} from 'react';
-import {View, TextInput, FlatList, Text, ActivityIndicator} from 'react-native';
-import {useQuery} from '@apollo/client';
+import {View, TextInput} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
-
-import allPiecesQuery from '../../graphql/query/allPiecesQuery';
-import PieceTile from './PieceTile';
-import {AllPiecesQuery_piece} from '../../types/graphql';
+import PiecesList from '../PiecesList/PiecesList';
 
 const AllPiecesScreen = () => {
   const [filter, setFilter] = useState('');
-
-  const {data, loading, error} = useQuery(allPiecesQuery);
-
-  const filteredPieces = (data?.pieces ?? []).filter(
-    ({name, person}: AllPiecesQuery_piece) =>
-      filter === '' ||
-      name.toLowerCase().includes(filter.toLowerCase()) ||
-      person.name.toLowerCase().includes(filter.toLowerCase()),
-  );
 
   return (
     <View style={tailwind('flex-1 bg-white')}>
@@ -36,29 +23,7 @@ const AllPiecesScreen = () => {
         />
       </View>
 
-      {error ? (
-        <View style={tailwind('h-64 items-center justify-center')}>
-          <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
-        </View>
-      ) : (
-        <FlatList
-          keyboardShouldPersistTaps="never"
-          data={filteredPieces}
-          ListEmptyComponent={
-            <View style={tailwind('h-64 items-center justify-center')}>
-              {loading ? (
-                <ActivityIndicator size="large" color="#42a5f5" />
-              ) : (
-                <Text style={tailwind('text-center text-lg text-gray-600')}>
-                  No matching result, please search for something else...
-                </Text>
-              )}
-              {/* TODO: theme color */}
-            </View>
-          }
-          renderItem={({item}) => <PieceTile piece={item} />}
-          keyExtractor={(item) => `piece-${item.id}`}></FlatList>
-      )}
+      <PiecesList filter={filter} />
     </View>
   );
 };

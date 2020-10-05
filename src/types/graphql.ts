@@ -51,6 +51,7 @@ export interface AllPiecesQuery_piece {
   __typename: 'pieces';
   id: number;
   name: string;
+  person_id: number;
   person: {
     __typename: 'persons';
     name: string;
@@ -58,9 +59,27 @@ export interface AllPiecesQuery_piece {
   };
   date: string;
   audio_filename: string;
+  piece_categories: {
+    category_id: number;
+  }[];
   text: string;
 }
 
 export interface AllPiecesQuery {
   search: AllPiecesQuery_piece[];
+}
+
+// ====================================================
+// GraphQL query operation: AllPiecesQuery
+// ====================================================
+
+export interface CategoriesQuery_category {
+  __typename: 'categories';
+  id: number;
+  name: string;
+  icon_filename: string;
+}
+
+export interface CategoriesQuery {
+  search: CategoriesQuery_category[];
 }

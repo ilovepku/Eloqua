@@ -6,7 +6,7 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import AllPiecesScreen from '../allPiecesScreen/AllPiecesScreen';
+import TopTabNavigator from './TopTabNavigator';
 import LibraryScreen from '../library/LibraryScreen';
 import SearchScreen from '../search/SearchScreen';
 import PodcastDetailsScreen from '../podcastDetails/PodcastDetailsScreen';
@@ -15,23 +15,9 @@ import MiniPlayer from '../miniPlayer/MiniPlayer';
 
 const ICON_SIZE = 24;
 
-const ListenNowStack = createStackNavigator();
 const LibraryStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
-
-const ListenNowStackNavigator = () => (
-  <ListenNowStack.Navigator>
-    <ListenNowStack.Screen
-      name="AllPieces"
-      options={{
-        title: 'Explore',
-        headerTitleAlign: 'center',
-      }}
-      component={AllPiecesScreen}
-    />
-  </ListenNowStack.Navigator>
-);
 
 const LibraryStackNavigator = () => (
   <LibraryStack.Navigator>
@@ -84,12 +70,12 @@ const MainTabNavigator = () => (
     <MainTab.Screen
       name="AllPieces"
       options={{
-        title: 'Listen Now',
+        title: 'Explore',
         tabBarIcon: ({color}) => (
           <FeatherIcon size={ICON_SIZE} color={color} name="headphones" />
         ),
       }}
-      component={ListenNowStackNavigator}
+      component={TopTabNavigator}
     />
     <MainTab.Screen
       name="Library"

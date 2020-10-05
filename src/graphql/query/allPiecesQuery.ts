@@ -5,12 +5,16 @@ const allPiecesQuery = gql`
     pieces {
       id
       name
+      person_id
       person {
         name
         img_filename
       }
       date
       audio_filename
+      piece_categories {
+        category_id
+      }
     }
   }
 `;
