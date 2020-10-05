@@ -1,49 +1,4 @@
 // ====================================================
-// GraphQL query operation: FeedQuery
-// ====================================================
-
-export interface FeedQuery_feed {
-  __typename: 'FeedItem';
-  description: string;
-  duration: string;
-  image: string | null;
-  linkUrl: string;
-  pubDate: string;
-  text: string;
-  title: string;
-}
-
-export interface FeedQuery {
-  feed: FeedQuery_feed[];
-}
-
-export interface FeedQueryVariables {
-  feedUrl: string;
-}
-
-// ====================================================
-// GraphQL query operation: SearchQuery
-// ====================================================
-
-export interface SearchQuery_search {
-  __typename: 'Podcast';
-  artist: string;
-  episodesCount: number;
-  feedUrl: string;
-  podcastName: string;
-  thumbnail: string;
-  genres: string[];
-}
-
-export interface SearchQuery {
-  search: SearchQuery_search[];
-}
-
-export interface SearchQueryVariables {
-  term: string;
-}
-
-// ====================================================
 // GraphQL query operation: AllPiecesQuery
 // ====================================================
 
@@ -70,7 +25,7 @@ export interface AllPiecesQuery {
 }
 
 // ====================================================
-// GraphQL query operation: AllPiecesQuery
+// GraphQL query operation: CategoriesQuery
 // ====================================================
 
 export interface CategoriesQuery_category {
