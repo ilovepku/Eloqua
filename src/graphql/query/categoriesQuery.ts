@@ -2,7 +2,7 @@ import {gql} from '@apollo/client';
 
 const categoriesQuery = gql`
   query categoriesQuery {
-    categories {
+    categories(limit: 11) {
       id
       name
       icon_filename
