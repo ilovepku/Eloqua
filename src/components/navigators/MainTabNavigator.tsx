@@ -8,15 +8,11 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import TopTabNavigator from './TopTabNavigator';
 import LibraryScreen from '../library/LibraryScreen';
-import SearchScreen from '../search/SearchScreen';
-import PodcastDetailsScreen from '../podcastDetails/PodcastDetailsScreen';
-import EpisodeDetailsScreen from '../episodeDetails/EpisodeDetailsScreen';
 import MiniPlayer from '../miniPlayer/MiniPlayer';
 
 const ICON_SIZE = 24;
 
 const LibraryStack = createStackNavigator();
-const SearchStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 const LibraryStackNavigator = () => (
@@ -30,29 +26,6 @@ const LibraryStackNavigator = () => (
       component={LibraryScreen}
     />
   </LibraryStack.Navigator>
-);
-
-const SearchStackNavigator = () => (
-  <SearchStack.Navigator>
-    <SearchStack.Screen
-      name="Search"
-      options={{
-        title: 'Search',
-        headerTitleAlign: 'center',
-      }}
-      component={SearchScreen}
-    />
-    <SearchStack.Screen
-      name="PodcastDetails"
-      options={{title: '', headerBackTitleVisible: true}}
-      component={PodcastDetailsScreen}
-    />
-    <SearchStack.Screen
-      name="EpisodeDetails"
-      options={{title: '', headerBackTitleVisible: true}}
-      component={EpisodeDetailsScreen}
-    />
-  </SearchStack.Navigator>
 );
 
 const MainTabNavigator = () => (
@@ -83,15 +56,6 @@ const MainTabNavigator = () => (
       options={{
         tabBarIcon: ({color}) => (
           <FeatherIcon size={ICON_SIZE} color={color} name="inbox" />
-        ),
-      }}
-    />
-    <MainTab.Screen
-      name="Search"
-      component={SearchStackNavigator}
-      options={{
-        tabBarIcon: ({color}) => (
-          <FeatherIcon size={ICON_SIZE} color={color} name="search" />
         ),
       }}
     />
