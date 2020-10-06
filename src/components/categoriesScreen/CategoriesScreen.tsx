@@ -35,6 +35,7 @@ const CategoriesScreen = () => {
             style={tailwind('w-1/3 h-24 mt-4 items-center')}
             onPress={() =>
               navigation.navigate('CategoryPiecesList', {
+                title: name,
                 category_id_filter: `category-${id}`,
               })
             }>

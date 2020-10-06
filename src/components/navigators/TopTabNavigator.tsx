@@ -1,12 +1,21 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import AllPiecesScreen from '../allPiecesScreen/AllPiecesScreen';
 import CategoriesScreen from '../categoriesScreen/CategoriesScreen';
 import PiecesList from '../PiecesList/PiecesList';
 
-const CategoriesStack = createStackNavigator();
+type CategoriesStackParamList = {
+  CategoriesList: undefined;
+  CategoryPiecesList: {title: string};
+};
+
+const CategoriesStack = createStackNavigator<CategoriesStackParamList>();
 const TopTab = createMaterialTopTabNavigator();
 
 const CategoriesStackNavigator = () => (
@@ -20,9 +29,13 @@ const CategoriesStackNavigator = () => (
     />
     <CategoriesStack.Screen
       name="CategoryPiecesList"
-      options={{
-        headerShown: false,
-      }}
+      options={({
+        route: {
+          params: {title},
+        },
+      }) => ({
+        title,
+      })}
       component={PiecesList}
     />
   </CategoriesStack.Navigator>

@@ -43,6 +43,7 @@ const PiecesList = ({filter}: Props) => {
     </View>
   ) : (
     <FlatList
+      style={tailwind('bg-white')}
       keyboardShouldPersistTaps="never"
       data={filteredPieces}
       ListEmptyComponent={
