@@ -6,7 +6,7 @@ import {useTrackPlayerProgress} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
-import {buildTime} from '../../lib/dateTimeHelper';
+import {buildTime} from '../../utils/dateTimeHelper';
 
 const ProgressSlider = () => {
   const {position, duration} = useTrackPlayerProgress();

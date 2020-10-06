@@ -4,7 +4,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import AllPiecesScreen from '../allPieces/AllPiecesScreen';
 import CategoriesScreen from '../categories/CategoriesScreen';
-import PiecesList from '../PiecesList/PiecesList';
+import PiecesList from '../piecesList/PiecesList';
 
 type CategoriesStackParamList = {
   CategoriesList: undefined;

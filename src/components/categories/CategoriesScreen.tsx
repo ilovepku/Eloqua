@@ -12,7 +12,7 @@ import tailwind from 'tailwind-rn';
 
 import categoriesQuery from '../../graphql/query/categoriesQuery';
 import {CategoriesQuery_category} from '../../types/graphql';
-import {ASSETS_URL} from '../../settings/settings';
+import {ASSETS_URL} from '../../settings';
 
 const CategoriesScreen = () => {
   const navigation = useNavigation();

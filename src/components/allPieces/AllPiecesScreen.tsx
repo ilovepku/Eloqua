@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, TextInput} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import tailwind from 'tailwind-rn';
-import PiecesList from '../PiecesList/PiecesList';
+import PiecesList from '../piecesList/PiecesList';
 
 const AllPiecesScreen = () => {
   const [filter, setFilter] = useState('');

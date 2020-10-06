@@ -6,7 +6,7 @@ import tailwind from 'tailwind-rn';
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {ASSETS_URL} from '../../settings/settings';
+import {ASSETS_URL} from '../../settings';
 
 interface Props {
   piece: AllPiecesQuery_piece;
