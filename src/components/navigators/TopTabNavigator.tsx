@@ -1,13 +1,9 @@
 import React from 'react';
-import {RouteProp} from '@react-navigation/native';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import AllPiecesScreen from '../allPiecesScreen/AllPiecesScreen';
-import CategoriesScreen from '../categoriesScreen/CategoriesScreen';
+import AllPiecesScreen from '../allPieces/AllPiecesScreen';
+import CategoriesScreen from '../categories/CategoriesScreen';
 import PiecesList from '../PiecesList/PiecesList';
 
 type CategoriesStackParamList = {
