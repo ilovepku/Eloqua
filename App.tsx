@@ -6,7 +6,6 @@ import {ApolloProvider} from '@apollo/client';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
-import {DBProvider} from './src/contexts/DBContext';
 import MainStackNavigator from './src/components/navigators/MainStackNavigator';
 import client from './src/graphql/client';
 import {PlayerContextProvider} from './src/contexts/PlayerContext';
@@ -39,21 +38,19 @@ const App = () => {
   }, []);
 
   return (
-    <DBProvider>
-      <ApolloProvider client={client}>
-        {isReady ? (
-          <PlayerContextProvider>
-            <NavigationContainer>
-              <MainStackNavigator />
-            </NavigationContainer>
-          </PlayerContextProvider>
-        ) : (
-          <View style={tailwind('flex-1 items-center justify-center')}>
-            <ActivityIndicator />
-          </View>
-        )}
-      </ApolloProvider>
-    </DBProvider>
+    <ApolloProvider client={client}>
+      {isReady ? (
+        <PlayerContextProvider>
+          <NavigationContainer>
+            <MainStackNavigator />
+          </NavigationContainer>
+        </PlayerContextProvider>
+      ) : (
+        <View style={tailwind('flex-1 items-center justify-center')}>
+          <ActivityIndicator />
+        </View>
+      )}
+    </ApolloProvider>
   );
 };
 
