@@ -15,6 +15,10 @@ import {
   usePlaybackState,
   // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
   useTrackPlayerProgress,
+  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerEvent'
+  useTrackPlayerEvents,
+  // @ts-ignore: temp fix for error - no exported member 'TrackPlayerEvents'
+  TrackPlayerEvents,
   STATE_PLAYING,
   STATE_BUFFERING,
 } from 'react-native-track-player';
@@ -40,17 +44,17 @@ const PlayerScreen = () => {
   const playbackState = usePlaybackState();
   const {position} = useTrackPlayerProgress();
 
-  if (!currentTrack) return null;
-
-  const {id, title, artist} = currentTrack;
+  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_QUEUE_ENDED], () => {
+    navigation.goBack();
+  });
 
   const {data, loading, error} = useQuery(pieceQuery, {
     variables: {
-      id: Number(id.split('-')[1]), // piece-1 : string => 1 : number
+      id: Number(currentTrack?.id.split('-')[1]), // piece-1 : string => 1 : number
     },
   });
 
-  return (
+  return !currentTrack ? null : (
     <SafeAreaView style={tailwind('flex-1 bg-white px-4')}>
       <View style={tailwind('flex-row justify-between my-4')}>
         <TouchableOpacity onPress={navigation.goBack}>
@@ -62,9 +66,11 @@ const PlayerScreen = () => {
       </View>
 
       <View style={tailwind('items-center')}>
-        <Text style={tailwind('text-center font-bold mb-4 px-4')}>{title}</Text>
+        <Text style={tailwind('text-center font-bold mb-4 px-4')}>
+          {currentTrack.title}
+        </Text>
         <Text style={tailwind('text-gray-600 mb-4')}>
-          {artist}
+          {currentTrack.artist}
           {data && `, ${data.pieces_by_pk.date}`}
         </Text>
       </View>
