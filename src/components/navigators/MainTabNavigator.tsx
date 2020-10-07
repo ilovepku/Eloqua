@@ -4,7 +4,7 @@ import {
   BottomTabBar,
 } from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import TopTabNavigator from './TopTabNavigator';
 import LibraryScreen from '../library/LibraryScreen';
@@ -45,7 +45,7 @@ const MainTabNavigator = () => (
       options={{
         title: 'Explore',
         tabBarIcon: ({color}) => (
-          <FeatherIcon size={ICON_SIZE} color={color} name="headphones" />
+          <MaterialIcons size={ICON_SIZE} color={color} name="explore" />
         ),
       }}
       component={TopTabNavigator}
@@ -55,7 +55,7 @@ const MainTabNavigator = () => (
       component={LibraryStackNavigator}
       options={{
         tabBarIcon: ({color}) => (
-          <FeatherIcon size={ICON_SIZE} color={color} name="inbox" />
+          <MaterialIcons size={ICON_SIZE} color={color} name="favorite" />
         ),
       }}
     />

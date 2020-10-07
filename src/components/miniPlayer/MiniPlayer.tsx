@@ -7,7 +7,7 @@ import {
   STATE_PLAYING,
   STATE_BUFFERING,
 } from 'react-native-track-player';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
@@ -36,19 +36,19 @@ const MiniPlayer = () => {
         <TouchableOpacity
           onPress={() => togglePlayback()}
           style={tailwind('mr-2')}>
-          <FeatherIcon
+          <MaterialIcons
             size={30}
             name={
               playbackState === STATE_PLAYING ||
               playbackState === STATE_BUFFERING
                 ? 'pause'
-                : 'play'
+                : 'play-arrow'
             }
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={skipToNext} style={tailwind('mr-2')}>
-          <FeatherIcon size={30} name="skip-forward" />
+          <MaterialIcons size={30} name="skip-next" />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

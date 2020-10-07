@@ -7,7 +7,7 @@ import tailwind from 'tailwind-rn';
 import {toggleFav} from '../../redux/favoritesSlice';
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {ASSETS_URL} from '../../settings';
 
 interface Props {
@@ -49,14 +49,14 @@ const PieceTile = ({piece}: Props) => {
       <TouchableOpacity
         style={tailwind('mr-4')}
         onPress={() => dispatch(toggleFav(`piece-${id}`))}>
-        <FeatherIcon size={30} color="#42a5f5" name="heart" />
+        <MaterialIcons size={30} color="#42a5f5" name="favorite-outline" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
           const IsTrackInQueue = await TrackPlayer.getTrack(track.id);
           if (!IsTrackInQueue) TrackPlayer.add(track);
         }}>
-        <FeatherIcon size={30} color="#42a5f5" name="list" />
+        <MaterialIcons size={30} color="#42a5f5" name="playlist-add" />
       </TouchableOpacity>
     </View>
   );

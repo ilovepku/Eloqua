@@ -23,7 +23,7 @@ import {
   STATE_BUFFERING,
 } from 'react-native-track-player';
 import {useQuery} from '@apollo/client';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
@@ -58,10 +58,10 @@ const PlayerScreen = () => {
     <SafeAreaView style={tailwind('flex-1 bg-white px-4')}>
       <View style={tailwind('flex-row justify-between my-4')}>
         <TouchableOpacity onPress={navigation.goBack}>
-          <FeatherIcon name="chevron-down" size={30} />
+          <MaterialIcons name="keyboard-arrow-down" size={30} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Queue')}>
-          <FeatherIcon name="list" size={30} />
+          <MaterialIcons name="list" size={30} />
         </TouchableOpacity>
       </View>
 
@@ -94,27 +94,27 @@ const PlayerScreen = () => {
 
       <View style={tailwind('flex-row justify-between items-center')}>
         <TouchableOpacity onPress={skipToPrevious}>
-          <FeatherIcon size={40} name="skip-back" />
+          <MaterialIcons size={40} name="skip-previous" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => seekTo(position - 30)}>
-          <FeatherIcon size={40} name="rotate-ccw" />
+          <MaterialIcons size={40} name="fast-rewind" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => togglePlayback()}>
-          <FeatherIcon
+          <MaterialIcons
             size={60}
             name={
               playbackState === STATE_PLAYING ||
               playbackState === STATE_BUFFERING
                 ? 'pause'
-                : 'play'
+                : 'play-arrow'
             }
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => seekTo(position + 30)}>
-          <FeatherIcon size={40} name="rotate-cw" />
+          <MaterialIcons size={40} name="fast-forward" />
         </TouchableOpacity>
         <TouchableOpacity onPress={skipToNext}>
-          <FeatherIcon size={40} name="skip-forward" />
+          <MaterialIcons size={40} name="skip-next" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput} from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
 import PiecesList from '../piecesList/PiecesList';
 
@@ -13,7 +13,7 @@ const AllPiecesScreen = () => {
         style={tailwind(
           'h-10 mx-4 my-4 px-4 rounded-lg bg-gray-300 flex-row items-center',
         )}>
-        <FeatherIcon size={20} name="search" style={tailwind('mr-2')} />
+        <MaterialIcons size={20} name="search" style={tailwind('mr-2')} />
         <TextInput
           placeholder="Search Speech"
           onChangeText={setFilter}

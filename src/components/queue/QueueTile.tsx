@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import TrackPlayer, {Track} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   track: Track;
@@ -39,7 +39,7 @@ const PieceTile = ({track: {id, artwork, title, artist}, getQueue}: Props) => {
           await TrackPlayer.remove(id);
           getQueue();
         }}>
-        <FeatherIcon size={30} color="#42a5f5" name="trash" />
+        <MaterialIcons size={30} color="#42a5f5" name="delete" />
       </TouchableOpacity>
     </View>
   );
