@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator} from 'react-native';
+import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/client';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
+import store from './src/redux/store';
 import MainStackNavigator from './src/components/navigators/MainStackNavigator';
 import client from './src/graphql/client';
 import {PlayerContextProvider} from './src/contexts/PlayerContext';
@@ -38,19 +40,21 @@ const App = () => {
   }, []);
 
   return (
-    <ApolloProvider client={client}>
-      {isReady ? (
-        <PlayerContextProvider>
-          <NavigationContainer>
-            <MainStackNavigator />
-          </NavigationContainer>
-        </PlayerContextProvider>
-      ) : (
-        <View style={tailwind('flex-1 items-center justify-center')}>
-          <ActivityIndicator />
-        </View>
-      )}
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        {isReady ? (
+          <PlayerContextProvider>
+            <NavigationContainer>
+              <MainStackNavigator />
+            </NavigationContainer>
+          </PlayerContextProvider>
+        ) : (
+          <View style={tailwind('flex-1 items-center justify-center')}>
+            <ActivityIndicator />
+          </View>
+        )}
+      </ApolloProvider>
+    </Provider>
   );
 };
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {useDispatch} from 'react-redux';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
+import {toggleFav} from '../../redux/favoritesSlice';
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const PieceTile = ({piece}: Props) => {
+  const dispatch = useDispatch();
   const playerContext = usePlayerContext();
   const {id, name, person, date, audio_filename} = piece;
   const track = {
@@ -39,10 +42,14 @@ const PieceTile = ({piece}: Props) => {
           <Text style={tailwind('font-bold')} numberOfLines={1}>
             {name}
           </Text>
-          <Text style={tailwind('text-sm text-gray-600')}>
-            {person.name}, {date}
-          </Text>
+          <Text style={tailwind('text-sm text-gray-600')}>{person.name}</Text>
+          <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
         </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={tailwind('mr-4')}
+        onPress={() => dispatch(toggleFav(`piece-${id}`))}>
+        <FeatherIcon size={30} color="#42a5f5" name="heart" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
