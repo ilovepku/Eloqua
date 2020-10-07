@@ -37,13 +37,11 @@ const CategoriesStackNavigator = () => (
   </CategoriesStack.Navigator>
 );
 
-const TopTabNavigator = () => {
-  return (
-    <TopTab.Navigator>
-      <TopTab.Screen name="Search" component={AllPiecesScreen} />
-      <TopTab.Screen name="Categories" component={CategoriesStackNavigator} />
-    </TopTab.Navigator>
-  );
-};
+const TopTabNavigator = () => (
+  <TopTab.Navigator>
+    <TopTab.Screen name="Search" component={AllPiecesScreen} />
+    <TopTab.Screen name="Categories" component={CategoriesStackNavigator} />
+  </TopTab.Navigator>
+);
 
 export default TopTabNavigator;

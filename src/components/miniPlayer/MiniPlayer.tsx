@@ -17,27 +17,20 @@ const MiniPlayer = () => {
   const navigation = useNavigation();
   const playbackState = usePlaybackState();
 
-  // ternary operator?
-  if (!currentTrack) {
-    return null;
-  }
-
-  const {artwork, title} = currentTrack;
-
-  return (
+  return !currentTrack ? null : (
     <TouchableOpacity onPress={() => navigation.navigate('Player')}>
       <View
         style={tailwind(
           'h-16 mx-2 border-t border-gray-300 flex-row items-center',
         )}>
         <Image
-          source={{uri: artwork}}
+          source={{uri: currentTrack.artwork}}
           style={tailwind('h-12 w-12 mr-2 rounded-lg')}
         />
         <Text
           numberOfLines={1}
           style={tailwind('flex-1 mr-2 text-lg font-bold')}>
-          {title}
+          {currentTrack.title}
         </Text>
 
         <TouchableOpacity
