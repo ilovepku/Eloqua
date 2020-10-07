@@ -10,10 +10,10 @@ import PieceTile from './PieceTile';
 
 interface Props {
   filter: string;
-  favMap?: string[];
+  favArr?: string[];
 }
 
-const PiecesList = ({filter, favMap}: Props) => {
+const PiecesList = ({filter, favArr}: Props) => {
   const {person_id_filter, category_id_filter} = (useRoute().params ?? {}) as {
     person_id_filter: string;
     category_id_filter: string;
@@ -36,9 +36,9 @@ const PiecesList = ({filter, favMap}: Props) => {
           person.name.toLowerCase().includes(filter.toLowerCase()))),
   );
 
-  if (favMap) {
+  if (favArr) {
     filteredPieces = filteredPieces.filter((item: AllPiecesQuery_piece) =>
-      favMap?.includes(`piece-${item.id}`),
+      favArr?.includes(`piece-${item.id}`),
     );
   }
 

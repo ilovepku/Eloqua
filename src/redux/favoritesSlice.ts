@@ -1,11 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type FavoritesState = {
-  favMap: string[];
+  favArr: string[];
 };
 
 let initialState: FavoritesState = {
-  favMap: [],
+  favArr: [],
 };
 
 const favoritesSlice = createSlice({
@@ -15,16 +15,16 @@ const favoritesSlice = createSlice({
     toggleFav(state, action: PayloadAction<string>) {
       const pieceId = action.payload;
 
-      const index = state.favMap.indexOf(pieceId);
+      const index = state.favArr.indexOf(pieceId);
 
-      state.favMap =
+      state.favArr =
         index === -1
           ? [
-              ...state.favMap.slice(0, index),
+              ...state.favArr.slice(0, index),
               pieceId,
-              ...state.favMap.slice(index),
+              ...state.favArr.slice(index),
             ]
-          : [...state.favMap.slice(0, index), ...state.favMap.slice(index + 1)];
+          : [...state.favArr.slice(0, index), ...state.favArr.slice(index + 1)];
     },
   },
 });

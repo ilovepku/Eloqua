@@ -16,7 +16,7 @@ interface Props {
 }
 
 const PieceTile = ({piece}: Props) => {
-  const {favMap} = useSelector((state: RootState) => state.favorites);
+  const {favArr} = useSelector((state: RootState) => state.favorites);
   const dispatch = useDispatch();
   const playerContext = usePlayerContext();
   const {id, name, person, date, audio_filename} = piece;
@@ -56,7 +56,7 @@ const PieceTile = ({piece}: Props) => {
           size={30}
           color="#42a5f5"
           name={
-            favMap.includes(`piece-${id}`) ? 'favorite' : 'favorite-outline'
+            favArr.includes(`piece-${id}`) ? 'favorite' : 'favorite-outline'
           }
         />
       </TouchableOpacity>
