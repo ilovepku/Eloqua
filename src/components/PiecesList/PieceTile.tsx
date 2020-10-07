@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
+import {RootState} from '../../redux/rootReducer';
 import {toggleFav} from '../../redux/favoritesSlice';
 import {AllPiecesQuery_piece} from '../../types/graphql';
 import {usePlayerContext} from '../../contexts/PlayerContext';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const PieceTile = ({piece}: Props) => {
+  const {favMap} = useSelector((state: RootState) => state.favorites);
   const dispatch = useDispatch();
   const playerContext = usePlayerContext();
   const {id, name, person, date, audio_filename} = piece;
@@ -25,6 +27,7 @@ const PieceTile = ({piece}: Props) => {
     artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
     url: `${ASSETS_URL}/${audio_filename}?alt=media`,
   };
+
   return (
     <View style={tailwind('flex-row justify-between items-center px-4')}>
       <TouchableOpacity
@@ -49,14 +52,20 @@ const PieceTile = ({piece}: Props) => {
       <TouchableOpacity
         style={tailwind('mr-4')}
         onPress={() => dispatch(toggleFav(`piece-${id}`))}>
-        <MaterialIcons size={30} color="#42a5f5" name="favorite-outline" />
+        <MaterialIcons
+          size={30}
+          color="#42a5f5"
+          name={
+            favMap.includes(`piece-${id}`) ? 'favorite' : 'favorite-outline'
+          }
+        />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
           const IsTrackInQueue = await TrackPlayer.getTrack(track.id);
           if (!IsTrackInQueue) TrackPlayer.add(track);
         }}>
-        <MaterialIcons size={30} color="#42a5f5" name="playlist-add" />
+        <MaterialIcons size={30} color="#42a5f5" name={'playlist-add'} />
       </TouchableOpacity>
     </View>
   );
