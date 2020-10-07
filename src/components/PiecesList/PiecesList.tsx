@@ -37,9 +37,8 @@ const PiecesList = ({filter, favMap}: Props) => {
   );
 
   if (favMap) {
-    filteredPieces = filteredPieces.filter(
-      (item: AllPiecesQuery_piece) =>
-        favMap?.indexOf(`piece-${item.id}`) !== -1,
+    filteredPieces = filteredPieces.filter((item: AllPiecesQuery_piece) =>
+      favMap?.includes(`piece-${item.id}`),
     );
   }
 
