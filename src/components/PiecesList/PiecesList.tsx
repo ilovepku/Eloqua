@@ -66,13 +66,16 @@ const PiecesList = ({filter, favArr}: Props) => {
           {/* TODO: theme color */}
         </View>
       }
-      renderItem={({item: {id, name, person, date, audio_filename}}) => (
+      renderItem={({
+        item: {id, name, person, date, duration, audio_filename},
+      }) => (
         <PieceTile
           track={{
             id: `piece-${id}`,
             title: name,
             artist: person.name,
             artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
+            duration,
             url: `${ASSETS_URL}/${audio_filename}?alt=media`,
           }}
           date={date}

@@ -13,6 +13,7 @@ export interface AllPiecesQuery_piece {
     img_filename: string;
   };
   date: string;
+  duration: number;
   audio_filename: string;
   piece_categories: {
     category_id: number;

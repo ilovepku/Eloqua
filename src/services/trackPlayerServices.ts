@@ -17,5 +17,9 @@ module.exports = async function () {
     await TrackPlayer.seekTo(position - interval);
   });
 
+  TrackPlayer.addEventListener('remote-seek', async ({position}) => {
+    await TrackPlayer.seekTo(position);
+  });
+
   TrackPlayer.addEventListener('remote-next', () => TrackPlayer.skipToNext());
 };
