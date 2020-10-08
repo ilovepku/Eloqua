@@ -6,7 +6,8 @@ import tailwind from 'tailwind-rn';
 
 import allPiecesQuery from '../../graphql/query/allPiecesQuery';
 import {AllPiecesQuery_piece} from '../../types/graphql';
-import PieceTile from './PieceTile';
+import PieceTile from '../pieceTile/PieceTile';
+import {ASSETS_URL} from '../../settings';
 
 interface Props {
   filter: string;
@@ -65,7 +66,18 @@ const PiecesList = ({filter, favArr}: Props) => {
           {/* TODO: theme color */}
         </View>
       }
-      renderItem={({item}) => <PieceTile piece={item} />}
+      renderItem={({item: {id, name, person, date, audio_filename}}) => (
+        <PieceTile
+          track={{
+            id: `piece-${id}`,
+            title: name,
+            artist: person.name,
+            artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
+            url: `${ASSETS_URL}/${audio_filename}?alt=media`,
+          }}
+          date={date}
+        />
+      )}
       keyExtractor={(item) => `piece-${item.id}`}></FlatList>
   );
 };

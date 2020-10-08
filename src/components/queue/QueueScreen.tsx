@@ -1,28 +1,30 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
-import QueueTile from './QueueTile';
+import {RootState} from '../../redux/rootReducer';
+import PieceTile from '../pieceTile/PieceTile';
 
 const QueueScreen = () => {
   const [queue, setQueue] = useState<TrackPlayer.Track[]>([]);
+  const {
+    queue: {pieceIdQueueArr},
+  } = useSelector((state: RootState) => state);
 
   const navigation = useNavigation();
 
-  const getQueue = async () => {
-    const tracks = await TrackPlayer.getQueue();
-
-    setQueue(tracks);
+  const updateQueueState = async () => {
+    const queuedTracks = await TrackPlayer.getQueue();
+    setQueue(queuedTracks);
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      getQueue();
-    }, []),
-  );
+  useEffect(() => {
+    updateQueueState();
+  }, [pieceIdQueueArr]);
 
   return (
     <SafeAreaView style={tailwind('flex-1 bg-white')}>
@@ -38,7 +40,7 @@ const QueueScreen = () => {
       </View>
       <ScrollView>
         {queue.map((track) => (
-          <QueueTile key={track.id} track={track} getQueue={getQueue} />
+          <PieceTile key={`piece-${track.id}`} track={track} />
         ))}
       </ScrollView>
     </SafeAreaView>

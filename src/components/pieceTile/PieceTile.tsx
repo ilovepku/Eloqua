@@ -1,32 +1,29 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer, {Track} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
 import {RootState} from '../../redux/rootReducer';
 import {toggleFav} from '../../redux/favoritesSlice';
-import {AllPiecesQuery_piece} from '../../types/graphql';
+import {updatePieceIdQueueArr} from '../../redux/queueSlice';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {ASSETS_URL} from '../../settings';
 
 interface Props {
-  piece: AllPiecesQuery_piece;
+  track: Track;
+  date?: String;
 }
 
-const PieceTile = ({piece}: Props) => {
-  const {favArr} = useSelector((state: RootState) => state.favorites);
+const PieceTile = ({track, date}: Props) => {
+  const {
+    favorites: {favArr},
+    queue: {pieceIdQueueArr},
+  } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const playerContext = usePlayerContext();
-  const {id, name, person, date, audio_filename} = piece;
-  const track = {
-    id: `piece-${id}`,
-    title: name,
-    artist: person.name,
-    artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
-    url: `${ASSETS_URL}/${audio_filename}?alt=media`,
-  };
+
+  const {id, title, artist, artwork} = track;
 
   return (
     <View style={tailwind('flex-row justify-between items-center px-4')}>
@@ -37,35 +34,43 @@ const PieceTile = ({piece}: Props) => {
         }}>
         <Image
           source={{
-            uri: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
+            uri: artwork,
           }}
           style={tailwind('h-12 w-12 rounded-lg mr-4')}
         />
         <View style={tailwind('flex-1 mr-4')}>
           <Text style={tailwind('font-bold')} numberOfLines={1}>
-            {name}
+            {title}
           </Text>
-          <Text style={tailwind('text-sm text-gray-600')}>{person.name}</Text>
+          <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
           <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={tailwind('mr-4')}
-        onPress={() => dispatch(toggleFav(`piece-${id}`))}>
+        onPress={() => dispatch(toggleFav(id))}>
         <MaterialIcons
           size={30}
           color="#42a5f5"
-          name={
-            favArr.includes(`piece-${id}`) ? 'favorite' : 'favorite-outline'
-          }
+          name={favArr.includes(id) ? 'favorite' : 'favorite-outline'}
         />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
-          const IsTrackInQueue = await TrackPlayer.getTrack(track.id);
-          if (!IsTrackInQueue) TrackPlayer.add(track);
+          pieceIdQueueArr.includes(id)
+            ? await TrackPlayer.remove(id)
+            : await TrackPlayer.add(track);
+
+          const queuedTracks = await TrackPlayer.getQueue();
+          dispatch(updatePieceIdQueueArr(queuedTracks));
         }}>
-        <MaterialIcons size={30} color="#42a5f5" name={'playlist-add'} />
+        <MaterialIcons
+          size={30}
+          color="#42a5f5"
+          name={
+            pieceIdQueueArr.includes(id) ? 'playlist-add-check' : 'playlist-add'
+          }
+        />
       </TouchableOpacity>
     </View>
   );
