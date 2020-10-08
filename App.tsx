@@ -2,12 +2,13 @@ import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/client';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
-import store from './src/redux/store';
+import {store, persistor} from './src/redux/store';
 import MainStackNavigator from './src/components/navigators/MainStackNavigator';
 import client from './src/graphql/client';
 import {PlayerContextProvider} from './src/contexts/PlayerContext';
@@ -41,19 +42,27 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <ApolloProvider client={client}>
-        {isReady ? (
-          <PlayerContextProvider>
-            <NavigationContainer>
-              <MainStackNavigator />
-            </NavigationContainer>
-          </PlayerContextProvider>
-        ) : (
+      <PersistGate
+        loading={
           <View style={tailwind('flex-1 items-center justify-center')}>
             <ActivityIndicator />
           </View>
-        )}
-      </ApolloProvider>
+        }
+        persistor={persistor}>
+        <ApolloProvider client={client}>
+          {isReady ? (
+            <PlayerContextProvider>
+              <NavigationContainer>
+                <MainStackNavigator />
+              </NavigationContainer>
+            </PlayerContextProvider>
+          ) : (
+            <View style={tailwind('flex-1 items-center justify-center')}>
+              <ActivityIndicator />
+            </View>
+          )}
+        </ApolloProvider>
+      </PersistGate>
     </Provider>
   );
 };

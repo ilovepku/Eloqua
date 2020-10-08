@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.2",
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/slider": "^3.0.3",
     "@react-navigation/bottom-tabs": "^5.9.1",
@@ -30,6 +31,7 @@
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.1",
+    "redux-persist": "^6.0.0",
     "tailwind-rn": "^2.0.0"
   },
   "devDependencies": {
