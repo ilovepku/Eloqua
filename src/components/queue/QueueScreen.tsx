@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import TrackPlayer from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 

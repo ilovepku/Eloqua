@@ -43,7 +43,9 @@ const PieceTile = ({track, date}: Props) => {
             {title}
           </Text>
           <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
-          <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
+          {date && (
+            <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
+          )}
         </View>
       </TouchableOpacity>
       <TouchableOpacity
