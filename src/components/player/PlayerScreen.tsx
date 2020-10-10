@@ -23,6 +23,7 @@ import {
   STATE_BUFFERING,
 } from 'react-native-track-player';
 import {useQuery} from '@apollo/client';
+import HTML from 'react-native-render-html';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
 
@@ -77,14 +78,14 @@ const PlayerScreen = () => {
 
       <ScrollView
         contentContainerStyle={tailwind(
-          'flex-grow items-center justify-center',
+          'px-2 flex-grow items-center justify-center',
         )}>
         {error ? (
           <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
         ) : loading ? (
           <ActivityIndicator size="large" color="#42a5f5" />
         ) : (
-          <Text>{data && data.pieces_by_pk.text}</Text>
+          <HTML html={data && data.pieces_by_pk.text} />
         )}
       </ScrollView>
 
