@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-  Dimensions,
   TouchableOpacity,
   View,
   Text,
   ScrollView,
   ActivityIndicator,
-  StyleSheet,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -30,8 +28,6 @@ import tailwind from 'tailwind-rn';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import pieceQuery from '../../graphql/query/pieceQuery';
 import ProgressSlider from './ProgressSlider';
-
-const {width} = Dimensions.get('window');
 
 const PlayerScreen = () => {
   const {
@@ -121,12 +117,5 @@ const PlayerScreen = () => {
     </SafeAreaView>
   );
 };
-
-const s = StyleSheet.create({
-  img: {
-    width: width - 2 * 24,
-    height: width - 2 * 24,
-  },
-});
 
 export default PlayerScreen;

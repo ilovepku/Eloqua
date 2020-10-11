@@ -81,7 +81,8 @@ const PiecesList = ({filter, favArr}: Props) => {
           date={date}
         />
       )}
-      keyExtractor={(item) => `piece-${item.id}`}></FlatList>
+      keyExtractor={(item) => `piece-${item.id}`}
+    />
   );
 };
 

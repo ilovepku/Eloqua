@@ -10,7 +10,7 @@ import {buildTime} from '../../utils/dateTimeHelper';
 
 const ProgressSlider = () => {
   const {position, duration} = useTrackPlayerProgress();
-  const playerContext = usePlayerContext();
+  const {seekTo} = usePlayerContext();
 
   const totalTime = () => {
     return buildTime(duration - position);
@@ -28,7 +28,7 @@ const ProgressSlider = () => {
         maximumValue={duration}
         value={position}
         onSlidingComplete={(value) => {
-          playerContext.seekTo(value);
+          seekTo(value);
         }}
         // minimumTrackTintColor="#42a5f5"
         // maximumTrackTintColor="#42a5f5"

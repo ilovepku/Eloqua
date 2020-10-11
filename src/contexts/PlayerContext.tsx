@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useState,
-  useEffect,
   useContext,
   PropsWithChildren,
 } from 'react';
@@ -32,7 +31,6 @@ export const PlayerContext = createContext<PlayerContextType>({
 });
 
 export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
-  const [playerState, setPlayerState] = useState(null);
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
 
   const playbackState = usePlaybackState();
@@ -48,18 +46,6 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
       }
     },
   );
-
-  useEffect(() => {
-    const listener = TrackPlayer.addEventListener(
-      'playback-state',
-      ({state}) => {
-        setPlayerState(state);
-      },
-    );
-    return () => {
-      listener.remove();
-    };
-  }, []);
 
   const playTrack = async (track: Track) => {
     await TrackPlayer.reset();

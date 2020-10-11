@@ -21,7 +21,7 @@ const PieceTile = ({track, date}: Props) => {
     queue: {pieceIdQueueArr},
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const playerContext = usePlayerContext();
+  const {playTrack} = usePlayerContext();
 
   const {id, title, artist, artwork} = track;
 
@@ -30,7 +30,7 @@ const PieceTile = ({track, date}: Props) => {
       <TouchableOpacity
         style={tailwind('flex-1 h-20 flex-row items-center')}
         onPress={() => {
-          playerContext.playTrack(track);
+          playTrack(track);
         }}>
         <Image
           source={{
