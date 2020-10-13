@@ -4,84 +4,101 @@ import React, {
   useContext,
   PropsWithChildren,
 } from 'react';
-import TrackPlayer, {
+import {
   Track,
+  STATE_PAUSED,
   // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
   usePlaybackState,
+  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
+  useTrackPlayerProgress,
   // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerEvents'
   useTrackPlayerEvents,
+  getTrack,
+  reset,
+  add,
+  play,
+  pause,
+  seekTo,
+  skipToPrevious,
+  skipToNext,
 } from 'react-native-track-player';
 
 interface PlayerContextType {
   currentTrack: Track | null;
+  playbackState: string;
+  duration: number;
+  position: number;
   playTrack: (track: Track) => void;
   togglePlayback: () => void;
-  seekTo: (amount: number) => void;
-  skipToPrevious: () => void;
-  skipToNext: () => void;
+  seek: (amount: number) => void;
+  skipPrevious: () => void;
+  skipNext: () => void;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
   currentTrack: null,
+  playbackState: '',
+  duration: 0,
+  position: 0,
   playTrack: () => null,
   togglePlayback: () => null,
-  seekTo: () => null,
-  skipToPrevious: () => null,
-  skipToNext: () => null,
+  seek: () => null,
+  skipPrevious: () => null,
+  skipNext: () => null,
 });
 
 export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
 
   const playbackState = usePlaybackState();
+  const {duration, position} = useTrackPlayerProgress();
 
   useTrackPlayerEvents(
     ['playback-track-changed'],
-    // temp type for playback-track-changed event
-    async ({nextTrack, type}: {nextTrack: string; type: string}) => {
-      // @ts-ignore: temp fix for error - Property 'TrackPlayerEvents' does not exist on type 'typeof RNTrackPlayer'.
-      if (type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
-        const track = await TrackPlayer.getTrack(nextTrack);
-        setCurrentTrack(track);
-      }
+    async ({track, nextTrack}: {track: string; nextTrack: string}) => {
+      // keep previous track if queue ended with no next track
+      setCurrentTrack(await getTrack(nextTrack || track));
     },
   );
 
   const playTrack = async (track: Track) => {
-    await TrackPlayer.reset();
-    await TrackPlayer.add(track);
-    await TrackPlayer.play();
+    await reset();
+    await add(track);
+    await play();
   };
 
   const togglePlayback = async () => {
     if (currentTrack) {
-      if (playbackState === TrackPlayer.STATE_PAUSED) {
-        await TrackPlayer.play();
+      if (playbackState === STATE_PAUSED) {
+        await play();
       } else {
-        await TrackPlayer.pause();
+        await pause();
       }
     }
   };
 
-  const seekTo = async (amount: number) => {
-    await TrackPlayer.seekTo(amount);
+  const seek = async (amount: number) => {
+    await seekTo(amount);
   };
 
-  const skipToPrevious = async () => {
-    await TrackPlayer.skipToPrevious();
+  const skipPrevious = async () => {
+    await skipToPrevious();
   };
 
-  const skipToNext = async () => {
-    await TrackPlayer.skipToNext();
+  const skipNext = async () => {
+    await skipToNext();
   };
 
   const value = {
     currentTrack,
+    playbackState,
+    duration,
+    position,
     playTrack,
     togglePlayback,
-    seekTo,
-    skipToPrevious,
-    skipToNext,
+    seek,
+    skipPrevious,
+    skipNext,
   };
 
   return (

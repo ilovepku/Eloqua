@@ -1,16 +1,13 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
-// @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
-import {useTrackPlayerProgress} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import {buildTime} from '../../utils/dateTimeHelper';
 
 const ProgressSlider = () => {
-  const {position, duration} = useTrackPlayerProgress();
-  const {seekTo} = usePlayerContext();
+  const {duration, position, seek} = usePlayerContext();
 
   const totalTime = () => {
     return buildTime(duration - position);
@@ -27,9 +24,7 @@ const ProgressSlider = () => {
         minimumValue={0}
         maximumValue={duration}
         value={position}
-        onSlidingComplete={(value) => {
-          seekTo(value);
-        }}
+        onSlidingComplete={seek}
         // minimumTrackTintColor="#42a5f5"
         // maximumTrackTintColor="#42a5f5"
         // TODO: handle color

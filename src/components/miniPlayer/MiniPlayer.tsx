@@ -1,21 +1,20 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {
-  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
-  usePlaybackState,
-  STATE_PLAYING,
-  STATE_BUFFERING,
-} from 'react-native-track-player';
+import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 
 const MiniPlayer = () => {
-  const {currentTrack, togglePlayback, skipToNext} = usePlayerContext();
+  const {
+    currentTrack,
+    playbackState,
+    togglePlayback,
+    skipNext,
+  } = usePlayerContext();
   const navigation = useNavigation();
-  const playbackState = usePlaybackState();
 
   return !currentTrack ? null : (
     <TouchableOpacity onPress={() => navigation.navigate('Player')}>
@@ -33,9 +32,7 @@ const MiniPlayer = () => {
           {currentTrack.title}
         </Text>
 
-        <TouchableOpacity
-          onPress={() => togglePlayback()}
-          style={tailwind('mr-2')}>
+        <TouchableOpacity onPress={togglePlayback} style={tailwind('mr-2')}>
           <MaterialIcons
             size={30}
             name={
@@ -47,7 +44,7 @@ const MiniPlayer = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={skipToNext} style={tailwind('mr-2')}>
+        <TouchableOpacity onPress={skipNext} style={tailwind('mr-2')}>
           <MaterialIcons size={30} name="skip-next" />
         </TouchableOpacity>
       </View>

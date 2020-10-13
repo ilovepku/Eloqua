@@ -8,18 +8,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {
-  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
-  usePlaybackState,
-  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
-  useTrackPlayerProgress,
-  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerEvent'
-  useTrackPlayerEvents,
-  // @ts-ignore: temp fix for error - no exported member 'TrackPlayerEvents'
-  TrackPlayerEvents,
-  STATE_PLAYING,
-  STATE_BUFFERING,
-} from 'react-native-track-player';
+import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
 import {useQuery} from '@apollo/client';
 import HTML from 'react-native-render-html';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -32,18 +21,14 @@ import ProgressSlider from './ProgressSlider';
 const PlayerScreen = () => {
   const {
     currentTrack,
+    playbackState,
+    position,
     togglePlayback,
-    seekTo,
-    skipToPrevious,
-    skipToNext,
+    seek,
+    skipPrevious,
+    skipNext,
   } = usePlayerContext();
   const navigation = useNavigation();
-  const playbackState = usePlaybackState();
-  const {position} = useTrackPlayerProgress();
-
-  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_QUEUE_ENDED], () => {
-    navigation.goBack();
-  });
 
   const {data, loading, error} = useQuery(pieceQuery, {
     variables: {
@@ -90,13 +75,13 @@ const PlayerScreen = () => {
       </View>
 
       <View style={tailwind('flex-row justify-between items-center')}>
-        <TouchableOpacity onPress={skipToPrevious}>
+        <TouchableOpacity onPress={skipPrevious}>
           <MaterialIcons size={40} name="skip-previous" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => seekTo(position - 30)}>
+        <TouchableOpacity onPress={() => seek(position - 30)}>
           <MaterialIcons size={40} name="fast-rewind" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => togglePlayback()}>
+        <TouchableOpacity onPress={togglePlayback}>
           <MaterialIcons
             size={60}
             name={
@@ -107,10 +92,10 @@ const PlayerScreen = () => {
             }
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => seekTo(position + 30)}>
+        <TouchableOpacity onPress={() => seek(position + 30)}>
           <MaterialIcons size={40} name="fast-forward" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={skipToNext}>
+        <TouchableOpacity onPress={skipNext}>
           <MaterialIcons size={40} name="skip-next" />
         </TouchableOpacity>
       </View>
