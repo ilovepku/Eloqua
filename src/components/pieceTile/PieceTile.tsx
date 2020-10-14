@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import TrackPlayer, {Track} from 'react-native-track-player';
+import {Track} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {RootState} from '../../redux/rootReducer';
 import {toggleFav} from '../../redux/favoritesSlice';
-import {updatePieceIdQueueArr} from '../../redux/queueSlice';
 import {usePlayerContext} from '../../contexts/PlayerContext';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   track: Track;
@@ -16,12 +15,9 @@ interface Props {
 }
 
 export default function PieceTile({track, date}: Props) {
-  const {
-    favorites: {favArr},
-    queue: {pieceIdQueueArr},
-  } = useSelector((state: RootState) => state);
+  const {favArr} = useSelector((state: RootState) => state.favorites);
   const dispatch = useDispatch();
-  const {playTrack} = usePlayerContext();
+  const {playTrack, isTrackInQueue, toggleQueued} = usePlayerContext();
 
   const {id, title, artist, artwork} = track;
 
@@ -57,21 +53,11 @@ export default function PieceTile({track, date}: Props) {
           name={favArr.includes(id) ? 'favorite' : 'favorite-outline'}
         />
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={async () => {
-          pieceIdQueueArr.includes(id)
-            ? await TrackPlayer.remove(id)
-            : await TrackPlayer.add(track);
-
-          const queuedTracks = await TrackPlayer.getQueue();
-          dispatch(updatePieceIdQueueArr(queuedTracks));
-        }}>
+      <TouchableOpacity onPress={() => toggleQueued(id, track)}>
         <MaterialIcons
           size={30}
           color="#42a5f5"
-          name={
-            pieceIdQueueArr.includes(id) ? 'playlist-add-check' : 'playlist-add'
-          }
+          name={isTrackInQueue(id) ? 'playlist-add-check' : 'playlist-add'}
         />
       </TouchableOpacity>
     </View>

@@ -1,9 +1,11 @@
 import React, {
   createContext,
   useState,
+  useEffect,
   useContext,
   PropsWithChildren,
 } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   Track,
   STATE_PAUSED,
@@ -21,7 +23,12 @@ import {
   seekTo,
   skipToPrevious,
   skipToNext,
+  remove,
+  getQueue,
 } from 'react-native-track-player';
+
+import {RootState} from '../redux/rootReducer';
+import {updateQueueArr} from '../redux/queueSlice';
 
 interface PlayerContextType {
   currentTrack: Track | null;
@@ -33,6 +40,8 @@ interface PlayerContextType {
   seek: (amount: number) => void;
   skipPrevious: () => void;
   skipNext: () => void;
+  isTrackInQueue: (id: string) => boolean;
+  toggleQueued: (id: string, track: Track) => void;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
@@ -45,10 +54,27 @@ export const PlayerContext = createContext<PlayerContextType>({
   seek: () => null,
   skipPrevious: () => null,
   skipNext: () => null,
+  isTrackInQueue: () => false,
+  toggleQueued: () => null,
 });
 
 export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+
+  const {
+    queue: {queueArr},
+  } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+
+  // didMount: if player queue is empty, attempt to rehydrate with persisted queueArr
+  useEffect(() => {
+    (async () => {
+      const queuedTracks = await getQueue();
+      if (!queuedTracks.length) {
+        add([...queueArr]);
+      }
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const playbackState = usePlaybackState();
   const {duration, position} = useTrackPlayerProgress();
@@ -66,6 +92,7 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     await reset();
     await add(track);
     play();
+    updateQueue();
   };
 
   const togglePlayback = () => {
@@ -90,6 +117,20 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     skipToNext();
   };
 
+  const isTrackInQueue = (id: string) => {
+    return queueArr.some((track) => track.id === id);
+  };
+
+  const updateQueue = async () => {
+    const queuedTracks = await getQueue();
+    dispatch(updateQueueArr(queuedTracks));
+  };
+
+  const toggleQueued = async (id: string, track: Track) => {
+    isTrackInQueue(id) ? await remove(id) : await add(track);
+    updateQueue();
+  };
+
   const value = {
     currentTrack,
     playbackState,
@@ -100,6 +141,8 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     seek,
     skipPrevious,
     skipNext,
+    isTrackInQueue,
+    toggleQueued,
   };
 
   return (

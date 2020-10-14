@@ -11,7 +11,7 @@ import PieceTile from '../pieceTile/PieceTile';
 export default function QueueScreen() {
   const [queue, setQueue] = useState<TrackPlayer.Track[]>([]);
   const {
-    queue: {pieceIdQueueArr},
+    queue: {queueArr},
   } = useSelector((state: RootState) => state);
 
   const navigation = useNavigation();
@@ -23,7 +23,7 @@ export default function QueueScreen() {
 
   useEffect(() => {
     updateQueueState();
-  }, [pieceIdQueueArr]);
+  }, [queueArr]);
 
   return (
     <View style={tailwind('flex-1 bg-white')}>

@@ -2,24 +2,23 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Track} from 'react-native-track-player';
 
 type QueueState = {
-  pieceIdQueueArr: string[];
+  queueArr: Track[];
 };
 
 let initialState: QueueState = {
-  pieceIdQueueArr: [],
+  queueArr: [],
 };
 
 const queueSlice = createSlice({
   name: 'queue',
   initialState,
   reducers: {
-    updatePieceIdQueueArr(state, action: PayloadAction<Track[]>) {
-      // action.payload : <Array<Object as described in Track Object>>
-      state.pieceIdQueueArr = action.payload.map((track) => track.id);
+    updateQueueArr(state, action: PayloadAction<Track[]>) {
+      state.queueArr = action.payload;
     },
   },
 });
 
-export const {updatePieceIdQueueArr} = queueSlice.actions;
+export const {updateQueueArr} = queueSlice.actions;
 
 export default queueSlice.reducer;
