@@ -10,7 +10,7 @@ import TopTabNavigator from './TopTabNavigator';
 import LibraryScreen from '../library/LibraryScreen';
 import MiniPlayer from '../miniPlayer/MiniPlayer';
 
-const ICON_SIZE = 24;
+const BOTTOM_TAB_BAR_ICON_SIZE = 24;
 
 const LibraryStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -44,21 +44,28 @@ export default function MainTabNavigator() {
       }}>
       {/* TODO: theme color */}
       <MainTab.Screen
-        name="AllPieces"
+        name="Explore"
+        component={TopTabNavigator}
         options={{
-          title: 'Explore',
           tabBarIcon: ({color}) => (
-            <MaterialIcons size={ICON_SIZE} color={color} name="explore" />
+            <MaterialIcons
+              size={BOTTOM_TAB_BAR_ICON_SIZE}
+              color={color}
+              name="explore"
+            />
           ),
         }}
-        component={TopTabNavigator}
       />
       <MainTab.Screen
         name="Library"
         component={LibraryStackNavigator}
         options={{
           tabBarIcon: ({color}) => (
-            <MaterialIcons size={ICON_SIZE} color={color} name="favorite" />
+            <MaterialIcons
+              size={BOTTOM_TAB_BAR_ICON_SIZE}
+              color={color}
+              name="favorite"
+            />
           ),
         }}
       />
