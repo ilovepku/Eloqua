@@ -15,7 +15,7 @@ interface Props {
   date?: String;
 }
 
-const PieceTile = ({track, date}: Props) => {
+export default function PieceTile({track, date}: Props) {
   const {
     favorites: {favArr},
     queue: {pieceIdQueueArr},
@@ -76,6 +76,4 @@ const PieceTile = ({track, date}: Props) => {
       </TouchableOpacity>
     </View>
   );
-};
-
-export default PieceTile;
+}

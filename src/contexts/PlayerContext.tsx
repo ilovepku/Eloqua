@@ -57,36 +57,37 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     ['playback-track-changed'],
     async ({track, nextTrack}: {track: string; nextTrack: string}) => {
       // keep previous track if queue ended with no next track
-      setCurrentTrack(await getTrack(nextTrack || track));
+      const newTrack = await getTrack(nextTrack || track);
+      setCurrentTrack(newTrack);
     },
   );
 
   const playTrack = async (track: Track) => {
     await reset();
     await add(track);
-    await play();
+    play();
   };
 
-  const togglePlayback = async () => {
+  const togglePlayback = () => {
     if (currentTrack) {
       if (playbackState === STATE_PAUSED) {
-        await play();
+        play();
       } else {
-        await pause();
+        pause();
       }
     }
   };
 
-  const seek = async (amount: number) => {
-    await seekTo(amount);
+  const seek = (amount: number) => {
+    seekTo(amount);
   };
 
-  const skipPrevious = async () => {
-    await skipToPrevious();
+  const skipPrevious = () => {
+    skipToPrevious();
   };
 
-  const skipNext = async () => {
-    await skipToNext();
+  const skipNext = () => {
+    skipToNext();
   };
 
   const value = {

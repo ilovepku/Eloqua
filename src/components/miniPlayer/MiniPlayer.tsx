@@ -7,7 +7,7 @@ import tailwind from 'tailwind-rn';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 
-const MiniPlayer = () => {
+export default function MiniPlayer() {
   const {
     currentTrack,
     playbackState,
@@ -50,6 +50,4 @@ const MiniPlayer = () => {
       </View>
     </TouchableOpacity>
   );
-};
-
-export default MiniPlayer;
+}

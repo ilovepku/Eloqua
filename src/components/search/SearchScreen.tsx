@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {View, TextInput} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import PiecesList from '../piecesList/PiecesList';
 
-const AllPiecesScreen = () => {
+export default function SearchScreen() {
   const [filter, setFilter] = useState('');
 
   return (
@@ -15,7 +16,7 @@ const AllPiecesScreen = () => {
         )}>
         <MaterialIcons size={20} name="search" style={tailwind('mr-2')} />
         <TextInput
-          placeholder="Search Speech"
+          placeholder="Type here to search"
           onChangeText={setFilter}
           autoCorrect={false}
           value={filter}
@@ -26,6 +27,4 @@ const AllPiecesScreen = () => {
       <PiecesList filter={filter} />
     </View>
   );
-};
-
-export default AllPiecesScreen;
+}

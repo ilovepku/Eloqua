@@ -1,25 +1,33 @@
-import TrackPlayer from 'react-native-track-player';
+import {
+  addEventListener,
+  play,
+  pause,
+  getPosition,
+  seekTo,
+  skipToPrevious,
+  skipToNext,
+} from 'react-native-track-player';
 
 module.exports = async function () {
-  TrackPlayer.addEventListener('remote-play', () => TrackPlayer.play());
+  addEventListener('remote-play', () => play());
 
-  TrackPlayer.addEventListener('remote-pause', () => TrackPlayer.pause());
+  addEventListener('remote-pause', () => pause());
 
-  TrackPlayer.addEventListener('remote-stop', () => TrackPlayer.destroy());
-
-  TrackPlayer.addEventListener('remote-jump-forward', async ({interval}) => {
-    const position = await TrackPlayer.getPosition();
-    await TrackPlayer.seekTo(position + interval);
+  addEventListener('remote-jump-forward', async ({interval}) => {
+    const position = await getPosition();
+    seekTo(position + interval);
   });
 
-  TrackPlayer.addEventListener('remote-jump-backward', async ({interval}) => {
-    const position = await TrackPlayer.getPosition();
-    await TrackPlayer.seekTo(position - interval);
+  addEventListener('remote-jump-backward', async ({interval}) => {
+    const position = await getPosition();
+    seekTo(position - interval);
   });
 
-  TrackPlayer.addEventListener('remote-seek', async ({position}) => {
-    await TrackPlayer.seekTo(position);
-  });
+  addEventListener('remote-previous', () => skipToPrevious());
 
-  TrackPlayer.addEventListener('remote-next', () => TrackPlayer.skipToNext());
+  addEventListener('remote-next', () => skipToNext());
+
+  addEventListener('remote-seek', ({position}) => {
+    seekTo(position);
+  });
 };

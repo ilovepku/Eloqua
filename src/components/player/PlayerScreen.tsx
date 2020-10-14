@@ -1,24 +1,19 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {TouchableOpacity, View, Text, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
 import {useQuery} from '@apollo/client';
+import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
 import HTML from 'react-native-render-html';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import tailwind from 'tailwind-rn';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import pieceQuery from '../../graphql/query/pieceQuery';
+import Error from '../error/Error';
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator';
 import ProgressSlider from './ProgressSlider';
 
-const PlayerScreen = () => {
+export default function PlayerScreen() {
   const {
     currentTrack,
     playbackState,
@@ -37,7 +32,7 @@ const PlayerScreen = () => {
   });
 
   return !currentTrack ? null : (
-    <SafeAreaView style={tailwind('flex-1 bg-white px-4')}>
+    <View style={tailwind('flex-1 bg-white px-4')}>
       <View style={tailwind('flex-row justify-between my-4')}>
         <TouchableOpacity onPress={navigation.goBack}>
           <MaterialIcons name="keyboard-arrow-down" size={30} />
@@ -62,9 +57,9 @@ const PlayerScreen = () => {
           'px-2 flex-grow items-center justify-center',
         )}>
         {error ? (
-          <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
+          <Error errMsg={error.message} />
         ) : loading ? (
-          <ActivityIndicator size="large" color="#42a5f5" />
+          <LoadingIndicator />
         ) : (
           <HTML html={data && data.pieces_by_pk.text} />
         )}
@@ -99,8 +94,6 @@ const PlayerScreen = () => {
           <MaterialIcons size={40} name="skip-next" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
-};
-
-export default PlayerScreen;
+}

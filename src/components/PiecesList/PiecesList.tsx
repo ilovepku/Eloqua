@@ -1,20 +1,22 @@
 import React from 'react';
-import {View, FlatList, Text, ActivityIndicator} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {useQuery} from '@apollo/client';
 import tailwind from 'tailwind-rn';
 
 import allPiecesQuery from '../../graphql/query/allPiecesQuery';
 import {AllPiecesQuery_piece} from '../../types/graphql';
-import PieceTile from '../pieceTile/PieceTile';
 import {ASSETS_URL} from '../../settings';
+import Error from '../error/Error';
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator';
+import PieceTile from '../pieceTile/PieceTile';
 
 interface Props {
   filter: string;
   favArr?: string[];
 }
 
-const PiecesList = ({filter, favArr}: Props) => {
+export default function PiecesList({filter, favArr}: Props) {
   const {person_id_filter, category_id_filter} = (useRoute().params ?? {}) as {
     person_id_filter: string;
     category_id_filter: string;
@@ -44,9 +46,7 @@ const PiecesList = ({filter, favArr}: Props) => {
   }
 
   return error ? (
-    <View style={tailwind('h-64 items-center justify-center')}>
-      <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
-    </View>
+    <Error errMsg={error.message} />
   ) : (
     <FlatList
       style={tailwind('bg-white')}
@@ -55,7 +55,7 @@ const PiecesList = ({filter, favArr}: Props) => {
       ListEmptyComponent={
         <View style={tailwind('h-64 items-center justify-center')}>
           {loading ? (
-            <ActivityIndicator size="large" color="#42a5f5" />
+            <LoadingIndicator />
           ) : (
             <Text style={tailwind('text-center text-lg text-gray-600')}>
               {filter
@@ -84,6 +84,4 @@ const PiecesList = ({filter, favArr}: Props) => {
       keyExtractor={(item) => `piece-${item.id}`}
     />
   );
-};
-
-export default PiecesList;
+}

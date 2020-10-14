@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import {View, TouchableOpacity, Image, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useQuery} from '@apollo/client';
 import tailwind from 'tailwind-rn';
@@ -13,19 +7,17 @@ import tailwind from 'tailwind-rn';
 import categoriesQuery from '../../graphql/query/categoriesQuery';
 import {CategoriesQuery_category} from '../../types/graphql';
 import {ASSETS_URL} from '../../settings';
+import Error from '../error/Error';
+import LoadingIndicator from '../loadingIndicator/LoadingIndicator';
 
-const CategoriesScreen = () => {
+export default function CategoriesScreen() {
   const navigation = useNavigation();
   const {data, loading, error} = useQuery(categoriesQuery);
 
   return error ? (
-    <View style={tailwind('flex-1 bg-white items-center justify-center')}>
-      <Text style={tailwind('text-lg text-red-600')}>{error.message}</Text>
-    </View>
+    <Error errMsg={error.message} />
   ) : loading ? (
-    <View style={tailwind('flex-1 bg-white items-center')}>
-      <ActivityIndicator size="large" color="#42a5f5" />
-    </View>
+    <LoadingIndicator />
   ) : (
     <View style={tailwind('flex-1 bg-white flex-row flex-wrap justify-evenly')}>
       {(data?.categories ?? []).map(
@@ -53,6 +45,4 @@ const CategoriesScreen = () => {
       )}
     </View>
   );
-};
-
-export default CategoriesScreen;
+}

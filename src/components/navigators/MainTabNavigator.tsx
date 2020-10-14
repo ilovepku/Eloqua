@@ -15,51 +15,53 @@ const ICON_SIZE = 24;
 const LibraryStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-const LibraryStackNavigator = () => (
-  <LibraryStack.Navigator>
-    <LibraryStack.Screen
-      name="Library"
-      options={{
-        title: 'Library',
-        headerTitleAlign: 'center',
-      }}
-      component={LibraryScreen}
-    />
-  </LibraryStack.Navigator>
-);
+function LibraryStackNavigator() {
+  return (
+    <LibraryStack.Navigator>
+      <LibraryStack.Screen
+        name="Library"
+        options={{
+          title: 'Library',
+          headerTitleAlign: 'center',
+        }}
+        component={LibraryScreen}
+      />
+    </LibraryStack.Navigator>
+  );
+}
 
-const MainTabNavigator = () => (
-  <MainTab.Navigator
-    tabBar={(tabsProps) => (
-      <>
-        <MiniPlayer />
-        <BottomTabBar {...tabsProps} />
-      </>
-    )}
-    tabBarOptions={{
-      activeTintColor: '#42a5f5',
-    }}>
-    {/* TODO: theme color */}
-    <MainTab.Screen
-      name="AllPieces"
-      options={{
-        title: 'Explore',
-        tabBarIcon: ({color}) => (
-          <MaterialIcons size={ICON_SIZE} color={color} name="explore" />
-        ),
-      }}
-      component={TopTabNavigator}
-    />
-    <MainTab.Screen
-      name="Library"
-      component={LibraryStackNavigator}
-      options={{
-        tabBarIcon: ({color}) => (
-          <MaterialIcons size={ICON_SIZE} color={color} name="favorite" />
-        ),
-      }}
-    />
-  </MainTab.Navigator>
-);
-
-export default MainTabNavigator;
+export default function MainTabNavigator() {
+  return (
+    <MainTab.Navigator
+      tabBar={(tabsProps) => (
+        <>
+          <MiniPlayer />
+          <BottomTabBar {...tabsProps} />
+        </>
+      )}
+      tabBarOptions={{
+        activeTintColor: '#42a5f5',
+      }}>
+      {/* TODO: theme color */}
+      <MainTab.Screen
+        name="AllPieces"
+        options={{
+          title: 'Explore',
+          tabBarIcon: ({color}) => (
+            <MaterialIcons size={ICON_SIZE} color={color} name="explore" />
+          ),
+        }}
+        component={TopTabNavigator}
+      />
+      <MainTab.Screen
+        name="Library"
+        component={LibraryStackNavigator}
+        options={{
+          tabBarIcon: ({color}) => (
+            <MaterialIcons size={ICON_SIZE} color={color} name="favorite" />
+          ),
+        }}
+      />
+    </MainTab.Navigator>
+  );
+}

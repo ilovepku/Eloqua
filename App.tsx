@@ -1,39 +1,50 @@
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
-import {View, ActivityIndicator} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/client';
-import TrackPlayer from 'react-native-track-player';
-import tailwind from 'tailwind-rn';
+import {NavigationContainer} from '@react-navigation/native';
+import {
+  setupPlayer,
+  updateOptions,
+  CAPABILITY_PLAY,
+  CAPABILITY_PAUSE,
+  CAPABILITY_JUMP_FORWARD,
+  CAPABILITY_JUMP_BACKWARD,
+  CAPABILITY_SKIP_TO_PREVIOUS,
+  CAPABILITY_SKIP_TO_NEXT,
+  CAPABILITY_SEEK_TO,
+} from 'react-native-track-player';
 
 import {store, persistor} from './src/redux/store';
-import MainStackNavigator from './src/components/navigators/MainStackNavigator';
 import client from './src/graphql/client';
 import {PlayerContextProvider} from './src/contexts/PlayerContext';
+import MainStackNavigator from './src/components/navigators/MainStackNavigator';
+import LoadingIndicator from './src/components/loadingIndicator/LoadingIndicator';
 
-const App = () => {
+export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // player lib setup IIFE
     (async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({
+      await setupPlayer();
+      await updateOptions({
         stopWithApp: true,
         capabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
-          TrackPlayer.CAPABILITY_STOP,
-          TrackPlayer.CAPABILITY_JUMP_FORWARD,
-          TrackPlayer.CAPABILITY_JUMP_BACKWARD,
-          TrackPlayer.CAPABILITY_SEEK_TO,
-          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          CAPABILITY_PLAY,
+          CAPABILITY_PAUSE,
+          CAPABILITY_JUMP_BACKWARD,
+          CAPABILITY_JUMP_FORWARD,
+          CAPABILITY_SKIP_TO_PREVIOUS,
+          CAPABILITY_SKIP_TO_NEXT,
+          CAPABILITY_SEEK_TO,
         ],
         compactCapabilities: [
-          TrackPlayer.CAPABILITY_PLAY,
-          TrackPlayer.CAPABILITY_PAUSE,
+          CAPABILITY_PLAY,
+          CAPABILITY_PAUSE,
+          CAPABILITY_JUMP_BACKWARD,
+          CAPABILITY_SKIP_TO_NEXT,
         ],
         jumpInterval: 30,
       });
@@ -43,13 +54,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate
-        loading={
-          <View style={tailwind('flex-1 items-center justify-center')}>
-            <ActivityIndicator />
-          </View>
-        }
-        persistor={persistor}>
+      <PersistGate loading={<LoadingIndicator />} persistor={persistor}>
         <ApolloProvider client={client}>
           {isReady ? (
             <PlayerContextProvider>
@@ -58,14 +63,10 @@ const App = () => {
               </NavigationContainer>
             </PlayerContextProvider>
           ) : (
-            <View style={tailwind('flex-1 items-center justify-center')}>
-              <ActivityIndicator />
-            </View>
+            <LoadingIndicator />
           )}
         </ApolloProvider>
       </PersistGate>
     </Provider>
   );
-};
-
-export default App;
+}

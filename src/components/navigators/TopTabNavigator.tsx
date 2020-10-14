@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import AllPiecesScreen from '../allPieces/AllPiecesScreen';
+import SearchScreen from '../search/SearchScreen';
 import CategoriesScreen from '../categories/CategoriesScreen';
 import PiecesList from '../piecesList/PiecesList';
 
@@ -14,34 +14,36 @@ type CategoriesStackParamList = {
 const CategoriesStack = createStackNavigator<CategoriesStackParamList>();
 const TopTab = createMaterialTopTabNavigator();
 
-const CategoriesStackNavigator = () => (
-  <CategoriesStack.Navigator>
-    <CategoriesStack.Screen
-      name="CategoriesList"
-      options={{
-        headerShown: false,
-      }}
-      component={CategoriesScreen}
-    />
-    <CategoriesStack.Screen
-      name="CategoryPiecesList"
-      options={({
-        route: {
-          params: {title},
-        },
-      }) => ({
-        title,
-      })}
-      component={PiecesList}
-    />
-  </CategoriesStack.Navigator>
-);
+function CategoriesStackNavigator() {
+  return (
+    <CategoriesStack.Navigator>
+      <CategoriesStack.Screen
+        name="CategoriesList"
+        options={{
+          headerShown: false,
+        }}
+        component={CategoriesScreen}
+      />
+      <CategoriesStack.Screen
+        name="CategoryPiecesList"
+        options={({
+          route: {
+            params: {title},
+          },
+        }) => ({
+          title,
+        })}
+        component={PiecesList}
+      />
+    </CategoriesStack.Navigator>
+  );
+}
 
-const TopTabNavigator = () => (
-  <TopTab.Navigator>
-    <TopTab.Screen name="Search" component={AllPiecesScreen} />
-    <TopTab.Screen name="Categories" component={CategoriesStackNavigator} />
-  </TopTab.Navigator>
-);
-
-export default TopTabNavigator;
+export default function TopTabNavigator() {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen name="Search" component={SearchScreen} />
+      <TopTab.Screen name="Categories" component={CategoriesStackNavigator} />
+    </TopTab.Navigator>
+  );
+}

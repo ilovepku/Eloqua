@@ -6,7 +6,7 @@ import tailwind from 'tailwind-rn';
 import {RootState} from '../../redux/rootReducer';
 import PiecesList from '../piecesList/PiecesList';
 
-const LibraryScreen = () => {
+export default function LibraryScreen() {
   const {favArr} = useSelector((state: RootState) => state.favorites);
 
   return (
@@ -14,6 +14,4 @@ const LibraryScreen = () => {
       <PiecesList filter={''} favArr={favArr} />
     </View>
   );
-};
-
-export default LibraryScreen;
+}

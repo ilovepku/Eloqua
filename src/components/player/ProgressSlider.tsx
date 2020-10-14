@@ -6,7 +6,7 @@ import tailwind from 'tailwind-rn';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import {buildTime} from '../../utils/dateTimeHelper';
 
-const ProgressSlider = () => {
+export default function ProgressSlider() {
   const {duration, position, seek} = usePlayerContext();
 
   const totalTime = () => {
@@ -35,6 +35,4 @@ const ProgressSlider = () => {
       </View>
     </>
   );
-};
-
-export default ProgressSlider;
+}
