@@ -36,7 +36,8 @@ interface PlayerContextType {
   playbackState: string;
   duration: number;
   position: number;
-  playTrack: (track: Track) => void;
+  playNewTrack: (track: Track) => void;
+  playQueuedTrack: (id: string) => void;
   togglePlayback: () => void;
   seek: (amount: number) => void;
   skipPrevious: () => void;
@@ -50,7 +51,8 @@ export const PlayerContext = createContext<PlayerContextType>({
   playbackState: '',
   duration: 0,
   position: 0,
-  playTrack: () => null,
+  playNewTrack: () => null,
+  playQueuedTrack: () => null,
   togglePlayback: () => null,
   seek: () => null,
   skipPrevious: () => null,
@@ -102,11 +104,16 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     },
   );
 
-  const playTrack = async (track: Track) => {
+  const playNewTrack = async (track: Track) => {
     await reset();
     await add(track);
     play();
     updateQueue();
+  };
+
+  const playQueuedTrack = async (id: string) => {
+    await skip(id);
+    play();
   };
 
   const togglePlayback = () => {
@@ -150,7 +157,8 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     playbackState,
     duration,
     position,
-    playTrack,
+    playNewTrack,
+    playQueuedTrack,
     togglePlayback,
     seek,
     skipPrevious,

@@ -17,7 +17,12 @@ interface Props {
 export default function PieceTile({track, date}: Props) {
   const {favArr} = useSelector((state: RootState) => state.favorites);
   const dispatch = useDispatch();
-  const {playTrack, isTrackInQueue, toggleQueued} = usePlayerContext();
+  const {
+    isTrackInQueue,
+    playNewTrack,
+    playQueuedTrack,
+    toggleQueued,
+  } = usePlayerContext();
 
   const {id, title, artist, artwork} = track;
 
@@ -26,7 +31,7 @@ export default function PieceTile({track, date}: Props) {
       <TouchableOpacity
         style={tailwind('flex-1 h-20 flex-row items-center')}
         onPress={() => {
-          playTrack(track);
+          isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track);
         }}>
         <Image
           source={{
