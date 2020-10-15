@@ -35,7 +35,7 @@ export default function PieceTile({track, date}: Props) {
   };
 
   const queueAddRemove = () => {
-    () => toggleQueued(id, track);
+    toggleQueued(id, track);
   };
 
   return (
