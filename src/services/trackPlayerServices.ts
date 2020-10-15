@@ -13,6 +13,14 @@ module.exports = async function () {
 
   addEventListener('remote-pause', () => pause());
 
+  addEventListener('remote-previous', () => skipToPrevious());
+
+  addEventListener('remote-next', () => skipToNext());
+
+  addEventListener('remote-seek', ({position}) => {
+    seekTo(position);
+  });
+
   addEventListener('remote-jump-forward', async ({interval}) => {
     const position = await getPosition();
     seekTo(position + interval);
@@ -21,13 +29,5 @@ module.exports = async function () {
   addEventListener('remote-jump-backward', async ({interval}) => {
     const position = await getPosition();
     seekTo(position - interval);
-  });
-
-  addEventListener('remote-previous', () => skipToPrevious());
-
-  addEventListener('remote-next', () => skipToNext());
-
-  addEventListener('remote-seek', ({position}) => {
-    seekTo(position);
   });
 };

@@ -30,6 +30,7 @@ import {
 
 import {RootState} from '../redux/rootReducer';
 import {updateQueueArr} from '../redux/queueSlice';
+import {JUMP_INTERVAL} from '../settings';
 
 interface PlayerContextType {
   currentTrack: Track | null;
@@ -39,9 +40,11 @@ interface PlayerContextType {
   playNewTrack: (track: Track) => void;
   playQueuedTrack: (id: string) => void;
   togglePlayback: () => void;
-  seek: (amount: number) => void;
   skipPrevious: () => void;
   skipNext: () => void;
+  seek: (amount: number) => void;
+  jumpBackward: () => void;
+  jumpForward: () => void;
   isTrackInQueue: (id: string) => boolean;
   toggleQueued: (id: string, track: Track) => void;
 }
@@ -54,9 +57,11 @@ export const PlayerContext = createContext<PlayerContextType>({
   playNewTrack: () => null,
   playQueuedTrack: () => null,
   togglePlayback: () => null,
-  seek: () => null,
   skipPrevious: () => null,
   skipNext: () => null,
+  seek: () => null,
+  jumpBackward: () => null,
+  jumpForward: () => null,
   isTrackInQueue: () => false,
   toggleQueued: () => null,
 });
@@ -130,6 +135,14 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     seekTo(amount);
   };
 
+  const jumpBackward = () => {
+    seekTo(position - JUMP_INTERVAL);
+  };
+
+  const jumpForward = () => {
+    seekTo(position + JUMP_INTERVAL);
+  };
+
   const skipPrevious = () => {
     skipToPrevious();
   };
@@ -160,9 +173,11 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     playNewTrack,
     playQueuedTrack,
     togglePlayback,
-    seek,
     skipPrevious,
     skipNext,
+    seek,
+    jumpBackward,
+    jumpForward,
     isTrackInQueue,
     toggleQueued,
   };

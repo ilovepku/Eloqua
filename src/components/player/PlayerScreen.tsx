@@ -17,9 +17,9 @@ export default function PlayerScreen() {
   const {
     currentTrack,
     playbackState,
-    position,
     togglePlayback,
-    seek,
+    jumpBackward,
+    jumpForward,
     skipPrevious,
     skipNext,
   } = usePlayerContext();
@@ -31,13 +31,17 @@ export default function PlayerScreen() {
     },
   });
 
+  const navigateToQueue = () => {
+    navigation.navigate('Queue');
+  };
+
   return !currentTrack ? null : (
     <View style={tailwind('flex-1 bg-white px-4')}>
       <View style={tailwind('flex-row justify-between my-4')}>
         <TouchableOpacity onPress={navigation.goBack}>
           <MaterialIcons name="keyboard-arrow-down" size={30} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Queue')}>
+        <TouchableOpacity onPress={navigateToQueue}>
           <MaterialIcons name="list" size={30} />
         </TouchableOpacity>
       </View>
@@ -73,7 +77,7 @@ export default function PlayerScreen() {
         <TouchableOpacity onPress={skipPrevious}>
           <MaterialIcons size={40} name="skip-previous" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => seek(position - 30)}>
+        <TouchableOpacity onPress={jumpBackward}>
           <MaterialIcons size={40} name="fast-rewind" />
         </TouchableOpacity>
         <TouchableOpacity onPress={togglePlayback}>
@@ -87,7 +91,7 @@ export default function PlayerScreen() {
             }
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => seek(position + 30)}>
+        <TouchableOpacity onPress={jumpForward}>
           <MaterialIcons size={40} name="fast-forward" />
         </TouchableOpacity>
         <TouchableOpacity onPress={skipNext}>

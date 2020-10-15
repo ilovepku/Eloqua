@@ -15,15 +15,17 @@ export default function CategoryItem({
 }: Props) {
   const navigation = useNavigation();
 
+  const navigateToCategoryPiecesList = () => {
+    navigation.navigate('CategoryPiecesList', {
+      title: name,
+      category_id_filter: `category-${id}`,
+    });
+  };
+
   return (
     <TouchableOpacity
       style={tailwind('w-1/3 h-24 mt-4 items-center')}
-      onPress={() =>
-        navigation.navigate('CategoryPiecesList', {
-          title: name,
-          category_id_filter: `category-${id}`,
-        })
-      }>
+      onPress={navigateToCategoryPiecesList}>
       <Image
         source={{
           uri: `${ASSETS_URL}/icons%2F${icon_filename}?alt=media`,

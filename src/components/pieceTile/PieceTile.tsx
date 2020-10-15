@@ -26,13 +26,23 @@ export default function PieceTile({track, date}: Props) {
 
   const {id, title, artist, artwork} = track;
 
+  const playTrack = () => {
+    isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track);
+  };
+
+  const favAddRemove = () => {
+    dispatch(toggleFav(id));
+  };
+
+  const queueAddRemove = () => {
+    () => toggleQueued(id, track);
+  };
+
   return (
     <View style={tailwind('flex-row justify-between items-center px-4')}>
       <TouchableOpacity
         style={tailwind('flex-1 h-20 flex-row items-center')}
-        onPress={() => {
-          isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track);
-        }}>
+        onPress={playTrack}>
         <Image
           source={{
             uri: artwork,
@@ -49,16 +59,14 @@ export default function PieceTile({track, date}: Props) {
           )}
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={tailwind('mr-4')}
-        onPress={() => dispatch(toggleFav(id))}>
+      <TouchableOpacity style={tailwind('mr-4')} onPress={favAddRemove}>
         <MaterialIcons
           size={30}
           color="#42a5f5"
           name={favArr.includes(id) ? 'favorite' : 'favorite-outline'}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleQueued(id, track)}>
+      <TouchableOpacity onPress={queueAddRemove}>
         <MaterialIcons
           size={30}
           color="#42a5f5"

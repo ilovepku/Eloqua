@@ -16,8 +16,12 @@ export default function MiniPlayer() {
   } = usePlayerContext();
   const navigation = useNavigation();
 
+  const navigateToPlayer = () => {
+    navigation.navigate('Player');
+  };
+
   return !currentTrack ? null : (
-    <TouchableOpacity onPress={() => navigation.navigate('Player')}>
+    <TouchableOpacity onPress={navigateToPlayer}>
       <View
         style={tailwind(
           'h-16 mx-2 border-t border-gray-300 flex-row items-center',
