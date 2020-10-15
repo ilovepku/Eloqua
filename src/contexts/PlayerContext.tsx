@@ -21,6 +21,7 @@ import {
   play,
   pause,
   seekTo,
+  skip,
   skipToPrevious,
   skipToNext,
   remove,
@@ -81,10 +82,23 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
 
   useTrackPlayerEvents(
     ['playback-track-changed'],
-    async ({track, nextTrack}: {track: string; nextTrack: string}) => {
-      // keep previous track if queue ended with no next track
-      const newTrack = await getTrack(nextTrack || track);
-      setCurrentTrack(newTrack);
+    async ({nextTrack}: {nextTrack: string}) => {
+      if (nextTrack) {
+        const newTrack = await getTrack(nextTrack);
+        setCurrentTrack(newTrack);
+      }
+    },
+  );
+
+  // TODO: loop queue
+  useTrackPlayerEvents(
+    ['playback-queue-ended'],
+    async ({track}: {track: string}) => {
+      if (track) {
+        pause();
+        skip(track);
+        // will in turn trigger TrackPlayerEvent: "playback-track-changed" to reset the last queued track as current track
+      }
     },
   );
 
