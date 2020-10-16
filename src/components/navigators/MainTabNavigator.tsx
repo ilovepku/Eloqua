@@ -3,32 +3,15 @@ import {
   createBottomTabNavigator,
   BottomTabBar,
 } from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import TopTabNavigator from './TopTabNavigator';
-import LibraryScreen from '../library/LibraryScreen';
+import FavoritesScreen from '../favoritesScreen/FavoritesScreen';
 import MiniPlayer from '../miniPlayer/MiniPlayer';
 
 const BOTTOM_TAB_BAR_ICON_SIZE = 24;
 
-const LibraryStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
-
-function LibraryStackNavigator() {
-  return (
-    <LibraryStack.Navigator>
-      <LibraryStack.Screen
-        name="Library"
-        options={{
-          title: 'Library',
-          headerTitleAlign: 'center',
-        }}
-        component={LibraryScreen}
-      />
-    </LibraryStack.Navigator>
-  );
-}
 
 export default function MainTabNavigator() {
   return (
@@ -57,8 +40,8 @@ export default function MainTabNavigator() {
         }}
       />
       <MainTab.Screen
-        name="Library"
-        component={LibraryStackNavigator}
+        name="Favorites"
+        component={FavoritesScreen}
         options={{
           tabBarIcon: ({color}) => (
             <MaterialIcons

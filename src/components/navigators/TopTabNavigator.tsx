@@ -2,13 +2,13 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import SearchScreen from '../search/SearchScreen';
-import CategoriesScreen from '../categories/CategoriesScreen';
-import PiecesList from '../piecesList/PiecesList';
+import SearchScreen from '../searchScreen/SearchScreen';
+import CategoriesListScreen from '../categoriesListScreen/CategoriesListScreen';
+import CategoriesPiecesListScreen from '../categoriesPiecesListScreen/CategoriesPiecesListScreen';
 
 type CategoriesStackParamList = {
-  CategoriesList: undefined;
-  CategoryPiecesList: {title: string};
+  CategoriesListScreen: undefined;
+  CategoryPiecesListScreen: {title: string};
 };
 
 const CategoriesStack = createStackNavigator<CategoriesStackParamList>();
@@ -18,14 +18,14 @@ function CategoriesStackNavigator() {
   return (
     <CategoriesStack.Navigator>
       <CategoriesStack.Screen
-        name="CategoriesList"
+        name="CategoriesListScreen"
         options={{
           headerShown: false,
         }}
-        component={CategoriesScreen}
+        component={CategoriesListScreen}
       />
       <CategoriesStack.Screen
-        name="CategoryPiecesList"
+        name="CategoryPiecesListScreen"
         options={({
           route: {
             params: {title},
@@ -33,7 +33,7 @@ function CategoriesStackNavigator() {
         }) => ({
           title,
         })}
-        component={PiecesList}
+        component={CategoriesPiecesListScreen}
       />
     </CategoriesStack.Navigator>
   );

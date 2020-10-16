@@ -3,9 +3,9 @@ import {View, TextInput} from 'react-native';
 import tailwind from 'tailwind-rn';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import PiecesList from '../piecesList/PiecesList';
+import FilteredPiecesList from './FilteredPiecesList';
 
-export default function SearchScreen() {
+export default function ExploreScreen() {
   const [filter, setFilter] = useState('');
 
   return (
@@ -24,7 +24,7 @@ export default function SearchScreen() {
         />
       </View>
 
-      <PiecesList filter={filter} />
+      <FilteredPiecesList filter={filter} />
     </View>
   );
 }

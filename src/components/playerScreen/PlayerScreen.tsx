@@ -10,7 +10,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import pieceQuery from '../../graphql/query/pieceQuery';
 import Error from '../error/Error';
-import LoadingIndicator from '../loadingIndicator/LoadingIndicator';
+import Loading from '../loading/Loading';
 import ProgressSlider from './ProgressSlider';
 
 export default function PlayerScreen() {
@@ -25,7 +25,7 @@ export default function PlayerScreen() {
   } = usePlayerContext();
   const navigation = useNavigation();
 
-  const {data, loading, error} = useQuery(pieceQuery, {
+  const {loading, error, data} = useQuery(pieceQuery, {
     variables: {
       id: Number(currentTrack?.id.split('-')[1]), // piece-1 : string => 1 : number
     },
@@ -60,10 +60,10 @@ export default function PlayerScreen() {
         contentContainerStyle={tailwind(
           'px-2 flex-grow items-center justify-center',
         )}>
-        {error ? (
+        {loading ? (
+          <Loading />
+        ) : error ? (
           <Error errMsg={error.message} />
-        ) : loading ? (
-          <LoadingIndicator />
         ) : (
           <HTML html={data && data.pieces_by_pk.text} />
         )}

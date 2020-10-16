@@ -20,7 +20,7 @@ import {store, persistor} from './src/redux/store';
 import client from './src/graphql/client';
 import {PlayerContextProvider} from './src/contexts/PlayerContext';
 import MainStackNavigator from './src/components/navigators/MainStackNavigator';
-import LoadingIndicator from './src/components/loadingIndicator/LoadingIndicator';
+import Loading from './src/components/loading/Loading';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<LoadingIndicator />} persistor={persistor}>
+      <PersistGate loading={<Loading />} persistor={persistor}>
         <ApolloProvider client={client}>
           {isReady ? (
             <PlayerContextProvider>
@@ -63,7 +63,7 @@ export default function App() {
               </NavigationContainer>
             </PlayerContextProvider>
           ) : (
-            <LoadingIndicator />
+            <Loading />
           )}
         </ApolloProvider>
       </PersistGate>

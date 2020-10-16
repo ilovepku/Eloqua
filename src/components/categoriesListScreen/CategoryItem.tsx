@@ -16,7 +16,7 @@ export default function CategoryItem({
   const navigation = useNavigation();
 
   const navigateToCategoryPiecesList = () => {
-    navigation.navigate('CategoryPiecesList', {
+    navigation.navigate('CategoryPiecesListScreen', {
       title: name,
       category_id_filter: `category-${id}`,
     });
