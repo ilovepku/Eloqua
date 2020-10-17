@@ -8,17 +8,17 @@ import Loading from '../loading/Loading';
 import PiecesFlatList from '../piecesFlatList/PiecesFlatList';
 
 interface Props {
-  filter: string;
+  keyword: string;
 }
 
-export default function FilteredPiecesList({filter}: Props) {
+export default function SearchedPiecesList({keyword}: Props) {
   const {loading, error, data} = useQuery(allPiecesQuery);
 
   const filteredPieces = (data?.pieces ?? []).filter(
     ({name, person}: AllPiecesQuery_piece) =>
-      filter === '' ||
-      name.toLowerCase().includes(filter.toLowerCase()) ||
-      person.name.toLowerCase().includes(filter.toLowerCase()),
+      keyword === '' ||
+      name.toLowerCase().includes(keyword.toLowerCase()) ||
+      person.name.toLowerCase().includes(keyword.toLowerCase()),
   );
 
   return loading ? (

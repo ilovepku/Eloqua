@@ -3,10 +3,10 @@ import {View, TextInput} from 'react-native';
 import tailwind from 'tailwind-rn';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import FilteredPiecesList from './FilteredPiecesList';
+import SearchedPiecesList from './SearchedPiecesList';
 
 export default function ExploreScreen() {
-  const [filter, setFilter] = useState('');
+  const [keyword, setKeyword] = useState('');
 
   return (
     <View style={tailwind('flex-1 bg-white')}>
@@ -17,14 +17,14 @@ export default function ExploreScreen() {
         <MaterialIcons size={20} name="search" style={tailwind('mr-2')} />
         <TextInput
           placeholder="Type here to search"
-          onChangeText={setFilter}
+          onChangeText={setKeyword}
           autoCorrect={false}
-          value={filter}
+          value={keyword}
           style={tailwind('flex-1')}
         />
       </View>
 
-      <FilteredPiecesList filter={filter} />
+      <SearchedPiecesList keyword={keyword} />
     </View>
   );
 }

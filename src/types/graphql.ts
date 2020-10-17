@@ -39,3 +39,18 @@ export interface CategoriesQuery_category {
 export interface CategoriesQuery {
   search: CategoriesQuery_category[];
 }
+
+// ====================================================
+// GraphQL query operation: PersonsQuery
+// ====================================================
+
+export interface PersonsQuery_person {
+  __typename: 'persons';
+  id: number;
+  name: string;
+  img_filename: string;
+}
+
+export interface PersonsQuery {
+  search: PersonsQuery_person[];
+}

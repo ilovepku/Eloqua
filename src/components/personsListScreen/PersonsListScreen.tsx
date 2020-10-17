@@ -3,15 +3,15 @@ import {View, ScrollView} from 'react-native';
 import {useQuery} from '@apollo/client';
 import tailwind from 'tailwind-rn';
 
-import categoriesQuery from '../../graphql/query/categoriesQuery';
-import {CategoriesQuery_category} from '../../types/graphql';
+import peronsQuery from '../../graphql/query/personsQuery';
+import {PersonsQuery_person} from '../../types/graphql';
 
 import Error from '../error/Error';
 import Loading from '../loading/Loading';
-import CategoryItem from './CategoryItem';
+import PersonItem from './PersonItem';
 
-export default function CategoriesList() {
-  const {loading, error, data} = useQuery(categoriesQuery);
+export default function PersonsList() {
+  const {loading, error, data} = useQuery(peronsQuery);
 
   return loading ? (
     <Loading />
@@ -23,8 +23,8 @@ export default function CategoriesList() {
         contentContainerStyle={tailwind(
           'flex-row flex-wrap justify-evenly pb-4',
         )}>
-        {(data?.categories ?? []).map((category: CategoriesQuery_category) => (
-          <CategoryItem key={`category-${category.id}`} category={category} />
+        {(data?.persons ?? []).map((person: PersonsQuery_person) => (
+          <PersonItem key={`person-${person.id}`} person={person} />
         ))}
       </ScrollView>
     </View>

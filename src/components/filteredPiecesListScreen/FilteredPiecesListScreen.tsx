@@ -8,7 +8,7 @@ import Error from '../error/Error';
 import Loading from '../loading/Loading';
 import PiecesFlatList from '../piecesFlatList/PiecesFlatList';
 
-export default function CategoriesPiecesList() {
+export default function FilteredPiecesListScreen() {
   const {person_id_filter, category_id_filter} = (useRoute().params ?? {}) as {
     person_id_filter: string;
     category_id_filter: string;
