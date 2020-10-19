@@ -1,11 +1,11 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
+import playerReducer from './playerSlice';
 import favoritesReducer from './favoritesSlice';
-import queueReducer from './queueSlice';
 
 const rootReducer = combineReducers({
+  player: playerReducer,
   favorites: favoritesReducer,
-  queue: queueReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

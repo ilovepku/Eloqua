@@ -8,7 +8,7 @@ import {RootState} from '../../redux/rootReducer';
 import PieceTile from '../pieceTile/PieceTile';
 
 export default function QueueScreen() {
-  const {queueArr} = useSelector((state: RootState) => state.queue);
+  const {queueArr} = useSelector((state: RootState) => state.player);
 
   const navigation = useNavigation();
 

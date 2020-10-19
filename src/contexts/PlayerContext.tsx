@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useState,
   useEffect,
   useContext,
   PropsWithChildren,
@@ -8,7 +7,8 @@ import React, {
 import {useSelector, useDispatch} from 'react-redux';
 import {
   Track,
-  STATE_PAUSED,
+  STATE_PLAYING,
+  STATE_BUFFERING,
   // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
   usePlaybackState,
   // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
@@ -29,7 +29,11 @@ import {
 } from 'react-native-track-player';
 
 import {RootState} from '../redux/rootReducer';
-import {updateQueueArr} from '../redux/queueSlice';
+import {
+  updateQueueArr,
+  updateCurrentTrack,
+  updateSavedPosition,
+} from '../redux/playerSlice';
 import {JUMP_INTERVAL} from '../settings';
 
 interface PlayerContextType {
@@ -67,32 +71,22 @@ export const PlayerContext = createContext<PlayerContextType>({
 });
 
 export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-
   const {
-    queue: {queueArr},
+    player: {queueArr, currentTrack, savedPosition},
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  // didMount: if player queue is empty, attempt to rehydrate with persisted queueArr
-  useEffect(() => {
-    (async () => {
-      const queuedTracks = await getQueue();
-      if (!queuedTracks.length) {
-        add([...queueArr]);
-      }
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   const playbackState = usePlaybackState();
-  const {duration, position} = useTrackPlayerProgress();
+  const {position} = useTrackPlayerProgress();
+
+  const duration = currentTrack?.duration || 0;
 
   useTrackPlayerEvents(
     ['playback-track-changed'],
     async ({nextTrack}: {nextTrack: string}) => {
       if (nextTrack) {
         const newTrack = await getTrack(nextTrack);
-        setCurrentTrack(newTrack);
+        dispatch(updateCurrentTrack(newTrack));
       }
     },
   );
@@ -109,6 +103,24 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     },
   );
 
+  // didMount: if player queue is empty, attempt to rehydrate with persisted queueArr
+  useEffect(() => {
+    (async () => {
+      const queuedTracks = await getQueue();
+      if (!queuedTracks.length) {
+        await add([...queueArr]);
+        if (currentTrack) {
+          await skip(currentTrack.id);
+          seekTo(savedPosition);
+        }
+      }
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    position !== 0 && dispatch(updateSavedPosition(position));
+  }, [dispatch, position]);
+
   const playNewTrack = async (track: Track) => {
     await reset();
     await add(track);
@@ -123,7 +135,10 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
 
   const togglePlayback = () => {
     if (currentTrack) {
-      if (playbackState === STATE_PAUSED) {
+      if (
+        playbackState !== STATE_PLAYING &&
+        playbackState !== STATE_BUFFERING
+      ) {
         play();
       } else {
         pause();
@@ -133,22 +148,27 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
 
   const seek = (amount: number) => {
     seekTo(amount);
+    dispatch(updateSavedPosition(amount));
   };
 
   const jumpBackward = () => {
     seekTo(position - JUMP_INTERVAL);
+    dispatch(updateSavedPosition(position - JUMP_INTERVAL));
   };
 
   const jumpForward = () => {
     seekTo(position + JUMP_INTERVAL);
+    dispatch(updateSavedPosition(position + JUMP_INTERVAL));
   };
 
   const skipPrevious = () => {
     skipToPrevious();
+    dispatch(updateSavedPosition(0));
   };
 
   const skipNext = () => {
     skipToNext();
+    dispatch(updateSavedPosition(0));
   };
 
   const isTrackInQueue = (id: string) => {
