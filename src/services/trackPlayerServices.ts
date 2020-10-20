@@ -8,6 +8,7 @@ import {
   skipToPrevious,
   skipToNext,
 } from 'react-native-track-player';
+import {showSnackbar} from '../utils/snackbar';
 
 import {updateSavedPosition} from '../redux/playerSlice';
 
@@ -19,13 +20,23 @@ module.exports = async function () {
   addEventListener('remote-pause', () => pause());
 
   addEventListener('remote-previous', () => {
-    skipToPrevious();
-    dispatch(updateSavedPosition(0));
+    skipToPrevious()
+      .then(() => {
+        dispatch(updateSavedPosition(0));
+      })
+      .catch((error) => {
+        showSnackbar(error.message);
+      });
   });
 
   addEventListener('remote-next', () => {
-    skipToNext();
-    dispatch(updateSavedPosition(0));
+    skipToNext()
+      .then(() => {
+        dispatch(updateSavedPosition(0));
+      })
+      .catch((error) => {
+        showSnackbar(error.message);
+      });
   });
 
   addEventListener('remote-seek', ({position}) => {

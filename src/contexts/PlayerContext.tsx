@@ -34,6 +34,7 @@ import {
   updateCurrentTrack,
   updateSavedPosition,
 } from '../redux/playerSlice';
+import {showSnackbar} from '../utils/snackbar';
 import {JUMP_INTERVAL} from '../settings';
 
 interface PlayerContextType {
@@ -92,16 +93,13 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   );
 
   // TODO: loop queue
-  useTrackPlayerEvents(
-    ['playback-queue-ended'],
-    async ({track}: {track: string}) => {
-      if (track) {
-        pause();
-        skip(track);
-        // will in turn trigger TrackPlayerEvent: "playback-track-changed" to reset the last queued track as current track
-      }
-    },
-  );
+  useTrackPlayerEvents(['playback-queue-ended'], ({track}: {track: string}) => {
+    if (track) {
+      pause();
+      skip(track);
+      // will in turn trigger TrackPlayerEvent: "playback-track-changed" to reset the last queued track as current track
+    }
+  });
 
   // didMount: if player queue is empty, attempt to rehydrate with persisted queueArr
   useEffect(() => {
@@ -162,13 +160,23 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   };
 
   const skipPrevious = () => {
-    skipToPrevious();
-    dispatch(updateSavedPosition(0));
+    skipToPrevious()
+      .then(() => {
+        dispatch(updateSavedPosition(0));
+      })
+      .catch((error) => {
+        showSnackbar(error.message);
+      });
   };
 
   const skipNext = () => {
-    skipToNext();
-    dispatch(updateSavedPosition(0));
+    skipToNext()
+      .then(() => {
+        dispatch(updateSavedPosition(0));
+      })
+      .catch((error) => {
+        showSnackbar(error.message);
+      });
   };
 
   const isTrackInQueue = (id: string) => {

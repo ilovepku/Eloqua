@@ -28,6 +28,7 @@
     "react-native-render-html": "^4.2.4",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
+    "react-native-snackbar": "^2.2.3",
     "react-native-tab-view": "^2.15.2",
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
