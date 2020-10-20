@@ -1,18 +1,15 @@
-import {store} from '../redux/store';
 import {
   addEventListener,
   play,
   pause,
   getPosition,
-  seekTo,
-  skipToPrevious,
-  skipToNext,
 } from 'react-native-track-player';
-import {showSnackbar} from '../utils/snackbar';
 
-import {updateSavedPosition} from '../redux/playerSlice';
-
-const {dispatch} = store;
+import {
+  skipToPreviousAndUpdatePosition,
+  skipToNextAndUpdatePosition,
+  seekToAndUpdatePosition,
+} from '../utils/player';
 
 module.exports = async function () {
   addEventListener('remote-play', () => play());
@@ -20,39 +17,24 @@ module.exports = async function () {
   addEventListener('remote-pause', () => pause());
 
   addEventListener('remote-previous', () => {
-    skipToPrevious()
-      .then(() => {
-        dispatch(updateSavedPosition(0));
-      })
-      .catch((error) => {
-        showSnackbar(error.message);
-      });
+    skipToPreviousAndUpdatePosition();
   });
 
   addEventListener('remote-next', () => {
-    skipToNext()
-      .then(() => {
-        dispatch(updateSavedPosition(0));
-      })
-      .catch((error) => {
-        showSnackbar(error.message);
-      });
+    skipToNextAndUpdatePosition();
   });
 
   addEventListener('remote-seek', ({position}) => {
-    seekTo(position);
-    dispatch(updateSavedPosition(position));
-  });
-
-  addEventListener('remote-jump-forward', async ({interval}) => {
-    const position = await getPosition();
-    seekTo(position + interval);
-    dispatch(updateSavedPosition(position + interval));
+    seekToAndUpdatePosition(position);
   });
 
   addEventListener('remote-jump-backward', async ({interval}) => {
     const position = await getPosition();
-    seekTo(position - interval);
-    dispatch(updateSavedPosition(position - interval));
+    seekToAndUpdatePosition(position - interval);
+  });
+
+  addEventListener('remote-jump-forward', async ({interval}) => {
+    const position = await getPosition();
+    seekToAndUpdatePosition(position + interval);
   });
 };

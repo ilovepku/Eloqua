@@ -22,8 +22,6 @@ import {
   pause,
   seekTo,
   skip,
-  skipToPrevious,
-  skipToNext,
   remove,
   getQueue,
 } from 'react-native-track-player';
@@ -34,7 +32,11 @@ import {
   updateCurrentTrack,
   updateSavedPosition,
 } from '../redux/playerSlice';
-import {showSnackbar} from '../utils/snackbar';
+import {
+  skipToPreviousAndUpdatePosition,
+  skipToNextAndUpdatePosition,
+  seekToAndUpdatePosition,
+} from '../utils/player';
 import {JUMP_INTERVAL} from '../settings';
 
 interface PlayerContextType {
@@ -80,8 +82,10 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   const playbackState = usePlaybackState();
   const {position} = useTrackPlayerProgress();
 
+  // rehydrate duration from redux currentTrack, or set to 0 with no currentTrack
   const duration = currentTrack?.duration || 0;
 
+  // on track changed: update redux currentTrack with new track info
   useTrackPlayerEvents(
     ['playback-track-changed'],
     async ({nextTrack}: {nextTrack: string}) => {
@@ -92,7 +96,8 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     },
   );
 
-  // TODO: loop queue
+  // on queue ended: pause and reload last queued track, MAYBE: load first queued track
+  // TODO: loop queue check and mechanism
   useTrackPlayerEvents(['playback-queue-ended'], ({track}: {track: string}) => {
     if (track) {
       pause();
@@ -115,10 +120,12 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // on player position chagne: auto sync redux savedPosition, check for 0 to avoid resetting savedPosition on queue rehydration
   useEffect(() => {
     position !== 0 && dispatch(updateSavedPosition(position));
   }, [dispatch, position]);
 
+  // playback related
   const playNewTrack = async (track: Track) => {
     await reset();
     await add(track);
@@ -144,41 +151,7 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     }
   };
 
-  const seek = (amount: number) => {
-    seekTo(amount);
-    dispatch(updateSavedPosition(amount));
-  };
-
-  const jumpBackward = () => {
-    seekTo(position - JUMP_INTERVAL);
-    dispatch(updateSavedPosition(position - JUMP_INTERVAL));
-  };
-
-  const jumpForward = () => {
-    seekTo(position + JUMP_INTERVAL);
-    dispatch(updateSavedPosition(position + JUMP_INTERVAL));
-  };
-
-  const skipPrevious = () => {
-    skipToPrevious()
-      .then(() => {
-        dispatch(updateSavedPosition(0));
-      })
-      .catch((error) => {
-        showSnackbar(error.message);
-      });
-  };
-
-  const skipNext = () => {
-    skipToNext()
-      .then(() => {
-        dispatch(updateSavedPosition(0));
-      })
-      .catch((error) => {
-        showSnackbar(error.message);
-      });
-  };
-
+  // queue related
   const isTrackInQueue = (id: string) => {
     return queueArr.some((track) => track.id === id);
   };
@@ -193,25 +166,45 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     updateQueue();
   };
 
-  const value = {
-    currentTrack,
-    playbackState,
-    duration,
-    position,
-    playNewTrack,
-    playQueuedTrack,
-    togglePlayback,
-    skipPrevious,
-    skipNext,
-    seek,
-    jumpBackward,
-    jumpForward,
-    isTrackInQueue,
-    toggleQueued,
+  // using imported player utils
+  const skipPrevious = () => {
+    skipToPreviousAndUpdatePosition();
+  };
+
+  const skipNext = () => {
+    skipToNextAndUpdatePosition();
+  };
+
+  const seek = (amount: number) => {
+    seekToAndUpdatePosition(amount);
+  };
+
+  const jumpBackward = () => {
+    seekToAndUpdatePosition(savedPosition - JUMP_INTERVAL);
+  };
+
+  const jumpForward = () => {
+    seekToAndUpdatePosition(savedPosition + JUMP_INTERVAL);
   };
 
   return (
-    <PlayerContext.Provider value={value}>
+    <PlayerContext.Provider
+      value={{
+        currentTrack,
+        playbackState,
+        duration,
+        position,
+        playNewTrack,
+        playQueuedTrack,
+        togglePlayback,
+        skipPrevious,
+        skipNext,
+        seek,
+        jumpBackward,
+        jumpForward,
+        isTrackInQueue,
+        toggleQueued,
+      }}>
       {props.children}
     </PlayerContext.Provider>
   );
