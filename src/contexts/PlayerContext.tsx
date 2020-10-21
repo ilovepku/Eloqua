@@ -37,6 +37,7 @@ import {
   skipToNextAndUpdatePosition,
   seekToAndUpdatePosition,
 } from '../utils/player';
+import {showSnackbar} from '../utils/snackbar';
 import {JUMP_INTERVAL} from '../settings';
 
 interface PlayerContextType {
@@ -162,8 +163,16 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
   };
 
   const toggleQueued = async (id: string, track: Track) => {
-    isTrackInQueue(id) ? await remove(id) : await add(track);
-    updateQueue();
+    if (currentTrack?.id === id) {
+      showSnackbar("Can't remove current speech from queue");
+    } else {
+      if (isTrackInQueue(id)) {
+        await remove(id);
+      } else {
+        await add(track);
+      }
+      updateQueue();
+    }
   };
 
   // using imported player utils
