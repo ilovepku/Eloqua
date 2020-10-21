@@ -15,7 +15,10 @@ interface Props {
 }
 
 export default function PieceTile({track, date}: Props) {
-  const {favArr} = useSelector((state: RootState) => state.favorites);
+  const {
+    player: {currentTrack},
+    favorites: {favArr},
+  } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const {
     isTrackInQueue,
@@ -70,7 +73,13 @@ export default function PieceTile({track, date}: Props) {
         <MaterialIcons
           size={30}
           color="#42a5f5"
-          name={isTrackInQueue(id) ? 'playlist-add-check' : 'playlist-add'}
+          name={
+            currentTrack?.id === id
+              ? 'play-circle-fill'
+              : isTrackInQueue(id)
+              ? 'playlist-add-check'
+              : 'playlist-add'
+          }
         />
       </TouchableOpacity>
     </View>
