@@ -10,7 +10,7 @@ import Error from '../error/Error';
 import Loading from '../loading/Loading';
 import CategoryItem from './CategoryItem';
 
-export default function CategoriesList() {
+export default function CategoriesListScreen() {
   const {loading, error, data} = useQuery(categoriesQuery);
 
   return loading ? (

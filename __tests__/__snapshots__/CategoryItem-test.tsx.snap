@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "height": 96,
+      "marginTop": 16,
+      "opacity": 1,
+      "width": "33.333333%",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": "https://firebasestorage.googleapis.com/v0/b/speech-pwa.appspot.com/o/icons%2Facknowledgement.png?alt=media",
+      }
+    }
+    style={
+      Object {
+        "borderBottomLeftRadius": 9999,
+        "borderBottomRightRadius": 9999,
+        "borderTopLeftRadius": 9999,
+        "borderTopRightRadius": 9999,
+        "height": 80,
+        "marginBottom": 4,
+        "width": 80,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "color": "rgba(74, 85, 104, 1)",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 12,
+          "textAlign": "center",
+        }
+      }
+    >
+      Acknowledgement
+    </Text>
+  </View>
+</View>
+`;
