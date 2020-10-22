@@ -9,6 +9,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {usePlayerContext} from '../../contexts/PlayerContext';
 import pieceQuery from '../../graphql/query/pieceQuery';
+import {buildDateString} from '../../utils/dateTimeHelper';
 import Error from '../error/Error';
 import Loading from '../loading/Loading';
 import ProgressSlider from './ProgressSlider';
@@ -47,12 +48,12 @@ export default function PlayerScreen() {
       </View>
 
       <View style={tailwind('items-center')}>
-        <Text style={tailwind('text-center font-bold mb-4 px-4')}>
+        <Text style={tailwind('text-center font-bold mb-2 px-4')}>
           {currentTrack.title}
         </Text>
+        <Text style={tailwind('text-gray-600')}>{currentTrack.artist}</Text>
         <Text style={tailwind('text-gray-600 mb-4')}>
-          {currentTrack.artist}
-          {data && `, ${data.pieces_by_pk.date}`}
+          {data && buildDateString(data.pieces_by_pk.date)}
         </Text>
       </View>
 

@@ -8,10 +8,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {RootState} from '../../redux/rootReducer';
 import {toggleFav} from '../../redux/favoritesSlice';
 import {usePlayerContext} from '../../contexts/PlayerContext';
+import {buildDateString} from '../../utils/dateTimeHelper';
 
 interface Props {
   track: Track;
-  date?: String;
+  date?: string;
 }
 
 export default function PieceTile({track, date}: Props) {
@@ -58,7 +59,9 @@ export default function PieceTile({track, date}: Props) {
           </Text>
           <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
           {date && (
-            <Text style={tailwind('text-sm text-gray-600')}>{date}</Text>
+            <Text style={tailwind('text-sm text-gray-600')}>
+              {buildDateString(date)}
+            </Text>
           )}
         </View>
       </TouchableOpacity>

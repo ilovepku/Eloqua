@@ -11,3 +11,5 @@ export const buildTime = (totalSeconds: number) => {
     ? `${hours}:${minutesStr}:${secondsStr}`
     : `${minutesStr}:${secondsStr}`;
 };
+
+export const buildDateString = (date: string) => new Date(date).toDateString();
