@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoriesListScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 255, 255, 1)",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "space-evenly",
+        "paddingBottom": 16,
+      }
+    }
+  >
+    <View>
+      <p>
+        Acknowledgement
+      </p>
+      <p>
+        1
+      </p>
+      <p>
+        acknowledgement.png
+      </p>
+      <p>
+        Commencement
+      </p>
+      <p>
+        2
+      </p>
+      <p>
+        commencement.png
+      </p>
+    </View>
+  </RCTScrollView>
+</View>
+`;

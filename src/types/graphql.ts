@@ -3,12 +3,12 @@
 // ====================================================
 
 export interface AllPiecesQuery_piece {
-  __typename: 'pieces';
+  __typename?: 'pieces';
   id: number;
   name: string;
   person_id: number;
   person: {
-    __typename: 'persons';
+    __typename?: 'persons';
     name: string;
     img_filename: string;
   };
@@ -30,7 +30,7 @@ export interface AllPiecesQuery {
 // ====================================================
 
 export interface CategoriesQuery_category {
-  __typename: 'categories';
+  __typename?: 'categories';
   id: number;
   name: string;
   icon_filename: string;
@@ -45,7 +45,7 @@ export interface CategoriesQuery {
 // ====================================================
 
 export interface PersonsQuery_person {
-  __typename: 'persons';
+  __typename?: 'persons';
   id: number;
   name: string;
   img_filename: string;
