@@ -12,7 +12,7 @@ import {buildDateString} from '../../utils/dateTimeHelper';
 
 interface Props {
   track: Track;
-  date?: string;
+  date: string;
 }
 
 export default function PieceTile({track, date}: Props) {
@@ -58,11 +58,9 @@ export default function PieceTile({track, date}: Props) {
             {title}
           </Text>
           <Text style={tailwind('text-sm text-gray-600')}>{artist}</Text>
-          {date && (
-            <Text style={tailwind('text-sm text-gray-600')}>
-              {buildDateString(date)}
-            </Text>
-          )}
+          <Text style={tailwind('text-sm text-gray-600')}>
+            {buildDateString(date)}
+          </Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={tailwind('mr-4')} onPress={favAddRemove}>

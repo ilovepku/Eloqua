@@ -14,7 +14,7 @@ interface Props {
 export default function SearchedPiecesList({keyword}: Props) {
   const {loading, error, data} = useQuery(allPiecesQuery);
 
-  const filteredPieces = (data?.pieces ?? []).filter(
+  const filteredPieces = data.pieces.filter(
     ({name, person}: AllPiecesQuery_piece) =>
       keyword === '' ||
       name.toLowerCase().includes(keyword.toLowerCase()) ||

@@ -23,7 +23,7 @@ export default function CategoriesListScreen() {
         contentContainerStyle={tailwind(
           'flex-row flex-wrap justify-evenly pb-4',
         )}>
-        {(data?.categories ?? []).map((category: CategoriesQuery_category) => (
+        {data.categories.map((category: CategoriesQuery_category) => (
           <CategoryItem key={`category-${category.id}`} category={category} />
         ))}
       </ScrollView>

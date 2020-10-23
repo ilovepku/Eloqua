@@ -15,10 +15,8 @@ export default function FavoritesScreen() {
   const {loading, error, data} = useQuery(allPiecesQuery);
   const {favArr} = useSelector((state: RootState) => state.favorites);
 
-  const filteredPieces = (
-    data?.pieces ?? []
-  ).filter((item: AllPiecesQuery_piece) =>
-    favArr?.includes(`piece-${item.id}`),
+  const filteredPieces = data.pieces.filter((item: AllPiecesQuery_piece) =>
+    favArr.includes(`piece-${item.id}`),
   );
 
   return (

@@ -23,7 +23,7 @@ export default function PersonsList() {
         contentContainerStyle={tailwind(
           'flex-row flex-wrap justify-evenly pb-4',
         )}>
-        {(data?.persons ?? []).map((person: PersonsQuery_person) => (
+        {data.persons.map((person: PersonsQuery_person) => (
           <PersonItem key={`person-${person.id}`} person={person} />
         ))}
       </ScrollView>
