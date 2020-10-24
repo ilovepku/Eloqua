@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error renders correctly 1`] = `
+exports[`Loading renders correctly 1`] = `
 <View
   style={
     Object {
@@ -13,15 +13,11 @@ exports[`Error renders correctly 1`] = `
     }
   }
 >
-  <Text
-    style={
-      Object {
-        "color": "rgba(229, 62, 62, 1)",
-        "fontSize": 18,
-      }
-    }
-  >
-    mock error
-  </Text>
+  <ActivityIndicator
+    animating={true}
+    color="#42a5f5"
+    hidesWhenStopped={true}
+    size="large"
+  />
 </View>
 `;

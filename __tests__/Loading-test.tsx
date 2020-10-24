@@ -1,11 +1,11 @@
 import React from 'react';
 import {render} from '@testing-library/react-native';
 
-import Error from '../src/components/error/Error';
+import Loading from '../src/components/loading/Loading';
 
-describe('Error', () => {
+describe('Loading', () => {
   it('renders correctly', () => {
-    const tree = render(<Error errMsg="mock error" />).toJSON();
+    const tree = render(<Loading />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
