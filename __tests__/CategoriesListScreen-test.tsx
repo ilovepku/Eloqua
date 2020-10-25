@@ -71,8 +71,6 @@ describe('CategoriesListScreen', () => {
   });
 
   it('should show error UI', async () => {
-    jest.useRealTimers();
-
     const component = render(
       <MockedProvider mocks={[queueErrorMock]} addTypename={false}>
         <CategoriesListScreen />
