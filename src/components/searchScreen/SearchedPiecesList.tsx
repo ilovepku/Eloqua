@@ -14,8 +14,12 @@ interface Props {
 export default function SearchedPiecesList({keyword}: Props) {
   const {loading, error, data} = useQuery(allPiecesQuery);
 
-  if (loading) return <Loading />;
-  if (error) return <Error errMsg={error.message} />;
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error errMsg={error.message} />;
+  }
 
   const filteredPieces = data.pieces.filter(
     ({name, person}: AllPiecesQuery_piece) =>

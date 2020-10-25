@@ -13,8 +13,12 @@ import PersonItem from './PersonItem';
 export default function PersonsList() {
   const {loading, error, data} = useQuery(peronsQuery);
 
-  if (loading) return <Loading />;
-  if (error) return <Error errMsg={error.message} />;
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error errMsg={error.message} />;
+  }
 
   return (
     <View style={tailwind('flex-1 bg-white')}>

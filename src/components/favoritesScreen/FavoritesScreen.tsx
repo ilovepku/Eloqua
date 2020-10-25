@@ -11,11 +11,15 @@ import PiecesFlatList from '../piecesFlatList/PiecesFlatList';
 
 export default function FavoritesScreen() {
   const {loading, error, data} = useQuery(allPiecesQuery);
-
-  if (loading) return <Loading />;
-  if (error) return <Error errMsg={error.message} />;
-
   const {favArr} = useSelector((state: RootState) => state.favorites);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error errMsg={error.message} />;
+  }
+
   const filteredPieces = data.pieces.filter((item: AllPiecesQuery_piece) =>
     favArr.includes(`piece-${item.id}`),
   );

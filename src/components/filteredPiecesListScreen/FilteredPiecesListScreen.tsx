@@ -11,13 +11,17 @@ import PiecesFlatList from '../piecesFlatList/PiecesFlatList';
 export default function FilteredPiecesListScreen() {
   const {loading, error, data} = useQuery(allPiecesQuery);
 
-  if (loading) return <Loading />;
-  if (error) return <Error errMsg={error.message} />;
-
   const {person_id_filter, category_id_filter} = useRoute().params as {
     person_id_filter: string;
     category_id_filter: string;
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error errMsg={error.message} />;
+  }
 
   const filteredPieces = data.pieces.filter(
     ({person_id, piece_categories}: AllPiecesQuery_piece) =>
