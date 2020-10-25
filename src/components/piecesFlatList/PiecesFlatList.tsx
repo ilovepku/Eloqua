@@ -15,7 +15,7 @@ interface Props {
 export default function PiecesFlatList({pieces, emptyMsg}: Props) {
   return (
     <FlatList
-      style={tailwind('bg-white')}
+      style={tailwind('flex-1 bg-white')}
       keyboardShouldPersistTaps="never"
       data={pieces}
       ListEmptyComponent={

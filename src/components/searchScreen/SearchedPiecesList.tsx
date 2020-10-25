@@ -14,6 +14,9 @@ interface Props {
 export default function SearchedPiecesList({keyword}: Props) {
   const {loading, error, data} = useQuery(allPiecesQuery);
 
+  if (loading) return <Loading />;
+  if (error) return <Error errMsg={error.message} />;
+
   const filteredPieces = data.pieces.filter(
     ({name, person}: AllPiecesQuery_piece) =>
       keyword === '' ||
@@ -21,11 +24,7 @@ export default function SearchedPiecesList({keyword}: Props) {
       person.name.toLowerCase().includes(keyword.toLowerCase()),
   );
 
-  return loading ? (
-    <Loading />
-  ) : error ? (
-    <Error errMsg={error.message} />
-  ) : (
+  return (
     <PiecesFlatList
       pieces={filteredPieces}
       emptyMsg={'No matching result, please search for something else...'}
