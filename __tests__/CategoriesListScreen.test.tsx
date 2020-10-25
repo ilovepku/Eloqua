@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 
-import {wait} from '../src/utils/testing';
+import {wait} from '../jest/utils';
 import {CategoriesQuery_category} from '../src/types/graphql';
 import categoriesQuery from '../src/graphql/query/categoriesQuery';
 import CategoriesListScreen from '../src/components/categoriesListScreen/CategoriesListScreen';
@@ -10,7 +10,7 @@ import CategoriesListScreen from '../src/components/categoriesListScreen/Categor
 const mockLoadingMsg = 'Loading...';
 const mockErrMsg = 'mock error';
 
-const queueMock = {
+const categoriesQueryMock = {
   request: {
     query: categoriesQuery,
   },
@@ -31,7 +31,7 @@ const queueMock = {
     },
   },
 };
-const queueErrorMock = {
+const categoriesQueryErrorMock = {
   request: {
     query: categoriesQuery,
   },
@@ -63,7 +63,7 @@ jest.mock(
 describe('CategoriesListScreen', () => {
   it('should render loading state initially', () => {
     const tree = render(
-      <MockedProvider mocks={[queueMock]} addTypename={false}>
+      <MockedProvider mocks={[categoriesQueryMock]} addTypename={false}>
         <CategoriesListScreen />
       </MockedProvider>,
     ).toJSON();
@@ -72,7 +72,7 @@ describe('CategoriesListScreen', () => {
 
   it('should show error UI', async () => {
     const component = render(
-      <MockedProvider mocks={[queueErrorMock]} addTypename={false}>
+      <MockedProvider mocks={[categoriesQueryErrorMock]} addTypename={false}>
         <CategoriesListScreen />
       </MockedProvider>,
     );
@@ -85,7 +85,7 @@ describe('CategoriesListScreen', () => {
 
   it('renders correctly', async () => {
     const component = render(
-      <MockedProvider mocks={[queueMock]} addTypename={false}>
+      <MockedProvider mocks={[categoriesQueryMock]} addTypename={false}>
         <CategoriesListScreen />
       </MockedProvider>,
     );
