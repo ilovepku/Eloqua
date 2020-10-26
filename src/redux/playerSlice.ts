@@ -7,7 +7,7 @@ type QueueState = {
   savedPosition: number;
 };
 
-let initialState: QueueState = {
+export let initialState: QueueState = {
   queueArr: [],
   currentTrack: null,
   savedPosition: 0,
