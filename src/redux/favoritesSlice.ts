@@ -4,7 +4,7 @@ type FavoritesState = {
   favArr: string[];
 };
 
-let initialState: FavoritesState = {
+export let initialState: FavoritesState = {
   favArr: [],
 };
 
