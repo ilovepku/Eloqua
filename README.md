@@ -10,6 +10,7 @@
 - Mark favourite speeches
 - Control the player from notification and lock screen
 - Jump around easily with fast forward/rewind or the slider
+- Cache streamed audio for offline play (Android only)
 
 # Planned (major) features
 - Playback speed controlling
