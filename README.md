@@ -36,7 +36,7 @@ First you need to setup React Native to build projects with native code. For thi
 
 Then:
 
-	npm run start-android
+	npm run android
   
 Normally the bundler should start automatically with the application. If it doesn't, run `npm start`.
 
