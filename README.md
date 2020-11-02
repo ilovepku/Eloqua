@@ -1,10 +1,12 @@
-[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-on%20GitHub-blueviolet)](https://github.com/sponsors/ilovepku) [![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-blue)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-on%20GitHub-blueviolet)](https://github.com/sponsors/ilovepku) [![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-%230d3685)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
 
 * * *
 
 **Eloqua** is a free, open-source app, which offers, in both audio and text formats, great English speeches in history from 30+ public figures, including politicians, entrepreneurs, authors, celebrities, etc., covering a wide range of topics and themes.
 
 **React Native** is a port of the original [Eloqua speech listener PWA(Progressive Web App)](https://github.com/ilovepku/pwa-quanto) to native Android and iOS(planned) versions.
+
+[![React Native](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/react-native?color=%2361dafb)](https://github.com/react-native-community/releases/blob/master/CHANGELOG.md) [![Track Player](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/react-native-track-player?color=%23227efa)](https://github.com/react-native-kit/react-native-track-player/releases) [![React Navigation](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@react-navigation/native?color=%236b52ae)](https://github.com/react-navigation/react-navigation/blob/main/packages/native/CHANGELOG.md) [![Redux Toolkit](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@reduxjs/toolkit?color=%23593d88)](https://github.com/reduxjs/redux-toolkit/releases) [![Apollo](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@apollo/client?color=%23D64292)](https://github.com/apollographql/apollo-client/blob/main/CHANGELOG.md) [![Tailwind CSS](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/tailwind-rn?color=%2338b2ac)](https://github.com/vadimdemedes/tailwind-rn/releases)
 
 # Features
 - Stream and play audio of selected speech from a wide and ever-expanding repertoire
@@ -52,7 +54,7 @@ Developing quality applications takes time, but there are also expenses, such as
 
 To donate via PayPal, please follow this link:
 
-[![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-blue)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
+[![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-%230d3685)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
 
 ## GitHub Sponsor
 
