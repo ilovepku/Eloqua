@@ -8,6 +8,8 @@
 
 [![React Native](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/react-native?color=%2361dafb)](https://github.com/react-native-community/releases/blob/master/CHANGELOG.md) [![Track Player](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/react-native-track-player?color=%23227efa)](https://github.com/react-native-kit/react-native-track-player/releases) [![React Navigation](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@react-navigation/native?color=%236b52ae)](https://github.com/react-navigation/react-navigation/blob/main/packages/native/CHANGELOG.md) [![Redux Toolkit](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@reduxjs/toolkit?color=%23593d88)](https://github.com/reduxjs/redux-toolkit/releases) [![Apollo](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/@apollo/client?color=%23D64292)](https://github.com/apollographql/apollo-client/blob/main/CHANGELOG.md) [![Tailwind CSS](https://img.shields.io/github/package-json/dependency-version/ilovepku/EloquaNative/tailwind-rn?color=%2338b2ac)](https://github.com/vadimdemedes/tailwind-rn/releases)
 
+- **Supported Android versions**: 5.0+
+
 # Features
 - Stream and play audio of selected speech from a wide and ever-expanding repertoire
 - Scroll through the full transcript of a speech
