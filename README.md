@@ -1,3 +1,7 @@
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-on%20GitHub-blueviolet)](https://github.com/sponsors/ilovepku) [![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-blue)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
+
+* * *
+
 **Eloqua** is a free, open-source app, which offers, in both audio and text formats, great English speeches in history from 30+ public figures, including politicians, entrepreneurs, authors, celebrities, etc., covering a wide range of topics and themes.
 
 **React Native** is a port of the original [Eloqua speech listener PWA(Progressive Web App)](https://github.com/ilovepku/pwa-quanto) to native Android and iOS(planned) versions.
@@ -10,13 +14,13 @@
 - Mark favourite speeches
 - Control the player from notification and lock screen
 - Jump around easily with fast forward/rewind or the slider
-- Cache streamed audio for offline play (Android only)
+- Cache streamed audio for offline play (Android only now)
 
-# Planned (major) features
+# Planned features
 - Playback speed controlling
 - Background information on speeches
-- Highlighting of transcript synced with playing progress
-- Repeatable segment, automatic segmentation
+- Highlighting of transcript synced with playing progress (major)
+- Repeatable segment, automatic segmentation (major)
 
 # Building the applications
 
@@ -41,6 +45,20 @@ Then:
 Normally the bundler should start automatically with the application. If it doesn't, run `npm start`.
 
 # Donations
+
+Developing quality applications takes time, but there are also expenses, such as app store fees, hosting, digital certificates, etc. Your donation will make it possible to keep up the current development standards and bring about new features.
+
+## PayPal
+
+To donate via PayPal, please follow this link:
+
+[![Donate via PayPal](https://img.shields.io/badge/Donate-via%20PayPal-blue)](https://www.paypal.com/donate?hosted_button_id=EMK52WJM37KWY)
+
+## GitHub Sponsor
+
+Or follow this link to become a GitHub Sponsor:
+
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-on%20GitHub-blueviolet)](https://github.com/sponsors/ilovepku)
 
 # Contributing
 
