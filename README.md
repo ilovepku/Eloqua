@@ -10,6 +10,15 @@
 
 - **Supported Android versions**: 5.0+
 
+<p float="left">
+  <img src="https://seanlee.netlify.app/static/268d0e6b2eaae50a702a5bc98e488f2c/ee604/explore.png" alt="explore" width="250">
+  <img src="https://seanlee.netlify.app/static/a300e0b0ea012a2859f213d71c8ce4a2/ee604/transcript.png" alt="transcript" width="250">
+  <img src="https://seanlee.netlify.app/static/0b5074ff17d025701176a175f7f87dc7/ee604/speakers.png" alt="speakers" width="250">
+  <img src="https://seanlee.netlify.app/static/9de300e62983c923ccaebfe71b059760/ee604/categories.png" alt="categories" width="250">
+  <img src="https://seanlee.netlify.app/static/fc11091c8b7703e4f2f516c8555d3fa5/ee604/playlist.png" alt="playlist" width="250">
+  <img src="https://seanlee.netlify.app/static/3d1fe3ed312400d4466625819d700ff5/ee604/notification.png" alt="notification" width="250">
+</p>
+
 # Features
 - Stream and play audio of selected speech from a wide and ever-expanding repertoire
 - Scroll through the full transcript of a speech
