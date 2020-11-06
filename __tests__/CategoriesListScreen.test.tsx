@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from '@testing-library/react-native';
 import {MockedProvider} from '@apollo/client/testing';
 
-import {wait} from '../jest/utils';
+import {wait} from '../jest/test-utils';
 import {CategoriesQuery_category} from '../src/types/graphql';
 import categoriesQuery from '../src/graphql/query/categoriesQuery';
 import CategoriesListScreen from '../src/components/categoriesListScreen/CategoriesListScreen';
