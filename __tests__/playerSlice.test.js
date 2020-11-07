@@ -7,16 +7,16 @@ import playerReducer, {
 
 const mockTracks = [
   {
-    id: `piece-1`,
+    id: 'piece-1',
     title: 'mockTitle1',
     artist: 'mockArtist1',
-    artwork: `mockArtworkPath1`,
+    artwork: 'mockArtworkPath1',
     duration: 100,
     url: 'mockUrl1',
   },
   {
-    id: `piece-2`,
-    title: `mockTitle2`,
+    id: 'piece-2',
+    title: 'mockTitle2',
     artist: 'mockArtist2',
     artwork: 'mockArtworkPath2',
     duration: 200,
