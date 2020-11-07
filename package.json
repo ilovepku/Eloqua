@@ -1,5 +1,5 @@
 {
-  "name": "eloqua-native",
+  "name": "eloqua",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "postinstall": "npx typesync"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
@@ -22,7 +21,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "graphql": "^15.4.0",
     "react": "16.13.1",
-    "react-native": "0.63.2",
+    "react-native": "0.63.3",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-reanimated": "^1.13.1",
     "react-native-render-html": "^4.2.4",
@@ -32,22 +31,18 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-track-player": "^1.2.3",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-webview": "^10.10.0",
+    "react-native-webview": "^10.10.2",
     "react-redux": "^7.2.2",
     "redux-persist": "^6.0.0",
     "tailwind-rn": "^2.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/runtime": "^7.12.5",
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
     "@testing-library/react-native": "^7.1.0",
-    "@types/babel__core": "^7.1.12",
-    "@types/eslint": "^6.8.1",
     "@types/jest": "^25.2.3",
-    "@types/prettier": "^2.1.5",
-    "@types/react": "16.9.49",
-    "@types/react-native": "^0.63.32",
+    "@types/react-native": "^0.63.2",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-redux": "^7.1.11",
     "@types/react-test-renderer": "^16.9.2",
@@ -58,7 +53,6 @@
     "eslint-plugin-jest": "^24.1.0",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
-    "prettier": "^2.1.2",
     "react-test-renderer": "16.13.1",
     "typescript": "^3.8.3"
   },
@@ -73,10 +67,8 @@
       "node"
     ],
     "setupFiles": [
-      "<rootDir>/jest/setup.js"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|@react-native-community|@react-navigation)"
+      "<rootDir>/jest/setup.js",
+      "<rootDir>/jest/test-utils.js"
     ]
   }
 }
