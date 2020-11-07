@@ -1,4 +1,4 @@
-package com.eloquanative;
+package com.eloqua;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,11 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "EloquaNative";
-  }
-
-  @Override
-  public void invokeDefaultOnBackPressed() {
-    moveTaskToBack(true);
+    return "Eloqua";
   }
 }

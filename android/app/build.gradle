@@ -134,12 +134,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.eloquanative"
+        applicationId "com.eloqua"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true // for react-native-webview
+        multiDexEnabled true
     }
     splits {
         abi {
