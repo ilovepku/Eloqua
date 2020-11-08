@@ -30,10 +30,7 @@
 - Cache streamed audio for offline play (Android only now)
 
 # Planned features
-- Playback speed controlling
-- Background information on speeches
-- Highlighting of transcript synced with playing progress (major)
-- Repeatable segment, automatic segmentation (major)
+See project [Triage](https://github.com/ilovepku/Eloqua/projects/1) for priorities and [Kanban](https://github.com/ilovepku/Eloqua/projects/2) for progress.
 
 # Building the applications
 
