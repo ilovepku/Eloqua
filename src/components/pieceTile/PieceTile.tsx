@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {Track} from 'react-native-track-player';
+import {Track, STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
 import tailwind from 'tailwind-rn';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -22,6 +22,8 @@ export default function PieceTile({track, date}: Props) {
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const {
+    playbackState,
+    togglePlayback,
     isTrackInQueue,
     playNewTrack,
     playQueuedTrack,
@@ -72,19 +74,29 @@ export default function PieceTile({track, date}: Props) {
           name={favArr.includes(id) ? 'favorite' : 'favorite-outline'}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={queueAddRemove}>
-        <MaterialIcons
-          size={30}
-          color="#42a5f5"
-          name={
-            currentTrack?.id === id
-              ? 'play-circle-fill'
-              : isTrackInQueue(id)
-              ? 'playlist-add-check'
-              : 'playlist-add'
-          }
-        />
-      </TouchableOpacity>
+
+      {currentTrack?.id === id ? (
+        <TouchableOpacity onPress={togglePlayback}>
+          <MaterialIcons
+            size={30}
+            color="#42a5f5"
+            name={
+              playbackState === STATE_PLAYING ||
+              playbackState === STATE_BUFFERING
+                ? 'pause-circle-outline'
+                : 'play-circle-outline'
+            }
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={queueAddRemove}>
+          <MaterialIcons
+            size={30}
+            color="#42a5f5"
+            name={isTrackInQueue(id) ? 'playlist-add-check' : 'playlist-add'}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
