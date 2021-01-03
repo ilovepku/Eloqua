@@ -66,7 +66,7 @@ export default function PlayerScreen() {
         ) : error ? (
           <Error errMsg={error.message} />
         ) : (
-          <HTML html={data && data.pieces_by_pk.text} />
+          <HTML source={{html: data && data.pieces_by_pk.text}} />
         )}
       </ScrollView>
 
