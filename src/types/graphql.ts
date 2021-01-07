@@ -3,26 +3,26 @@
 // ====================================================
 
 export interface AllPiecesQuery_piece {
-  __typename?: 'pieces';
-  id: number;
-  name: string;
-  person_id: number;
+  __typename?: 'pieces'
+  id: number
+  name: string
+  person_id: number
   person: {
-    __typename?: 'persons';
-    name: string;
-    img_filename: string;
-  };
-  date: string;
-  duration: number;
-  audio_filename: string;
+    __typename?: 'persons'
+    name: string
+    img_filename: string
+  }
+  date: string
+  duration: number
+  audio_filename: string
   piece_categories: {
-    category_id: number;
-  }[];
-  text: string;
+    category_id: number
+  }[]
+  text: string
 }
 
 export interface AllPiecesQuery {
-  search: AllPiecesQuery_piece[];
+  search: AllPiecesQuery_piece[]
 }
 
 // ====================================================
@@ -30,14 +30,14 @@ export interface AllPiecesQuery {
 // ====================================================
 
 export interface CategoriesQuery_category {
-  __typename?: 'categories';
-  id: number;
-  name: string;
-  icon_filename: string;
+  __typename?: 'categories'
+  id: number
+  name: string
+  icon_filename: string
 }
 
 export interface CategoriesQuery {
-  search: CategoriesQuery_category[];
+  search: CategoriesQuery_category[]
 }
 
 // ====================================================
@@ -45,12 +45,12 @@ export interface CategoriesQuery {
 // ====================================================
 
 export interface PersonsQuery_person {
-  __typename?: 'persons';
-  id: number;
-  name: string;
-  img_filename: string;
+  __typename?: 'persons'
+  id: number
+  name: string
+  img_filename: string
 }
 
 export interface PersonsQuery {
-  search: PersonsQuery_person[];
+  search: PersonsQuery_person[]
 }

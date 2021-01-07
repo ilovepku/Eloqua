@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client'
 
 const allPiecesQuery = gql`
   query allPiecesQuery {
@@ -18,6 +18,6 @@ const allPiecesQuery = gql`
       }
     }
   }
-`;
+`
 
-export default allPiecesQuery;
+export default allPiecesQuery

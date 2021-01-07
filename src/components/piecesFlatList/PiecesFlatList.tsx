@@ -1,15 +1,15 @@
-import React from 'react';
-import {View, FlatList, Text} from 'react-native';
+import React from 'react'
+import {View, FlatList, Text} from 'react-native'
 
-import tailwind from 'tailwind-rn';
+import tailwind from 'tailwind-rn'
 
-import {AllPiecesQuery_piece} from '../../types/graphql';
-import {ASSETS_URL} from '../../settings';
-import PieceTile from '../pieceTile/PieceTile';
+import {AllPiecesQuery_piece} from '../../types/graphql'
+import {ASSETS_URL} from '../../settings'
+import PieceTile from '../pieceTile/PieceTile'
 
 interface Props {
-  pieces: AllPiecesQuery_piece[];
-  emptyMsg?: string;
+  pieces: AllPiecesQuery_piece[]
+  emptyMsg?: string
 }
 
 export default function PiecesFlatList({pieces, emptyMsg}: Props) {
@@ -41,7 +41,7 @@ export default function PiecesFlatList({pieces, emptyMsg}: Props) {
           date={date}
         />
       )}
-      keyExtractor={(item) => `piece-${item.id}`}
+      keyExtractor={item => `piece-${item.id}`}
     />
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client'
 
 const pieceQuery = gql`
   query pieceQuery($id: Int!) {
@@ -7,6 +7,6 @@ const pieceQuery = gql`
       text
     }
   }
-`;
+`
 
-export default pieceQuery;
+export default pieceQuery

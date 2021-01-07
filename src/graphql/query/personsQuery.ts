@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client'
 
 const personsQuery = gql`
   query personsQuery {
@@ -8,6 +8,6 @@ const personsQuery = gql`
       img_filename
     }
   }
-`;
+`
 
-export default personsQuery;
+export default personsQuery

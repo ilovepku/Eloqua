@@ -1,25 +1,25 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import React from 'react'
+import {createStackNavigator} from '@react-navigation/stack'
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
-import SearchScreen from '../searchScreen/SearchScreen';
-import PersonsListScreen from '../personsListScreen/PersonsListScreen';
-import CategoriesListScreen from '../categoriesListScreen/CategoriesListScreen';
-import FilteredPiecesListScreen from '../filteredPiecesListScreen/FilteredPiecesListScreen';
+import SearchScreen from '../searchScreen/SearchScreen'
+import PersonsListScreen from '../personsListScreen/PersonsListScreen'
+import CategoriesListScreen from '../categoriesListScreen/CategoriesListScreen'
+import FilteredPiecesListScreen from '../filteredPiecesListScreen/FilteredPiecesListScreen'
 
 type PersonsStackParamList = {
-  PersonsListScreen: undefined;
-  FilteredPiecesListScreen: {title: string};
-};
+  PersonsListScreen: undefined
+  FilteredPiecesListScreen: {title: string}
+}
 
 type CategoriesStackParamList = {
-  CategoriesListScreen: undefined;
-  FilteredPiecesListScreen: {title: string};
-};
+  CategoriesListScreen: undefined
+  FilteredPiecesListScreen: {title: string}
+}
 
-const PersonsStack = createStackNavigator<PersonsStackParamList>();
-const CategoriesStack = createStackNavigator<CategoriesStackParamList>();
-const TopTab = createMaterialTopTabNavigator();
+const PersonsStack = createStackNavigator<PersonsStackParamList>()
+const CategoriesStack = createStackNavigator<CategoriesStackParamList>()
+const TopTab = createMaterialTopTabNavigator()
 
 function PersonsStackNavigator() {
   return (
@@ -43,7 +43,7 @@ function PersonsStackNavigator() {
         component={FilteredPiecesListScreen}
       />
     </PersonsStack.Navigator>
-  );
+  )
 }
 
 function CategoriesStackNavigator() {
@@ -68,7 +68,7 @@ function CategoriesStackNavigator() {
         component={FilteredPiecesListScreen}
       />
     </CategoriesStack.Navigator>
-  );
+  )
 }
 
 export default function TopTabNavigator() {
@@ -78,5 +78,5 @@ export default function TopTabNavigator() {
       <TopTab.Screen name="Speakers" component={PersonsStackNavigator} />
       <TopTab.Screen name="Categories" component={CategoriesStackNavigator} />
     </TopTab.Navigator>
-  );
+  )
 }

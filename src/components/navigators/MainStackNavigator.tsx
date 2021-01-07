@@ -1,11 +1,11 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react'
+import {createStackNavigator} from '@react-navigation/stack'
 
-import MainTabNavigator from './MainTabNavigator';
-import PlayerScreen from '../playerScreen/PlayerScreen';
-import QueueScreen from '../queueScreen/QueueScreen';
+import MainTabNavigator from './MainTabNavigator'
+import PlayerScreen from '../playerScreen/PlayerScreen'
+import QueueScreen from '../queueScreen/QueueScreen'
 
-const MainStack = createStackNavigator();
+const MainStack = createStackNavigator()
 
 export default function MainStackNavigator() {
   return (
@@ -14,5 +14,5 @@ export default function MainStackNavigator() {
       <MainStack.Screen name="Player" component={PlayerScreen} />
       <MainStack.Screen name="Queue" component={QueueScreen} />
     </MainStack.Navigator>
-  );
+  )
 }

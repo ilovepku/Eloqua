@@ -1,4 +1,4 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import {
   persistStore,
   persistReducer,
@@ -8,17 +8,17 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+} from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import rootReducer from './rootReducer';
+import rootReducer from './rootReducer'
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-};
+}
 
-const persistedRootReducer = persistReducer(persistConfig, rootReducer);
+const persistedRootReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedRootReducer,
@@ -27,8 +27,8 @@ export const store = configureStore({
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-});
+})
 
-export let persistor = persistStore(store);
+export const persistor = persistStore(store)
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch

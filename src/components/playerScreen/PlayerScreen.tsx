@@ -1,18 +1,18 @@
-import React from 'react';
-import {TouchableOpacity, View, Text, ScrollView} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useQuery} from '@apollo/client';
-import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
-import HTML from 'react-native-render-html';
-import tailwind from 'tailwind-rn';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import {TouchableOpacity, View, Text, ScrollView} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
+import {useQuery} from '@apollo/client'
+import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player'
+import HTML from 'react-native-render-html'
+import tailwind from 'tailwind-rn'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {usePlayerContext} from '../../contexts/PlayerContext';
-import pieceQuery from '../../graphql/query/pieceQuery';
-import {buildDateString} from '../../utils/dateTimeHelper';
-import Error from '../error/Error';
-import Loading from '../loading/Loading';
-import ProgressSlider from './ProgressSlider';
+import {usePlayerContext} from '../../contexts/PlayerContext'
+import pieceQuery from '../../graphql/query/pieceQuery'
+import {buildDateString} from '../../utils/dateTimeHelper'
+import Error from '../error/Error'
+import Loading from '../loading/Loading'
+import ProgressSlider from './ProgressSlider'
 
 export default function PlayerScreen() {
   const {
@@ -23,18 +23,18 @@ export default function PlayerScreen() {
     jumpForward,
     skipPrevious,
     skipNext,
-  } = usePlayerContext();
-  const navigation = useNavigation();
+  } = usePlayerContext()
+  const navigation = useNavigation()
 
   const {loading, error, data} = useQuery(pieceQuery, {
     variables: {
       id: Number(currentTrack?.id.split('-')[1]), // piece-1 : string => 1 : number
     },
-  });
+  })
 
   const navigateToQueue = () => {
-    navigation.navigate('Queue');
-  };
+    navigation.navigate('Queue')
+  }
 
   return !currentTrack ? null : (
     <View style={tailwind('flex-1 bg-white px-4')}>
@@ -60,7 +60,8 @@ export default function PlayerScreen() {
       <ScrollView
         contentContainerStyle={tailwind(
           'px-2 flex-grow items-center justify-center',
-        )}>
+        )}
+      >
         {loading ? (
           <Loading />
         ) : error ? (
@@ -100,5 +101,5 @@ export default function PlayerScreen() {
         </TouchableOpacity>
       </View>
     </View>
-  );
+  )
 }

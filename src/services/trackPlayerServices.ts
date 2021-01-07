@@ -3,38 +3,38 @@ import {
   play,
   pause,
   getPosition,
-} from 'react-native-track-player';
+} from 'react-native-track-player'
 
 import {
   skipToPreviousAndUpdatePosition,
   skipToNextAndUpdatePosition,
   seekToAndUpdatePosition,
-} from '../utils/player';
+} from '../utils/player'
 
 module.exports = async function () {
-  addEventListener('remote-play', () => play());
+  addEventListener('remote-play', () => play())
 
-  addEventListener('remote-pause', () => pause());
+  addEventListener('remote-pause', () => pause())
 
   addEventListener('remote-previous', () => {
-    skipToPreviousAndUpdatePosition();
-  });
+    skipToPreviousAndUpdatePosition()
+  })
 
   addEventListener('remote-next', () => {
-    skipToNextAndUpdatePosition();
-  });
+    skipToNextAndUpdatePosition()
+  })
 
   addEventListener('remote-seek', ({position}) => {
-    seekToAndUpdatePosition(position);
-  });
+    seekToAndUpdatePosition(position)
+  })
 
   addEventListener('remote-jump-backward', async ({interval}) => {
-    const position = await getPosition();
-    seekToAndUpdatePosition(position - interval);
-  });
+    const position = await getPosition()
+    seekToAndUpdatePosition(position - interval)
+  })
 
   addEventListener('remote-jump-forward', async ({interval}) => {
-    const position = await getPosition();
-    seekToAndUpdatePosition(position + interval);
-  });
-};
+    const position = await getPosition()
+    seekToAndUpdatePosition(position + interval)
+  })
+}

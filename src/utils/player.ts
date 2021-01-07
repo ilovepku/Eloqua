@@ -1,44 +1,44 @@
-import {seekTo, skipToPrevious, skipToNext} from 'react-native-track-player';
+import {seekTo, skipToPrevious, skipToNext} from 'react-native-track-player'
 
-import {store} from '../redux/store';
-import {updateSavedPosition} from '../redux/playerSlice';
-import {showSnackbar} from './snackbar';
+import {store} from '../redux/store'
+import {updateSavedPosition} from '../redux/playerSlice'
+import {showSnackbar} from './snackbar'
 
-const {dispatch} = store;
+const {dispatch} = store
 
 export const skipToPreviousAndUpdatePosition = () => {
   skipToPrevious()
     .then(() => {
-      dispatch(updateSavedPosition(0));
+      dispatch(updateSavedPosition(0))
     })
-    .catch((error) => {
-      showSnackbar(error.message);
-    });
-};
+    .catch(error => {
+      showSnackbar(error.message)
+    })
+}
 
 export const skipToNextAndUpdatePosition = () => {
   skipToNext()
     .then(() => {
-      dispatch(updateSavedPosition(0));
+      dispatch(updateSavedPosition(0))
     })
-    .catch((error) => {
-      showSnackbar(error.message);
-    });
-};
+    .catch(error => {
+      showSnackbar(error.message)
+    })
+}
 
 export const seekToAndUpdatePosition = (position: number) => {
   const {
     player: {currentTrack},
-  } = store.getState();
-  const duration = currentTrack?.duration || 0;
+  } = store.getState()
+  const duration = currentTrack?.duration || 0
   if (position <= 0) {
-    seekTo(0);
-    dispatch(updateSavedPosition(0));
+    seekTo(0)
+    dispatch(updateSavedPosition(0))
   } else if (position >= duration) {
-    seekTo(duration);
-    dispatch(updateSavedPosition(duration));
+    seekTo(duration)
+    dispatch(updateSavedPosition(duration))
   } else {
-    seekTo(position);
-    dispatch(updateSavedPosition(position));
+    seekTo(position)
+    dispatch(updateSavedPosition(position))
   }
-};
+}

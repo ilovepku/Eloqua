@@ -1,22 +1,22 @@
-import React from 'react';
+import React from 'react'
 import {
   createBottomTabNavigator,
   BottomTabBar,
-} from '@react-navigation/bottom-tabs';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+} from '@react-navigation/bottom-tabs'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import TopTabNavigator from './TopTabNavigator';
-import FavoritesScreen from '../favoritesScreen/FavoritesScreen';
-import MiniPlayer from '../miniPlayer/MiniPlayer';
+import TopTabNavigator from './TopTabNavigator'
+import FavoritesScreen from '../favoritesScreen/FavoritesScreen'
+import MiniPlayer from '../miniPlayer/MiniPlayer'
 
-const BOTTOM_TAB_BAR_ICON_SIZE = 24;
+const BOTTOM_TAB_BAR_ICON_SIZE = 24
 
-const MainTab = createBottomTabNavigator();
+const MainTab = createBottomTabNavigator()
 
 export default function MainTabNavigator() {
   return (
     <MainTab.Navigator
-      tabBar={(tabsProps) => (
+      tabBar={tabsProps => (
         <>
           <MiniPlayer />
           <BottomTabBar {...tabsProps} />
@@ -24,7 +24,8 @@ export default function MainTabNavigator() {
       )}
       tabBarOptions={{
         activeTintColor: '#42a5f5',
-      }}>
+      }}
+    >
       {/* TODO: theme color */}
       <MainTab.Screen
         name="Explore"
@@ -53,5 +54,5 @@ export default function MainTabNavigator() {
         }}
       />
     </MainTab.Navigator>
-  );
+  )
 }

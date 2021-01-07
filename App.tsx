@@ -1,9 +1,9 @@
-import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import {ApolloProvider} from '@apollo/client';
-import {NavigationContainer} from '@react-navigation/native';
+import 'react-native-gesture-handler'
+import React, {useState, useEffect} from 'react'
+import {Provider} from 'react-redux'
+import {PersistGate} from 'redux-persist/integration/react'
+import {ApolloProvider} from '@apollo/client'
+import {NavigationContainer} from '@react-navigation/native'
 import {
   setupPlayer,
   updateOptions,
@@ -14,21 +14,21 @@ import {
   CAPABILITY_SKIP_TO_PREVIOUS,
   CAPABILITY_SKIP_TO_NEXT,
   CAPABILITY_SEEK_TO,
-} from 'react-native-track-player';
+} from 'react-native-track-player'
 
-import {store, persistor} from './src/redux/store';
-import client from './src/graphql/client';
-import {PlayerContextProvider} from './src/contexts/PlayerContext';
-import MainStackNavigator from './src/components/navigators/MainStackNavigator';
-import Loading from './src/components/loading/Loading';
+import {store, persistor} from './src/redux/store'
+import client from './src/graphql/client'
+import {PlayerContextProvider} from './src/contexts/PlayerContext'
+import MainStackNavigator from './src/components/navigators/MainStackNavigator'
+import Loading from './src/components/loading/Loading'
 
 export default function App() {
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     // player lib setup IIFE
-    (async () => {
-      await setupPlayer();
+    ;(async () => {
+      await setupPlayer()
       await updateOptions({
         stopWithApp: true,
         capabilities: [
@@ -47,10 +47,10 @@ export default function App() {
           CAPABILITY_SKIP_TO_NEXT,
         ],
         jumpInterval: 30,
-      });
-      setIsReady(true);
-    })();
-  }, []);
+      })
+      setIsReady(true)
+    })()
+  }, [])
 
   return (
     <Provider store={store}>
@@ -68,5 +68,5 @@ export default function App() {
         </ApolloProvider>
       </PersistGate>
     </Provider>
-  );
+  )
 }

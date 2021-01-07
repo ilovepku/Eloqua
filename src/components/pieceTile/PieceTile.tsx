@@ -1,26 +1,26 @@
-import React from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {Track, STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player';
-import tailwind from 'tailwind-rn';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import {View, Image, Text, TouchableOpacity} from 'react-native'
+import {useSelector, useDispatch} from 'react-redux'
+import {Track, STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player'
+import tailwind from 'tailwind-rn'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {RootState} from '../../redux/rootReducer';
-import {toggleFav} from '../../redux/favoritesSlice';
-import {usePlayerContext} from '../../contexts/PlayerContext';
-import {buildDateString} from '../../utils/dateTimeHelper';
+import {RootState} from '../../redux/rootReducer'
+import {toggleFav} from '../../redux/favoritesSlice'
+import {usePlayerContext} from '../../contexts/PlayerContext'
+import {buildDateString} from '../../utils/dateTimeHelper'
 
 interface Props {
-  track: Track;
-  date?: string;
+  track: Track
+  date?: string
 }
 
 export default function PieceTile({track, date}: Props) {
   const {
     player: {currentTrack},
     favorites: {favArr},
-  } = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
+  } = useSelector((state: RootState) => state)
+  const dispatch = useDispatch()
   const {
     playbackState,
     togglePlayback,
@@ -28,27 +28,28 @@ export default function PieceTile({track, date}: Props) {
     playNewTrack,
     playQueuedTrack,
     toggleQueued,
-  } = usePlayerContext();
+  } = usePlayerContext()
 
-  const {id, title, artist, artwork} = track;
+  const {id, title, artist, artwork} = track
 
   const playTrack = () => {
-    isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track);
-  };
+    isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track)
+  }
 
   const favAddRemove = () => {
-    dispatch(toggleFav(id));
-  };
+    dispatch(toggleFav(id))
+  }
 
   const queueAddRemove = () => {
-    toggleQueued(id, track);
-  };
+    toggleQueued(id, track)
+  }
 
   return (
     <View style={tailwind('flex-row justify-between items-center px-4')}>
       <TouchableOpacity
         style={tailwind('flex-1 h-20 flex-row items-center')}
-        onPress={playTrack}>
+        onPress={playTrack}
+      >
         <Image
           source={{
             uri: artwork,
@@ -98,5 +99,5 @@ export default function PieceTile({track, date}: Props) {
         </TouchableOpacity>
       )}
     </View>
-  );
+  )
 }

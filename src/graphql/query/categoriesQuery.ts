@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client'
 
 const categoriesQuery = gql`
   query categoriesQuery {
@@ -8,6 +8,6 @@ const categoriesQuery = gql`
       icon_filename
     }
   }
-`;
+`
 
-export default categoriesQuery;
+export default categoriesQuery
