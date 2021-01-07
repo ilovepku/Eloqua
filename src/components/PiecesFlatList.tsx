@@ -3,9 +3,9 @@ import {View, FlatList, Text} from 'react-native'
 
 import tailwind from 'tailwind-rn'
 
-import {AllPiecesQuery_piece} from '../../types/graphql'
-import {ASSETS_URL} from '../../settings'
-import PieceTile from '../pieceTile/PieceTile'
+import {AllPiecesQuery_piece} from '../types/graphql'
+import {ASSETS_URL} from '../settings'
+import PieceTile from './PieceTile'
 
 interface Props {
   pieces: AllPiecesQuery_piece[]

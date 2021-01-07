@@ -2,10 +2,10 @@ import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
-import SearchScreen from '../searchScreen/SearchScreen'
-import PersonsListScreen from '../personsListScreen/PersonsListScreen'
-import CategoriesListScreen from '../categoriesListScreen/CategoriesListScreen'
-import FilteredPiecesListScreen from '../filteredPiecesListScreen/FilteredPiecesListScreen'
+import SearchScreen from '../screens/SearchScreen'
+import PersonsListScreen from '../screens/PersonsListScreen'
+import CategoriesListScreen from '../screens/CategoriesListScreen'
+import FilteredPiecesListScreen from '../screens/FilteredPiecesListScreen'
 
 type PersonsStackParamList = {
   PersonsListScreen: undefined

@@ -1,11 +1,11 @@
 import React from 'react'
 import {useQuery} from '@apollo/client'
 
-import allPiecesQuery from '../../graphql/query/allPiecesQuery'
-import {AllPiecesQuery_piece} from '../../types/graphql'
-import Error from '../error/Error'
-import Loading from '../loading/Loading'
-import PiecesFlatList from '../piecesFlatList/PiecesFlatList'
+import allPiecesQuery from '../graphql/query/allPiecesQuery'
+import {AllPiecesQuery_piece} from '../types/graphql'
+import Error from './Error'
+import Loading from './Loading'
+import PiecesFlatList from './PiecesFlatList'
 
 interface Props {
   keyword: string

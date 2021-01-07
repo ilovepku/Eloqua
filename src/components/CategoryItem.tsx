@@ -3,8 +3,8 @@ import {View, TouchableOpacity, Image, Text} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import tailwind from 'tailwind-rn'
 
-import {CategoriesQuery_category} from '../../types/graphql'
-import {ASSETS_URL} from '../../settings'
+import {CategoriesQuery_category} from '../types/graphql'
+import {ASSETS_URL} from '../settings'
 
 interface Props {
   category: CategoriesQuery_category

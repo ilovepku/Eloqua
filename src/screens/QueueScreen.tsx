@@ -4,8 +4,8 @@ import {useSelector} from 'react-redux'
 import {useNavigation} from '@react-navigation/native'
 import tailwind from 'tailwind-rn'
 
-import {RootState} from '../../redux/rootReducer'
-import PieceTile from '../pieceTile/PieceTile'
+import {RootState} from '../redux/rootReducer'
+import PieceTile from '../components/PieceTile'
 
 export default function QueueScreen() {
   const {queueArr} = useSelector((state: RootState) => state.player)

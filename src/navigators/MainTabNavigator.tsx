@@ -6,8 +6,8 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import TopTabNavigator from './TopTabNavigator'
-import FavoritesScreen from '../favoritesScreen/FavoritesScreen'
-import MiniPlayer from '../miniPlayer/MiniPlayer'
+import FavoritesScreen from '../screens/FavoritesScreen'
+import MiniPlayer from '../components/MiniPlayer'
 
 const BOTTOM_TAB_BAR_ICON_SIZE = 24
 

@@ -4,9 +4,9 @@ import {useSelector} from 'react-redux'
 import Slider from '@react-native-community/slider'
 import tailwind from 'tailwind-rn'
 
-import {RootState} from '../../redux/rootReducer'
-import {usePlayerContext} from '../../contexts/PlayerContext'
-import {buildTime} from '../../utils/dateTimeHelper'
+import {RootState} from '../redux/rootReducer'
+import {usePlayerContext} from '../contexts/PlayerContext'
+import {buildTime} from '../utils/dateTimeHelper'
 
 export default function ProgressSlider() {
   const {duration, seek} = usePlayerContext()

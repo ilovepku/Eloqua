@@ -3,12 +3,12 @@ import {View, ScrollView} from 'react-native'
 import {useQuery} from '@apollo/client'
 import tailwind from 'tailwind-rn'
 
-import categoriesQuery from '../../graphql/query/categoriesQuery'
-import {CategoriesQuery_category} from '../../types/graphql'
+import categoriesQuery from '../graphql/query/categoriesQuery'
+import {CategoriesQuery_category} from '../types/graphql'
 
-import Error from '../error/Error'
-import Loading from '../loading/Loading'
-import CategoryItem from './CategoryItem'
+import Error from '../components/Error'
+import Loading from '../components/Loading'
+import CategoryItem from '../components/CategoryItem'
 
 export default function CategoriesListScreen() {
   const {loading, error, data} = useQuery(categoriesQuery)

@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react-native'
 
-import Error from '../src/components/error/Error'
+import Error from '../src/components/Error'
 
 describe('Error', () => {
   it('renders correctly', () => {

@@ -5,7 +5,7 @@ import {STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player'
 import tailwind from 'tailwind-rn'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {usePlayerContext} from '../../contexts/PlayerContext'
+import {usePlayerContext} from '../contexts/PlayerContext'
 
 export default function MiniPlayer() {
   const {

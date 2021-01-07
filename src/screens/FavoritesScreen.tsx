@@ -2,12 +2,12 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {useQuery} from '@apollo/client'
 
-import {RootState} from '../../redux/rootReducer'
-import allPiecesQuery from '../../graphql/query/allPiecesQuery'
-import {AllPiecesQuery_piece} from '../../types/graphql'
-import Error from '../error/Error'
-import Loading from '../loading/Loading'
-import PiecesFlatList from '../piecesFlatList/PiecesFlatList'
+import {RootState} from '../redux/rootReducer'
+import allPiecesQuery from '../graphql/query/allPiecesQuery'
+import {AllPiecesQuery_piece} from '../types/graphql'
+import Error from '../components/Error'
+import Loading from '../components/Loading'
+import PiecesFlatList from '../components/PiecesFlatList'
 
 export default function FavoritesScreen() {
   const {loading, error, data} = useQuery(allPiecesQuery)

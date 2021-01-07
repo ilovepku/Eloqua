@@ -2,8 +2,8 @@ import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 
 import MainTabNavigator from './MainTabNavigator'
-import PlayerScreen from '../playerScreen/PlayerScreen'
-import QueueScreen from '../queueScreen/QueueScreen'
+import PlayerScreen from '../screens/PlayerScreen'
+import QueueScreen from '../screens/QueueScreen'
 
 const MainStack = createStackNavigator()
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {useNavigation} from '@react-navigation/native'
 import {fireEvent, render, waitFor} from '@testing-library/react-native'
 
-import CategoryItem from '../src/components/categoriesListScreen/CategoryItem'
+import CategoryItem from '../src/components/CategoryItem'
 
 const mockCategoryProp = {
   name: 'Acknowledgement',

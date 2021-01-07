@@ -5,10 +5,10 @@ import {Track, STATE_PLAYING, STATE_BUFFERING} from 'react-native-track-player'
 import tailwind from 'tailwind-rn'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {RootState} from '../../redux/rootReducer'
-import {toggleFav} from '../../redux/favoritesSlice'
-import {usePlayerContext} from '../../contexts/PlayerContext'
-import {buildDateString} from '../../utils/dateTimeHelper'
+import {RootState} from '../redux/rootReducer'
+import {toggleFav} from '../redux/favoritesSlice'
+import {usePlayerContext} from '../contexts/PlayerContext'
+import {buildDateString} from '../utils/dateTimeHelper'
 
 interface Props {
   track: Track

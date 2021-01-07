@@ -7,12 +7,12 @@ import HTML from 'react-native-render-html'
 import tailwind from 'tailwind-rn'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {usePlayerContext} from '../../contexts/PlayerContext'
-import pieceQuery from '../../graphql/query/pieceQuery'
-import {buildDateString} from '../../utils/dateTimeHelper'
-import Error from '../error/Error'
-import Loading from '../loading/Loading'
-import ProgressSlider from './ProgressSlider'
+import {usePlayerContext} from '../contexts/PlayerContext'
+import pieceQuery from '../graphql/query/pieceQuery'
+import {buildDateString} from '../utils/dateTimeHelper'
+import Error from '../components/Error'
+import Loading from '../components/Loading'
+import ProgressSlider from '../components/ProgressSlider'
 
 export default function PlayerScreen() {
   const {

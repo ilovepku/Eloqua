@@ -19,8 +19,8 @@ import {
 import {store, persistor} from './src/redux/store'
 import client from './src/graphql/client'
 import {PlayerContextProvider} from './src/contexts/PlayerContext'
-import MainStackNavigator from './src/components/navigators/MainStackNavigator'
-import Loading from './src/components/loading/Loading'
+import MainStackNavigator from './src/navigators/MainStackNavigator'
+import Loading from './src/components/Loading'
 
 export default function App() {
   const [isReady, setIsReady] = useState(false)

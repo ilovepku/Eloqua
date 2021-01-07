@@ -3,7 +3,7 @@ import {View, TextInput} from 'react-native'
 import tailwind from 'tailwind-rn'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import SearchedPiecesList from './SearchedPiecesList'
+import SearchedPiecesList from '../components/SearchedPiecesList'
 
 export default function ExploreScreen() {
   const [keyword, setKeyword] = useState('')
