@@ -7,7 +7,7 @@ import tailwind from 'tailwind-rn'
 import {RootState} from '../redux/rootReducer'
 import PieceTile from '../components/PieceTile'
 
-export default function QueueScreen() {
+const QueueScreen: React.FC = () => {
   const {queueArr} = useSelector((state: RootState) => state.player)
 
   const navigation = useNavigation()
@@ -33,3 +33,5 @@ export default function QueueScreen() {
     </View>
   )
 }
+
+export default QueueScreen

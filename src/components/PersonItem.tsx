@@ -3,20 +3,22 @@ import {View, TouchableOpacity, Image, Text} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import tailwind from 'tailwind-rn'
 
-import {PersonsQuery_person} from '../types/graphql'
+import {PersonsQueryPerson} from '../types/graphql'
 import {ASSETS_URL} from '../settings'
 
 interface Props {
-  person: PersonsQuery_person
+  person: PersonsQueryPerson
 }
 
-export default function PersonItem({person: {name, id, img_filename}}: Props) {
+const PersonItem: React.FC<Props> = ({
+  person: {name, id, img_filename: imgFilename},
+}) => {
   const navigation = useNavigation()
 
-  const navigateToFilteredPiecesListScreen = () => {
+  const navigateToFilteredPiecesListScreen = (): void => {
     navigation.navigate('FilteredPiecesListScreen', {
       title: name,
-      person_id_filter: `person-${id}`,
+      personIdFilter: `person-${id}`,
     })
   }
 
@@ -27,7 +29,7 @@ export default function PersonItem({person: {name, id, img_filename}}: Props) {
     >
       <Image
         source={{
-          uri: `${ASSETS_URL}/avatars%2F${img_filename}?alt=media`,
+          uri: `${ASSETS_URL}/avatars%2F${imgFilename}?alt=media`,
         }}
         style={tailwind('h-20 w-20 rounded-lg mb-1')}
       />
@@ -37,3 +39,5 @@ export default function PersonItem({person: {name, id, img_filename}}: Props) {
     </TouchableOpacity>
   )
 }
+
+export default PersonItem

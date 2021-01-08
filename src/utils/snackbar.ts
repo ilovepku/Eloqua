@@ -1,5 +1,7 @@
 import Snackbar from 'react-native-snackbar'
 
-export const showSnackbar = (text: string) => {
+const showSnackbar = (text: string): void => {
   Snackbar.show({text, action: {text: 'Dismiss'}})
 }
+
+export default showSnackbar

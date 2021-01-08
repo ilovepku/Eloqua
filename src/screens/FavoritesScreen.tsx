@@ -4,12 +4,12 @@ import {useQuery} from '@apollo/client'
 
 import {RootState} from '../redux/rootReducer'
 import allPiecesQuery from '../graphql/query/allPiecesQuery'
-import {AllPiecesQuery_piece} from '../types/graphql'
+import {AllPiecesQueryPiece} from '../types/graphql'
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import PiecesFlatList from '../components/PiecesFlatList'
 
-export default function FavoritesScreen() {
+const FavoritesScreen: React.FC = () => {
   const {loading, error, data} = useQuery(allPiecesQuery)
   const {favArr} = useSelector((state: RootState) => state.favorites)
 
@@ -20,7 +20,7 @@ export default function FavoritesScreen() {
     return <Error errMsg={error.message} />
   }
 
-  const filteredPieces = data.pieces.filter((item: AllPiecesQuery_piece) =>
+  const filteredPieces = data.pieces.filter((item: AllPiecesQueryPiece) =>
     favArr.includes(`piece-${item.id}`),
   )
 
@@ -31,3 +31,5 @@ export default function FavoritesScreen() {
     />
   )
 }
+
+export default FavoritesScreen

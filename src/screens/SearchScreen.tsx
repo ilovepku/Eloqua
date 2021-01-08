@@ -5,7 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import SearchedPiecesList from '../components/SearchedPiecesList'
 
-export default function ExploreScreen() {
+const ExploreScreen: React.FC = () => {
   const [keyword, setKeyword] = useState('')
 
   return (
@@ -29,3 +29,5 @@ export default function ExploreScreen() {
     </View>
   )
 }
+
+export default ExploreScreen

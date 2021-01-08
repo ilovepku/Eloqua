@@ -3,22 +3,22 @@ import {View, TouchableOpacity, Image, Text} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import tailwind from 'tailwind-rn'
 
-import {CategoriesQuery_category} from '../types/graphql'
+import {CategoriesQueryCategory} from '../types/graphql'
 import {ASSETS_URL} from '../settings'
 
 interface Props {
-  category: CategoriesQuery_category
+  category: CategoriesQueryCategory
 }
 
-export default function CategoryItem({
-  category: {name, id, icon_filename},
-}: Props) {
+const CategoryItem: React.FC<Props> = ({
+  category: {name, id, icon_filename: iconFilename},
+}) => {
   const navigation = useNavigation()
 
-  const navigateToFilteredPiecesListScreen = () => {
+  const navigateToFilteredPiecesListScreen = (): void => {
     navigation.navigate('FilteredPiecesListScreen', {
       title: name,
-      category_id_filter: `category-${id}`,
+      categoryIdFilter: `category-${id}`,
     })
   }
 
@@ -29,7 +29,7 @@ export default function CategoryItem({
     >
       <Image
         source={{
-          uri: `${ASSETS_URL}/icons%2F${icon_filename}?alt=media`,
+          uri: `${ASSETS_URL}/icons%2F${iconFilename}?alt=media`,
         }}
         style={tailwind('h-20 w-20 rounded-full mb-1')}
       />
@@ -39,3 +39,5 @@ export default function CategoryItem({
     </TouchableOpacity>
   )
 }
+
+export default CategoryItem

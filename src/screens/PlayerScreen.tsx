@@ -14,7 +14,7 @@ import Error from '../components/Error'
 import Loading from '../components/Loading'
 import ProgressSlider from '../components/ProgressSlider'
 
-export default function PlayerScreen() {
+const PlayerScreen: React.FC = () => {
   const {
     currentTrack,
     playbackState,
@@ -32,7 +32,7 @@ export default function PlayerScreen() {
     },
   })
 
-  const navigateToQueue = () => {
+  const navigateToQueue = (): void => {
     navigation.navigate('Queue')
   }
 
@@ -103,3 +103,5 @@ export default function PlayerScreen() {
     </View>
   )
 }
+
+export default PlayerScreen

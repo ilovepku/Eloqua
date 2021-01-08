@@ -1,8 +1,8 @@
-export const buildTime = (totalSeconds: number) => {
+export const buildTime = (totalSeconds: number): string => {
   const hours = Math.floor(totalSeconds / 3600)
-  totalSeconds %= 3600
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = Math.floor(totalSeconds % 60)
+  const remainingSeconds = totalSeconds % 3600
+  const minutes = Math.floor(remainingSeconds / 60)
+  const seconds = Math.floor(remainingSeconds % 60)
 
   const minutesStr = String(minutes).padStart(2, '0')
   const secondsStr = String(seconds).padStart(2, '0')
@@ -12,4 +12,5 @@ export const buildTime = (totalSeconds: number) => {
     : `${minutesStr}:${secondsStr}`
 }
 
-export const buildDateString = (date: string) => new Date(date).toDateString()
+export const buildDateString = (date: string): string =>
+  new Date(date).toDateString()

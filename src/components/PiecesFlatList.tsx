@@ -1,18 +1,34 @@
 import React from 'react'
-import {View, FlatList, Text} from 'react-native'
+import {ListRenderItem, View, FlatList, Text} from 'react-native'
 
 import tailwind from 'tailwind-rn'
 
-import {AllPiecesQuery_piece} from '../types/graphql'
+import {AllPiecesQueryPiece} from '../types/graphql'
 import {ASSETS_URL} from '../settings'
 import PieceTile from './PieceTile'
 
 interface Props {
-  pieces: AllPiecesQuery_piece[]
+  pieces: AllPiecesQueryPiece[]
   emptyMsg?: string
 }
 
-export default function PiecesFlatList({pieces, emptyMsg}: Props) {
+const PiecesFlatList: React.FC<Props> = ({pieces, emptyMsg}) => {
+  const renderItem: ListRenderItem<AllPiecesQueryPiece> = ({
+    item: {id, name, person, date, duration, audio_filename: audioFilename},
+  }) => (
+    <PieceTile
+      track={{
+        id: `piece-${id}`,
+        title: name,
+        artist: person.name,
+        artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
+        duration,
+        url: `${ASSETS_URL}/${audioFilename}?alt=media`,
+      }}
+      date={date}
+    />
+  )
+
   return (
     <FlatList
       style={tailwind('flex-1 bg-white')}
@@ -26,22 +42,10 @@ export default function PiecesFlatList({pieces, emptyMsg}: Props) {
           {/* TODO: theme color */}
         </View>
       }
-      renderItem={({
-        item: {id, name, person, date, duration, audio_filename},
-      }) => (
-        <PieceTile
-          track={{
-            id: `piece-${id}`,
-            title: name,
-            artist: person.name,
-            artwork: `${ASSETS_URL}/avatars%2F${person.img_filename}?alt=media`,
-            duration,
-            url: `${ASSETS_URL}/${audio_filename}?alt=media`,
-          }}
-          date={date}
-        />
-      )}
-      keyExtractor={item => `piece-${item.id}`}
+      renderItem={renderItem}
+      keyExtractor={(item): string => `piece-${item.id}`}
     />
   )
 }
+
+export default PiecesFlatList

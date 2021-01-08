@@ -7,7 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import {usePlayerContext} from '../contexts/PlayerContext'
 
-export default function MiniPlayer() {
+const MiniPlayer: React.FC = () => {
   const {
     currentTrack,
     playbackState,
@@ -16,7 +16,7 @@ export default function MiniPlayer() {
   } = usePlayerContext()
   const navigation = useNavigation()
 
-  const navigateToPlayer = () => {
+  const navigateToPlayer = (): void => {
     navigation.navigate('Player')
   }
 
@@ -57,3 +57,5 @@ export default function MiniPlayer() {
     </TouchableOpacity>
   )
 }
+
+export default MiniPlayer

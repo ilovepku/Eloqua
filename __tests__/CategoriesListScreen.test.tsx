@@ -3,7 +3,7 @@ import {render} from '@testing-library/react-native'
 import {MockedProvider} from '@apollo/client/testing'
 
 import {wait} from '../jest/test-utils'
-import {CategoriesQuery_category} from '../src/types/graphql'
+import {CategoriesQueryCategory} from '../src/types/graphql'
 import categoriesQuery from '../src/graphql/query/categoriesQuery'
 import CategoriesListScreen from '../src/screens/CategoriesListScreen'
 
@@ -50,7 +50,7 @@ jest.mock(
   () => ({
     category: {name, id, icon_filename},
   }: {
-    category: CategoriesQuery_category
+    category: CategoriesQueryCategory
   }) => (
     <>
       <p>{name}</p>

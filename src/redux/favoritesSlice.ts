@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 type FavoritesState = {
@@ -12,7 +13,7 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    toggleFav(state, action: PayloadAction<string>) {
+    toggleFav(state, action: PayloadAction<string>): void {
       const pieceId = action.payload
 
       const index = state.favArr.indexOf(pieceId)

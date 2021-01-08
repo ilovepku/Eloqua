@@ -9,11 +9,8 @@ import {
   Track,
   STATE_PLAYING,
   STATE_BUFFERING,
-  // @ts-ignore: temp fix for error - no exported member 'usePlaybackState'
   usePlaybackState,
-  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerProgress'
   useTrackPlayerProgress,
-  // @ts-ignore: temp fix for error - no exported member 'useTrackPlayerEvents'
   useTrackPlayerEvents,
   getTrack,
   reset,
@@ -37,7 +34,7 @@ import {
   skipToNextAndUpdatePosition,
   seekToAndUpdatePosition,
 } from '../utils/player'
-import {showSnackbar} from '../utils/snackbar'
+import showSnackbar from '../utils/snackbar'
 import {JUMP_INTERVAL} from '../settings'
 
 interface PlayerContextType {
@@ -74,7 +71,9 @@ export const PlayerContext = createContext<PlayerContextType>({
   toggleQueued: () => null,
 })
 
-export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
+export const PlayerContextProvider: React.FC<PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const {
     player: {queueArr, currentTrack, savedPosition},
   } = useSelector((state: RootState) => state)
@@ -109,7 +108,7 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
 
   // didMount: if player queue is empty, attempt to rehydrate with persisted queueArr
   useEffect(() => {
-    ;(async () => {
+    ;(async (): Promise<void> => {
       const queuedTracks = await getQueue()
       if (!queuedTracks.length) {
         await add([...queueArr])
@@ -126,41 +125,16 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     position !== 0 && dispatch(updateSavedPosition(position))
   }, [dispatch, position])
 
-  // playback related
-  const playNewTrack = async (track: Track) => {
-    await reset()
-    await add(track)
-    play()
-    updateQueue()
-  }
-
-  const playQueuedTrack = async (id: string) => {
-    await skip(id)
-    play()
-  }
-
-  const togglePlayback = () => {
-    if (currentTrack) {
-      if (
-        playbackState !== STATE_PLAYING &&
-        playbackState !== STATE_BUFFERING
-      ) {
-        play()
-      } else {
-        pause()
-      }
-    }
-  }
-
   // queue related
-  const isTrackInQueue = (id: string) => queueArr.some(track => track.id === id)
+  const isTrackInQueue = (id: string): boolean =>
+    queueArr.some(track => track.id === id)
 
-  const updateQueue = async () => {
+  const updateQueue = async (): Promise<void> => {
     const queuedTracks = await getQueue()
     dispatch(updateQueueArr(queuedTracks))
   }
 
-  const toggleQueued = async (id: string, track: Track) => {
+  const toggleQueued = async (id: string, track: Track): Promise<void> => {
     if (currentTrack?.id === id) {
       showSnackbar("Can't remove current speech from queue")
     } else {
@@ -173,24 +147,50 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
     }
   }
 
+  // playback related
+  const playNewTrack = async (track: Track): Promise<void> => {
+    await reset()
+    await add(track)
+    play()
+    updateQueue()
+  }
+
+  const playQueuedTrack = async (id: string): Promise<void> => {
+    await skip(id)
+    play()
+  }
+
+  const togglePlayback = (): void => {
+    if (currentTrack) {
+      if (
+        playbackState !== STATE_PLAYING &&
+        playbackState !== STATE_BUFFERING
+      ) {
+        play()
+      } else {
+        pause()
+      }
+    }
+  }
+
   // using imported player utils
-  const skipPrevious = () => {
+  const skipPrevious = (): void => {
     skipToPreviousAndUpdatePosition()
   }
 
-  const skipNext = () => {
+  const skipNext = (): void => {
     skipToNextAndUpdatePosition()
   }
 
-  const seek = (amount: number) => {
+  const seek = (amount: number): void => {
     seekToAndUpdatePosition(amount)
   }
 
-  const jumpBackward = () => {
+  const jumpBackward = (): void => {
     seekToAndUpdatePosition(savedPosition - JUMP_INTERVAL)
   }
 
-  const jumpForward = () => {
+  const jumpForward = (): void => {
     seekToAndUpdatePosition(savedPosition + JUMP_INTERVAL)
   }
 
@@ -213,9 +213,10 @@ export const PlayerContextProvider = (props: PropsWithChildren<{}>) => {
         toggleQueued,
       }}
     >
-      {props.children}
+      {children}
     </PlayerContext.Provider>
   )
 }
 
-export const usePlayerContext = () => useContext(PlayerContext)
+export const usePlayerContext: () => PlayerContextType = () =>
+  useContext(PlayerContext)

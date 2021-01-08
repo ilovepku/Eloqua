@@ -4,13 +4,13 @@ import {useQuery} from '@apollo/client'
 import tailwind from 'tailwind-rn'
 
 import peronsQuery from '../graphql/query/personsQuery'
-import {PersonsQuery_person} from '../types/graphql'
+import {PersonsQueryPerson} from '../types/graphql'
 
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import PersonItem from '../components/PersonItem'
 
-export default function PersonsList() {
+const PersonsList: React.FC = () => {
   const {loading, error, data} = useQuery(peronsQuery)
 
   if (loading) {
@@ -27,10 +27,12 @@ export default function PersonsList() {
           'flex-row flex-wrap justify-evenly pb-4',
         )}
       >
-        {data.persons.map((person: PersonsQuery_person) => (
+        {data.persons.map((person: PersonsQueryPerson) => (
           <PersonItem key={`person-${person.id}`} person={person} />
         ))}
       </ScrollView>
     </View>
   )
 }
+
+export default PersonsList

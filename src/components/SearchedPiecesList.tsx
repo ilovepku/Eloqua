@@ -2,7 +2,7 @@ import React from 'react'
 import {useQuery} from '@apollo/client'
 
 import allPiecesQuery from '../graphql/query/allPiecesQuery'
-import {AllPiecesQuery_piece} from '../types/graphql'
+import {AllPiecesQueryPiece} from '../types/graphql'
 import Error from './Error'
 import Loading from './Loading'
 import PiecesFlatList from './PiecesFlatList'
@@ -11,7 +11,7 @@ interface Props {
   keyword: string
 }
 
-export default function SearchedPiecesList({keyword}: Props) {
+const SearchedPiecesList: React.FC<Props> = ({keyword}) => {
   const {loading, error, data} = useQuery(allPiecesQuery)
 
   if (loading) {
@@ -22,7 +22,7 @@ export default function SearchedPiecesList({keyword}: Props) {
   }
 
   const filteredPieces = data.pieces.filter(
-    ({name, person}: AllPiecesQuery_piece) =>
+    ({name, person}: AllPiecesQueryPiece) =>
       keyword === '' ||
       name.toLowerCase().includes(keyword.toLowerCase()) ||
       person.name.toLowerCase().includes(keyword.toLowerCase()),
@@ -35,3 +35,5 @@ export default function SearchedPiecesList({keyword}: Props) {
     />
   )
 }
+
+export default SearchedPiecesList

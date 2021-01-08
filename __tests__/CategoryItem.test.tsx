@@ -37,7 +37,7 @@ describe('CategoryItem', () => {
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledTimes(1))
     expect(mockNavigate).toHaveBeenCalledWith('FilteredPiecesListScreen', {
-      category_id_filter: `category-${mockCategoryProp.id}`,
+      categoryIdFilter: `category-${mockCategoryProp.id}`,
       title: mockCategoryProp.name,
     })
   })

@@ -2,7 +2,7 @@
 // GraphQL query operation: AllPiecesQuery
 // ====================================================
 
-export interface AllPiecesQuery_piece {
+export interface AllPiecesQueryPiece {
   __typename?: 'pieces'
   id: number
   name: string
@@ -22,14 +22,14 @@ export interface AllPiecesQuery_piece {
 }
 
 export interface AllPiecesQuery {
-  search: AllPiecesQuery_piece[]
+  search: AllPiecesQueryPiece[]
 }
 
 // ====================================================
 // GraphQL query operation: CategoriesQuery
 // ====================================================
 
-export interface CategoriesQuery_category {
+export interface CategoriesQueryCategory {
   __typename?: 'categories'
   id: number
   name: string
@@ -37,14 +37,14 @@ export interface CategoriesQuery_category {
 }
 
 export interface CategoriesQuery {
-  search: CategoriesQuery_category[]
+  search: CategoriesQueryCategory[]
 }
 
 // ====================================================
 // GraphQL query operation: PersonsQuery
 // ====================================================
 
-export interface PersonsQuery_person {
+export interface PersonsQueryPerson {
   __typename?: 'persons'
   id: number
   name: string
@@ -52,5 +52,5 @@ export interface PersonsQuery_person {
 }
 
 export interface PersonsQuery {
-  search: PersonsQuery_person[]
+  search: PersonsQueryPerson[]
 }

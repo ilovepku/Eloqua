@@ -2,11 +2,11 @@ import {seekTo, skipToPrevious, skipToNext} from 'react-native-track-player'
 
 import {store} from '../redux/store'
 import {updateSavedPosition} from '../redux/playerSlice'
-import {showSnackbar} from './snackbar'
+import showSnackbar from './snackbar'
 
 const {dispatch} = store
 
-export const skipToPreviousAndUpdatePosition = () => {
+export const skipToPreviousAndUpdatePosition = (): void => {
   skipToPrevious()
     .then(() => {
       dispatch(updateSavedPosition(0))
@@ -16,7 +16,7 @@ export const skipToPreviousAndUpdatePosition = () => {
     })
 }
 
-export const skipToNextAndUpdatePosition = () => {
+export const skipToNextAndUpdatePosition = (): void => {
   skipToNext()
     .then(() => {
       dispatch(updateSavedPosition(0))
@@ -26,7 +26,7 @@ export const skipToNextAndUpdatePosition = () => {
     })
 }
 
-export const seekToAndUpdatePosition = (position: number) => {
+export const seekToAndUpdatePosition = (position: number): void => {
   const {
     player: {currentTrack},
   } = store.getState()

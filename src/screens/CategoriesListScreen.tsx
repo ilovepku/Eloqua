@@ -4,13 +4,13 @@ import {useQuery} from '@apollo/client'
 import tailwind from 'tailwind-rn'
 
 import categoriesQuery from '../graphql/query/categoriesQuery'
-import {CategoriesQuery_category} from '../types/graphql'
+import {CategoriesQueryCategory} from '../types/graphql'
 
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import CategoryItem from '../components/CategoryItem'
 
-export default function CategoriesListScreen() {
+const CategoriesListScreen: React.FC = () => {
   const {loading, error, data} = useQuery(categoriesQuery)
 
   if (loading) {
@@ -27,10 +27,12 @@ export default function CategoriesListScreen() {
           'flex-row flex-wrap justify-evenly pb-4',
         )}
       >
-        {data.categories.map((category: CategoriesQuery_category) => (
+        {data.categories.map((category: CategoriesQueryCategory) => (
           <CategoryItem key={`category-${category.id}`} category={category} />
         ))}
       </ScrollView>
     </View>
   )
 }
+
+export default CategoriesListScreen

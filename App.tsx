@@ -22,12 +22,12 @@ import {PlayerContextProvider} from './src/contexts/PlayerContext'
 import MainStackNavigator from './src/navigators/MainStackNavigator'
 import Loading from './src/components/Loading'
 
-export default function App() {
+const App: React.FC = () => {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     // player lib setup IIFE
-    ;(async () => {
+    ;(async (): Promise<void> => {
       await setupPlayer()
       await updateOptions({
         stopWithApp: true,
@@ -70,3 +70,5 @@ export default function App() {
     </Provider>
   )
 }
+
+export default App

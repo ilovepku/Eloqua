@@ -11,7 +11,7 @@ import {
   seekToAndUpdatePosition,
 } from '../utils/player'
 
-module.exports = async function () {
+module.exports = async (): Promise<void> => {
   addEventListener('remote-play', () => play())
 
   addEventListener('remote-pause', () => pause())

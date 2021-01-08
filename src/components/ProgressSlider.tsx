@@ -8,15 +8,15 @@ import {RootState} from '../redux/rootReducer'
 import {usePlayerContext} from '../contexts/PlayerContext'
 import {buildTime} from '../utils/dateTimeHelper'
 
-export default function ProgressSlider() {
+const ProgressSlider: React.FC = () => {
   const {duration, seek} = usePlayerContext()
   const {
     player: {savedPosition},
   } = useSelector((state: RootState) => state)
 
-  const totalTime = () => buildTime(duration - savedPosition)
+  const totalTime = (): string => buildTime(duration - savedPosition)
 
-  const currentTime = () => buildTime(savedPosition)
+  const currentTime = (): string => buildTime(savedPosition)
 
   return (
     <>
@@ -37,3 +37,5 @@ export default function ProgressSlider() {
     </>
   )
 }
+
+export default ProgressSlider

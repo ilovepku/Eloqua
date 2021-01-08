@@ -15,7 +15,7 @@ interface Props {
   date?: string
 }
 
-export default function PieceTile({track, date}: Props) {
+const PieceTile: React.FC<Props> = ({track, date}) => {
   const {
     player: {currentTrack},
     favorites: {favArr},
@@ -32,15 +32,15 @@ export default function PieceTile({track, date}: Props) {
 
   const {id, title, artist, artwork} = track
 
-  const playTrack = () => {
+  const playTrack = (): void => {
     isTrackInQueue(id) ? playQueuedTrack(id) : playNewTrack(track)
   }
 
-  const favAddRemove = () => {
+  const favAddRemove = (): void => {
     dispatch(toggleFav(id))
   }
 
-  const queueAddRemove = () => {
+  const queueAddRemove = (): void => {
     toggleQueued(id, track)
   }
 
@@ -101,3 +101,5 @@ export default function PieceTile({track, date}: Props) {
     </View>
   )
 }
+
+export default PieceTile

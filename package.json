@@ -11,7 +11,7 @@
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "lint": "eslint --ext .js,.ts,.tsx .",
     "validate": "npm-run-all --parallel check-types check-format lint"
   },
   "dependencies": {
